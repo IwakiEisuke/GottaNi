@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIs/usstest.uss?fileID=7433441132597879392&amp;guid=1168fdc8e0ef1e84783b9ffba1a4a504&amp;type=3#usstest" />
+    <ui:VisualElement style="flex-grow: 0; background-image: none; background-color: rgb(128, 128, 128); align-items: center; align-self: flex-start; height: 317px; width: 277px;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 100%; height: 100%; justify-content: flex-start; align-self: auto; align-items: auto; flex-shrink: 1; flex-direction: column; flex-basis: auto; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; position: relative; flex-wrap: nowrap; max-width: none; min-width: auto; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>
