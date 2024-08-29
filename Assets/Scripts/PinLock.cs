@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,16 +17,19 @@ public class PinLock : MonoBehaviour
     [SerializeField] GameObject pinPref, mask;
     [SerializeField] float wGap, hGap, scrollSpeed;
 
-    GameObject[] pins;
-    int[] pinsLength;
+    LockPin[] pins, keys;
+    //int[] pinsLength, keysLength;
+
 
     void Start()
     {
-        void CreatePin(int Length, int i, float right, out GameObject pin)
+        void CreatePin(int Length, int i, float right, out LockPin pin)
         {
             var pinSize = Length * wGap;
 
-            pin = Instantiate(pinPref, transform);
+            pin = Instantiate(pinPref, transform).GetComponent<LockPin>();
+            pin.Set(Length);
+            pin.name = "LockPin" + i;
             pin.transform.localScale = new Vector3(pinSize, hGap);
 
             pin.transform.Translate(0, -(i + 0.5f) * hGap, 0); // 縦に並べる
@@ -33,8 +38,8 @@ public class PinLock : MonoBehaviour
         }
 
         //錠側のピンを作成する
-        pinsLength = new int[count];
-        pins = new GameObject[count];
+        var pinsLength = new int[count]; // keyの作成に使用する
+        pins = new LockPin[count];
         for (int i = 0; i < count; i++)
         {
             pinsLength[i] = Random.Range(minLength, maxLength + 1);
@@ -43,15 +48,13 @@ public class PinLock : MonoBehaviour
 
         // 鍵側のピンを作成する。pinsLengthから長さを範囲で持ってきてmaxLengthとの差を求める
         var start = Random.Range(0, pinsLength.Length);
-        var keysLength = new int[verifyPinsCount];
-        var keys = new GameObject[verifyPinsCount];
+        keys = new LockPin[verifyPinsCount];
         for (int i = 0; i < verifyPinsCount; i++)
         {
-            keysLength[i] = maxLength - pinsLength[(i + start) % pinsLength.Length];
-            CreatePin(keysLength[i] + 1, i, 1, out keys[i]);
+            var keyLength = maxLength - pinsLength[(i + start) % pinsLength.Length];
+            CreatePin(keyLength + 1, i, 1, out keys[i]);
+            Debug.Log(keyLength);
         }
-
-        Debug.Log(string.Join(' ', keysLength));
     }
 
     void Update()
@@ -66,12 +69,35 @@ public class PinLock : MonoBehaviour
             if (pin.transform.localPosition.y < -screenHeight - hGap / 2) // ピンが範囲外に出たら上に戻す
             {
                 pin.transform.Translate(0, pins.Length * hGap, 0);
-                pin.SetActive(false); // 非表示にする
+                pin.gameObject.SetActive(false); // 非表示にする
             }
             else if (pin.transform.localPosition.y < hGap / 2) // ピンが範囲内に入ったら
             {
-                pin.SetActive(true); // 表示する
+                pin.gameObject.SetActive(true); // 表示する
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            bool verify = true;
+            foreach (var key in keys)
+            {
+                var keyY = key.transform.position.y;
+                var pls = pins.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
+                var index = pls.IndexOf(pls.Min());
+                Debug.Log($"{index} {key.GetLength()} {pins[index].GetLength()}");
+                if (key.GetLength() - 1 + pins[index].GetLength() != maxLength)
+                {
+                    verify = false;
+                    break;
+                }
+            }
+
+            if (verify)
+            {
+
+            }
+            Debug.Log(verify);
         }
     }
 }
