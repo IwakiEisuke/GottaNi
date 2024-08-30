@@ -16,8 +16,7 @@ public class PinLock : MonoBehaviour
     [SerializeField] float wGap, hGap, scrollSpeed;
 
     LockPin[] pins, keys;
-    //int[] pinsLength, keysLength;
-
+    bool isUnlocked;
 
     void Start()
     {
@@ -64,6 +63,11 @@ public class PinLock : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
+        if (isUnlocked)
+        {
+            return;
+        }
+
         // ピンをスクロールさせる
         foreach (var pin in pins)
         {
@@ -94,10 +98,15 @@ public class PinLock : MonoBehaviour
 
             if (verify)
             {
+                isUnlocked = true;
                 //ここでアニメーションをプレイ (距離は固定：uiWidth - wGap * (maxLength + 1))
 
                 //仮
                 keyParent.transform.Translate(uiWidth - wGap * (maxLength + 1), 0, 0);
+                foreach (var pin in pins)
+                {
+                    pin.transform.localPosition += Vector3.down * (pin.transform.position.y % hGap - hGap / 2);
+                }
             }
             else
             {
