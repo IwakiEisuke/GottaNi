@@ -58,10 +58,11 @@ public class PinLock : MonoBehaviour
 
     void Update()
     {
-        mask.transform.localScale = new Vector2(uiWidth, uiHeight);
-        mask.transform.localPosition = new Vector2(-uiWidth / 2, -uiHeight / 2);
-        frame.size = new Vector2(uiWidth + 2, uiHeight + 2);
-        frame.transform.localPosition = new Vector2(-uiWidth / 2, -uiHeight / 2);
+        var uiSize = new Vector2(uiWidth, uiHeight);
+        mask.transform.localScale = uiSize;
+        mask.transform.localPosition = -uiSize / 2;
+        frame.size = uiSize + new Vector2(2, 2);
+        frame.transform.localPosition = -uiSize / 2;
 
         // ピンをスクロールさせる
         foreach (var pin in pins)
