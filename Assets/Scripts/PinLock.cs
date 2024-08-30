@@ -72,11 +72,6 @@ public class PinLock : MonoBehaviour
             if (pin.transform.localPosition.y < -scrollSize + hGap / 2) // ピンが範囲外に出たら上に戻す
             {
                 pin.transform.Translate(0, scrollSize, 0);
-                pin.gameObject.SetActive(false); // 非表示にする
-            }
-            else if (pin.transform.localPosition.y < hGap / 2) // ピンが範囲内に入ったら
-            {
-                pin.gameObject.SetActive(true); // 表示する
             }
         }
 
