@@ -12,6 +12,7 @@ public class PinLock : MonoBehaviour
     [SerializeField] int verifyPinsCount;
     [SerializeField] GameObject pinPref, mask;
     [SerializeField] SpriteRenderer frame;
+    [SerializeField] Transform keyParent;
     [SerializeField] float wGap, hGap, scrollSpeed;
 
     LockPin[] pins, keys;
@@ -50,6 +51,7 @@ public class PinLock : MonoBehaviour
         {
             var keyLength = maxLength - pinsLength[(i + start) % pinsLength.Length];
             CreatePin(keyLength + 1, i, 1, out keys[i]);
+            keys[i].transform.SetParent(keyParent);
             Debug.Log(keyLength);
         }
     }
