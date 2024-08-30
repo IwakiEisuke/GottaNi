@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
@@ -14,8 +9,9 @@ public class PinLock : MonoBehaviour
     [SerializeField] int pinCount, maxLength, minLength;
     [SerializeField] float uiWidth, uiHeight;
     /// <summary>カギが認証するピンの数（カギについているピンの数） </summary>
-    [SerializeField] int verifyPinsCount; 
+    [SerializeField] int verifyPinsCount;
     [SerializeField] GameObject pinPref, mask;
+    [SerializeField] SpriteRenderer frame;
     [SerializeField] float wGap, hGap, scrollSpeed;
 
     LockPin[] pins, keys;
@@ -60,10 +56,13 @@ public class PinLock : MonoBehaviour
 
     void Update()
     {
-        mask.transform.localScale = new Vector3(uiWidth, uiHeight, 1);
+        mask.transform.localScale = new Vector2(uiWidth, uiHeight);
+        mask.transform.localPosition = new Vector2(-uiWidth / 2, -uiHeight / 2);
+        frame.size = new Vector2(uiWidth + 2, uiHeight + 2);
+        frame.transform.localPosition = new Vector2(-uiWidth / 2, -uiHeight / 2);
 
         // ピンをスクロールさせる
-        foreach(var pin in pins)
+        foreach (var pin in pins)
         {
             pin.transform.Translate(0, -scrollSpeed * Time.deltaTime, 0);
 
