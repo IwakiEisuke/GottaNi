@@ -11,7 +11,8 @@ using UnityEngine.UIElements;
 /// </summary>
 public class PinLock : MonoBehaviour
 {
-    [SerializeField] int count, maxLength, minLength, screenWidth, screenHeight;
+    [SerializeField] int count, maxLength, minLength;
+    [SerializeField] float uiWidth, uiHeight;
     /// <summary>カギが認証するピンの数（カギについているピンの数） </summary>
     [SerializeField] int verifyPinsCount; 
     [SerializeField] GameObject pinPref, mask;
@@ -33,7 +34,7 @@ public class PinLock : MonoBehaviour
             pin.transform.localScale = new Vector3(pinSize, hGap);
 
             pin.transform.Translate(0, -(i + 0.5f) * hGap, 0); // 縦に並べる
-            pin.transform.Translate((pinSize - screenWidth) / 2f * right - screenWidth / 2f, 0, 0); // 左右ソート
+            pin.transform.Translate((pinSize - uiWidth) / 2f * right - uiWidth / 2f, 0, 0); // 左右ソート
             //pin.transform.Translate(0, 0, 0); //上下ソート
         }
 
@@ -59,14 +60,14 @@ public class PinLock : MonoBehaviour
 
     void Update()
     {
-        mask.transform.localScale = new Vector3(screenWidth, screenHeight, 1);
+        mask.transform.localScale = new Vector3(uiWidth, uiHeight, 1);
 
         // ピンをスクロールさせる
         foreach(var pin in pins)
         {
             pin.transform.Translate(0, -scrollSpeed * Time.deltaTime, 0);
 
-            if (pin.transform.localPosition.y < -screenHeight - hGap / 2) // ピンが範囲外に出たら上に戻す
+            if (pin.transform.localPosition.y < -uiHeight - hGap / 2) // ピンが範囲外に出たら上に戻す
             {
                 pin.transform.Translate(0, pins.Length * hGap, 0);
                 pin.gameObject.SetActive(false); // 非表示にする
@@ -97,6 +98,7 @@ public class PinLock : MonoBehaviour
             {
 
             }
+
             Debug.Log(verify);
         }
     }
