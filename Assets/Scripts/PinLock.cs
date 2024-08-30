@@ -76,7 +76,7 @@ public class PinLock : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
         {
             bool verify = true;
             foreach (var key in keys)
@@ -94,7 +94,14 @@ public class PinLock : MonoBehaviour
 
             if (verify)
             {
+                //ここでアニメーションをプレイ (距離は固定：uiWidth - wGap * (maxLength + 1))
 
+                //仮
+                keyParent.transform.Translate(uiWidth - wGap * (maxLength + 1), 0, 0);
+            }
+            else
+            {
+                //ここでアニメーションをプレイ (距離は不定）
             }
 
             Debug.Log(verify);

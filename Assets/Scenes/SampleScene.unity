@@ -588,14 +588,14 @@ MonoBehaviour:
   pinCount: 20
   maxLength: 4
   minLength: 1
-  uiWidth: 3
+  uiWidth: 5
   uiHeight: 6
   verifyPinsCount: 5
   pinPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
   mask: {fileID: 1438930078}
   frame: {fileID: 454529299}
   keyParent: {fileID: 1026731749}
-  wGap: 0.3
+  wGap: 0.5
   hGap: 0.6
   scrollSpeed: 4
 --- !u!4 &6381155076112861685
