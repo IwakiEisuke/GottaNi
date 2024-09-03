@@ -97,8 +97,10 @@ public class PinLock : MonoBehaviour
             }
         }
 
-        if (!isPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
+        if (!isPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
         {
+            isPause = true;
+
             var offsetY = 0f;
             var offsetX = float.MaxValue;
 
@@ -108,8 +110,8 @@ public class PinLock : MonoBehaviour
                 var keyY = key.transform.position.y;
                 var pls = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
                 var index = pls.IndexOf(pls.Min());
-                //Debug.Log($"{index} {key.length} {locks[index].length}");
-                offsetX = Mathf.Min(offsetX, (uiWidth - key.length * wGap) - (locks[index].length * wGap));
+                
+                offsetX = Mathf.Min(offsetX, uiWidth - key.length * wGap - (locks[index].length * wGap));
 
                 if (key.length - 1 + locks[index].length != maxLength)
                 {
@@ -117,11 +119,12 @@ public class PinLock : MonoBehaviour
                 }
                 else
                 {
-                    offsetY = key.transform.position.y - locks[index].transform.position.y;
+                    offsetY = key.transform.position.y - locks[index].transform.position.y; // 成功時にしか使用しない
                 }
+
+                //Debug.Log($"{index} {key.length} {locks[index].length}");
             }
 
-            isPause = true;
             if (verify)
             {
                 //アニメーション
@@ -130,33 +133,22 @@ public class PinLock : MonoBehaviour
                     pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
-                foreach (var pin in keys)
-                {
-                    pin.transform.DOLocalMoveX(uiWidth - wGap * (maxLength + 1), 0.1f).SetRelative();
-                }
-
                 transform.DOShakePosition(duration, strength, vibrato);
             }
-            else
+
+            foreach (var pin in keys) // 鍵の照合アニメーション
             {
-                //アニメーション (距離：不定）
-                foreach (var pin in keys)
+                pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす
+
+                if (!verify) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
                 {
-                    pin.transform.DOLocalMoveX(offsetX, 0.1f).SetRelative().SetLoops(2, LoopType.Yoyo);
+                    DOTween.Sequence(pin)
+                   .AppendInterval(0.2f)
+                   .Append(pin.transform.DOLocalMoveX(pin.transform.localPosition.x, 0.1f))
+                   .OnComplete(() => isPause = false);
                 }
-
-                StartCoroutine(UnPause(0.4f));
             }
-
-            Debug.Log(verify);
         }
-    }
-
-    IEnumerator UnPause(float s)
-    {
-        yield return new WaitForSeconds(s);
-        isPause = false;
-
     }
 
     LockPin CreatePin(int Length, float pos, float right, GameObject pinPref)
