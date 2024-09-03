@@ -591,13 +591,17 @@ MonoBehaviour:
   minLength: 1
   wGap: 0.5
   hGap: 0.6
-  scrollSpeed: 4
+  scrollSpeed: 8
   keysPos: 3
-  pinPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
+  lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
+  keyPref: {fileID: 3457169830033365834, guid: 015f710b85fad58479d686369f03ff49, type: 3}
   keyParent: {fileID: 1026731749}
   uiWidth: 5
   uiHeight: 6
   frame: {fileID: 454529299}
+  duration: 0.4
+  strength: 0.4
+  vibrato: 20
   isUnlocked: 0
 --- !u!4 &6381155076112861685
 Transform:

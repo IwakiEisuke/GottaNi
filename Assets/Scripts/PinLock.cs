@@ -25,7 +25,8 @@ public class PinLock : MonoBehaviour
     [SerializeField] float keysPos;
 
     [Header("Object")]
-    [SerializeField] GameObject pinPref;
+    [SerializeField] GameObject lockPref;
+    [SerializeField] GameObject keyPref;
     [SerializeField] Transform keyParent;
     
 
@@ -33,6 +34,11 @@ public class PinLock : MonoBehaviour
     [SerializeField] float uiWidth;
     [SerializeField] float uiHeight;
     [SerializeField] SpriteRenderer frame;
+
+    [Header("VerifyAnimationSettings")]
+    [SerializeField] float duration;
+    [SerializeField] float strength;
+    [SerializeField] int vibrato;
 
     [Header("Debug")]
     [SerializeField] bool isUnlocked;
@@ -52,7 +58,7 @@ public class PinLock : MonoBehaviour
         for (int i = 0; i < locksCount; i++)
         {
             locksLength[i] = Random.Range(minLength, maxLength + 1);
-            locks[i] = CreatePin(locksLength[i], i, 1);
+            locks[i] = CreatePin(locksLength[i], i, 1, lockPref);
             locks[i].name = "Pin" + i;
         }
 
@@ -62,7 +68,7 @@ public class PinLock : MonoBehaviour
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
-            keys[i] = CreatePin(keyLength + 1, keysPos + i, -1);
+            keys[i] = CreatePin(keyLength + 1, keysPos + i, -1, keyPref);
             keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
             Debug.Log(keyLength);
@@ -77,22 +83,20 @@ public class PinLock : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
-        if (isUnlocked)
+        if (!isUnlocked)
         {
-            return;
+            // ピンをスクロールさせる
+            foreach (var pin in locks)
+            {
+                var scrollSize = hGap * locksCount;
+                pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
+                pin.pos += Time.deltaTime * scrollSpeed;
+                pin.pos %= locksCount;
+                pin.transform.localPosition = new Vector3(GetPinX(pin, 1), Mathf.Lerp(hGap, -scrollSize + hGap, pin.pos / locksCount));
+            }
         }
 
-        // ピンをスクロールさせる
-        foreach (var pin in locks)
-        {
-            var scrollSize = hGap * locksCount;
-            pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
-            pin.pos += Time.deltaTime * scrollSpeed;
-            pin.pos %= locksCount;
-            pin.transform.localPosition = new Vector3(GetPinX(pin, 1), Mathf.Lerp(hGap, -scrollSize + hGap, pin.pos / locksCount));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
+        if (!isUnlocked && Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
         {
             bool verify = true;
             var offset = 0f;
@@ -121,13 +125,15 @@ public class PinLock : MonoBehaviour
                 foreach (var pin in locks)
                 {
                     //pin.transform.DOLocalMoveY(-Mathf.Round(pin.pos) * hGap, 0.1f);
-                    pin.transform.DOMoveY(offset, 0.1f).SetRelative();
+                    pin.transform.DOLocalMoveY(offset, 0.1f).SetRelative();
                 }
 
                 foreach (var pin in keys)
                 {
                     pin.transform.DOLocalMoveX(uiWidth - wGap * (maxLength + 1), 0.1f).SetRelative();
                 }
+
+                transform.DOShakePosition(duration, strength, vibrato);
             }
             else
             {
@@ -138,7 +144,7 @@ public class PinLock : MonoBehaviour
         }
     }
 
-    LockPin CreatePin(int Length, float pos, float right)
+    LockPin CreatePin(int Length, float pos, float right, GameObject pinPref)
     {
         var pinSize = Length * wGap;
 
