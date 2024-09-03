@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -18,7 +17,6 @@ public class PinLock : MonoBehaviour
     /// <summary>最小のピンの長さ</summary>
     [SerializeField] int minLength;
 
-
     [Header("PinSettings")]
     [SerializeField] float wGap;
     [SerializeField] float hGap;
@@ -29,7 +27,6 @@ public class PinLock : MonoBehaviour
     [SerializeField] GameObject lockPref;
     [SerializeField] GameObject keyPref;
     [SerializeField] Transform keyParent;
-    
 
     [Header("UISettings")]
     [SerializeField] float uiWidth;
@@ -45,8 +42,6 @@ public class PinLock : MonoBehaviour
     [SerializeField] bool isPause;
 
     LockPin[] locks, keys;
-    
-
     Transform mask;
 
     void Start()
@@ -69,7 +64,7 @@ public class PinLock : MonoBehaviour
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
-            keys[i] = CreatePin(keyLength + 1, keysPos + i, -1, keyPref);
+            keys[i] = CreatePin(keyLength + 1, i, -1, keyPref);
             keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
             Debug.Log(keyLength);
@@ -84,9 +79,8 @@ public class PinLock : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
-        if (!isPause)
+        if (!isPause) // ピンをスクロールさせる
         {
-            // ピンをスクロールさせる
             foreach (var pin in locks)
             {
                 var scrollSize = hGap * locksCount;
@@ -94,6 +88,13 @@ public class PinLock : MonoBehaviour
                 pin.pos += Time.deltaTime * scrollSpeed;
                 pin.pos %= locksCount;
                 pin.transform.localPosition = new Vector3(GetPinX(pin, 1), Mathf.Lerp(hGap, -scrollSize + hGap, pin.pos / locksCount));
+            }
+
+            foreach (var pin in keys)
+            {
+                var scrollSize = hGap * locksCount;
+                pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
+                pin.transform.localPosition = new Vector3(GetPinX(pin, -1), Mathf.Lerp(-keysCount / 2f * hGap, -uiHeight + keysCount / 2f * hGap, keysPos) - (pin.pos - keysCount / 2) * hGap);
             }
         }
 
@@ -137,7 +138,7 @@ public class PinLock : MonoBehaviour
             }
             else
             {
-                foreach(var key in keys)
+                foreach (var key in keys)
                 {
                     var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - key.transform.position.y) < hGap).ToList();
                     offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - key.length * wGap - (x.length * wGap)));
@@ -179,14 +180,12 @@ public class PinLock : MonoBehaviour
     {
         var pinSize = pin.length * wGap;
         var x = (pinSize - uiWidth) / 2f * -right - uiWidth / 2f; // 左右ソート
-        var y = pin.transform.localPosition.y;
         return x;
     }
 
     float GetPinY(LockPin pin, float up)
     {
-        var pinSize = pin.length * wGap;
-        var y = pin.transform.localPosition.y;
+        var y = -pin.pos * hGap - uiHeight * up;
         return y;
     }
 
