@@ -110,8 +110,6 @@ public class PinLock : MonoBehaviour
                 var keyY = key.transform.position.y;
                 var pls = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
                 var index = pls.IndexOf(pls.Min());
-                
-                offsetX = Mathf.Min(offsetX, uiWidth - key.length * wGap - (locks[index].length * wGap));
 
                 if (key.length - 1 + locks[index].length != maxLength)
                 {
@@ -127,13 +125,23 @@ public class PinLock : MonoBehaviour
 
             if (verify)
             {
-                //アニメーション
+                // 錠の縦移動アニメーション
                 foreach (var pin in locks)
                 {
                     pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
                 transform.DOShakePosition(duration, strength, vibrato);
+
+                offsetX = uiWidth - wGap * (maxLength + 1);
+            }
+            else
+            {
+                foreach(var key in keys)
+                {
+                    var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - key.transform.position.y) < hGap).ToList();
+                    offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - key.length * wGap - (x.length * wGap)));
+                }
             }
 
             foreach (var pin in keys) // 鍵の照合アニメーション
