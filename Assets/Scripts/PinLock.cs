@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 
@@ -6,51 +7,64 @@ using UnityEngine;
 /// </summary>
 public class PinLock : MonoBehaviour
 {
-    [SerializeField] int pinCount, maxLength, minLength;
-    [SerializeField] float uiWidth, uiHeight;
-    /// <summary>カギが認証するピンの数（カギについているピンの数） </summary>
-    [SerializeField] int verifyPinsCount;
-    [SerializeField] GameObject pinPref, mask;
-    [SerializeField] SpriteRenderer frame;
-    [SerializeField] Transform keyParent;
-    [SerializeField] float wGap, hGap, scrollSpeed;
+    [Header("GameSettings")]
+    /// <summary>錠側のピンの数</summary>
+    [SerializeField] int locksCount;
+    /// <summary>鍵側のピンの数</summary>
+    [SerializeField] int keysCount;
+    /// <summary>最大のピンの長さ</summary>
+    [SerializeField] int maxLength;
+    /// <summary>最小のピンの長さ</summary>
+    [SerializeField] int minLength;
 
-    LockPin[] pins, keys;
-    bool isUnlocked;
+
+    [Header("PinSettings")]
+    [SerializeField] float wGap;
+    [SerializeField] float hGap;
+    [SerializeField] float scrollSpeed;
+    [SerializeField] float keysPos;
+
+    [Header("Object")]
+    [SerializeField] GameObject pinPref;
+    [SerializeField] Transform keyParent;
+    
+
+    [Header("UISettings")]
+    [SerializeField] float uiWidth;
+    [SerializeField] float uiHeight;
+    [SerializeField] SpriteRenderer frame;
+
+    [Header("Debug")]
+    [SerializeField] bool isUnlocked;
+
+    LockPin[] locks, keys;
+    
+
+    Transform mask;
 
     void Start()
     {
-        void CreatePin(int Length, int i, float right, out LockPin pin)
-        {
-            var pinSize = Length * wGap;
-
-            pin = Instantiate(pinPref, transform).GetComponent<LockPin>();
-            pin.Set(Length);
-            pin.name = "LockPin" + i;
-            pin.transform.localScale = new Vector3(pinSize, hGap);
-
-            pin.transform.Translate(0, -(i + 0.5f) * hGap, 0); // 縦に並べる
-            pin.transform.Translate((pinSize - uiWidth) / 2f * right - uiWidth / 2f, 0, 0); // 左右ソート
-            //pin.transform.Translate(0, 0, 0); //上下ソート
-        }
+        mask = GetComponentInChildren<SpriteMask>().transform;
 
         //錠側のピンを作成する
-        var pinsLength = new int[pinCount]; // keyの作成に使用する
-        pins = new LockPin[pinCount];
-        for (int i = 0; i < pinCount; i++)
+        var locksLength = new int[locksCount]; // keyの作成に使用する
+        locks = new LockPin[locksCount];
+        for (int i = 0; i < locksCount; i++)
         {
-            pinsLength[i] = Random.Range(minLength, maxLength + 1);
-            CreatePin(pinsLength[i], i, -1, out pins[i]);
+            locksLength[i] = Random.Range(minLength, maxLength + 1);
+            locks[i] = CreatePin(locksLength[i], i, 1);
+            locks[i].name = "Pin" + i;
         }
 
         // 鍵側のピンを作成する。pinsLengthから長さを範囲で持ってきてmaxLengthとの差を求める
-        var start = Random.Range(0, pinsLength.Length);
-        keys = new LockPin[verifyPinsCount];
-        for (int i = 0; i < verifyPinsCount; i++)
+        var start = Random.Range(0, locksLength.Length);
+        keys = new LockPin[keysCount];
+        for (int i = 0; i < keysCount; i++)
         {
-            var keyLength = maxLength - pinsLength[(i + start) % pinsLength.Length];
-            CreatePin(keyLength + 1, i, 1, out keys[i]);
+            var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
+            keys[i] = CreatePin(keyLength + 1, keysPos + i, -1);
             keys[i].transform.SetParent(keyParent);
+            keys[i].name = "Pin" + i;
             Debug.Log(keyLength);
         }
     }
@@ -58,8 +72,8 @@ public class PinLock : MonoBehaviour
     void Update()
     {
         var uiSize = new Vector2(uiWidth, uiHeight);
-        mask.transform.localScale = uiSize;
-        mask.transform.localPosition = -uiSize / 2;
+        mask.localScale = uiSize;
+        mask.localPosition = -uiSize / 2;
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
@@ -69,51 +83,96 @@ public class PinLock : MonoBehaviour
         }
 
         // ピンをスクロールさせる
-        foreach (var pin in pins)
+        foreach (var pin in locks)
         {
-            pin.transform.Translate(0, -scrollSpeed * Time.deltaTime, 0);
-
-            var scrollSize = hGap * pinCount;
-            if (pin.transform.localPosition.y < -scrollSize + hGap / 2) // ピンが範囲外に出たら上に戻す
-            {
-                pin.transform.Translate(0, scrollSize, 0);
-            }
+            var scrollSize = hGap * locksCount;
+            pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
+            pin.pos += Time.deltaTime * scrollSpeed;
+            pin.pos %= locksCount;
+            pin.transform.localPosition = new Vector3(GetPinX(pin, 1), Mathf.Lerp(hGap, -scrollSize + hGap, pin.pos / locksCount));
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
         {
             bool verify = true;
+            var offset = 0f;
             foreach (var key in keys)
             {
                 var keyY = key.transform.position.y;
-                var pls = pins.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
+                var pls = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
                 var index = pls.IndexOf(pls.Min());
-                Debug.Log($"{index} {key.GetLength()} {pins[index].GetLength()}");
-                if (key.GetLength() - 1 + pins[index].GetLength() != maxLength)
+                Debug.Log($"{index} {key.length} {locks[index].length}");
+                if (key.length - 1 + locks[index].length != maxLength)
                 {
                     verify = false;
                     break;
+                }
+                else
+                {
+                    offset = key.transform.position.y - locks[index].transform.position.y;
                 }
             }
 
             if (verify)
             {
                 isUnlocked = true;
-                //ここでアニメーションをプレイ (距離は固定：uiWidth - wGap * (maxLength + 1))
 
-                //仮
-                keyParent.transform.Translate(uiWidth - wGap * (maxLength + 1), 0, 0);
-                foreach (var pin in pins)
+                //アニメーション
+                foreach (var pin in locks)
                 {
-                    pin.transform.localPosition += Vector3.down * (pin.transform.position.y % hGap - hGap / 2);
+                    //pin.transform.DOLocalMoveY(-Mathf.Round(pin.pos) * hGap, 0.1f);
+                    pin.transform.DOMoveY(offset, 0.1f).SetRelative();
+                }
+
+                foreach (var pin in keys)
+                {
+                    pin.transform.DOLocalMoveX(uiWidth - wGap * (maxLength + 1), 0.1f).SetRelative();
                 }
             }
             else
             {
-                //ここでアニメーションをプレイ (距離は不定）
+                //アニメーション (距離：不定）
             }
 
             Debug.Log(verify);
         }
+    }
+
+    LockPin CreatePin(int Length, float pos, float right)
+    {
+        var pinSize = Length * wGap;
+
+        var pin = Instantiate(pinPref, transform).GetComponent<LockPin>();
+        pin.length = Length;
+        pin.pos = pos;
+        pin.transform.localScale = new Vector3(pinSize, hGap);
+
+        pin.transform.Translate(0, -pos * hGap, 0); // 縦に並べる
+        pin.transform.localPosition = GetSortedPinPos(pin, right, 0);
+
+        return pin;
+    }
+
+
+    float GetPinX(LockPin pin, float right)
+    {
+        var pinSize = pin.length * wGap;
+        var x = (pinSize - uiWidth) / 2f * -right - uiWidth / 2f; // 左右ソート
+        var y = pin.transform.localPosition.y;
+        return x;
+    }
+
+    float GetPinY(LockPin pin, float up)
+    {
+        var pinSize = pin.length * wGap;
+        var y = pin.transform.localPosition.y;
+        return y;
+    }
+
+    Vector2 GetSortedPinPos(LockPin pin, float right, float up)
+    {
+        var x = GetPinX(pin, right);
+        var y = GetPinY(pin, up);
+        return new Vector2(x, y);
     }
 }
