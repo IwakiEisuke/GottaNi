@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ public class PinLock : MonoBehaviour
     [SerializeField] int vibrato;
 
     [Header("Debug")]
-    [SerializeField] bool isUnlocked;
+    [SerializeField] bool isPause;
 
     LockPin[] locks, keys;
     
@@ -83,7 +84,7 @@ public class PinLock : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
-        if (!isUnlocked)
+        if (!isPause)
         {
             // ピンをスクロールさせる
             foreach (var pin in locks)
@@ -96,36 +97,37 @@ public class PinLock : MonoBehaviour
             }
         }
 
-        if (!isUnlocked && Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
+        if (!isPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の認証
         {
+            var offsetY = 0f;
+            var offsetX = float.MaxValue;
+
             bool verify = true;
-            var offset = 0f;
             foreach (var key in keys)
             {
                 var keyY = key.transform.position.y;
                 var pls = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
                 var index = pls.IndexOf(pls.Min());
-                Debug.Log($"{index} {key.length} {locks[index].length}");
+                //Debug.Log($"{index} {key.length} {locks[index].length}");
+                offsetX = Mathf.Min(offsetX, (uiWidth - key.length * wGap) - (locks[index].length * wGap));
+
                 if (key.length - 1 + locks[index].length != maxLength)
                 {
                     verify = false;
-                    break;
                 }
                 else
                 {
-                    offset = key.transform.position.y - locks[index].transform.position.y;
+                    offsetY = key.transform.position.y - locks[index].transform.position.y;
                 }
             }
 
+            isPause = true;
             if (verify)
             {
-                isUnlocked = true;
-
                 //アニメーション
                 foreach (var pin in locks)
                 {
-                    //pin.transform.DOLocalMoveY(-Mathf.Round(pin.pos) * hGap, 0.1f);
-                    pin.transform.DOLocalMoveY(offset, 0.1f).SetRelative();
+                    pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
                 foreach (var pin in keys)
@@ -138,10 +140,23 @@ public class PinLock : MonoBehaviour
             else
             {
                 //アニメーション (距離：不定）
+                foreach (var pin in keys)
+                {
+                    pin.transform.DOLocalMoveX(offsetX, 0.1f).SetRelative().SetLoops(2, LoopType.Yoyo);
+                }
+
+                StartCoroutine(UnPause(0.4f));
             }
 
             Debug.Log(verify);
         }
+    }
+
+    IEnumerator UnPause(float s)
+    {
+        yield return new WaitForSeconds(s);
+        isPause = false;
+
     }
 
     LockPin CreatePin(int Length, float pos, float right, GameObject pinPref)
