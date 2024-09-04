@@ -592,12 +592,13 @@ MonoBehaviour:
   wGap: 0.5
   hGap: 0.6
   scrollSpeed: 8
-  keysPos: 0.5
+  keysPos: 0
   lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
   keyPref: {fileID: 3457169830033365834, guid: 015f710b85fad58479d686369f03ff49, type: 3}
   keyParent: {fileID: 1026731749}
   uiWidth: 5
   uiHeight: 6
+  openDuration: 0.2
   frame: {fileID: 454529299}
   duration: 0.4
   strength: 0.4
