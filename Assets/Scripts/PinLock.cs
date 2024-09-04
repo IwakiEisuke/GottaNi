@@ -49,10 +49,13 @@ public class PinLock : MonoBehaviour
     {
         isPause = true;
         mask = GetComponentInChildren<SpriteMask>().transform;
-        DOTween.Sequence(mask)
+
+        // 開始時アニメーション
+        DOTween.Sequence(mask) 
             .Append(DOTween.To(() => uiWidth, x => uiWidth = x, uiWidth, openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, uiHeight, openDuration).SetEase(Ease.Linear))
             .OnComplete(Init);
+
         uiWidth = 0;
         uiHeight = 0;
     }
@@ -145,7 +148,7 @@ public class PinLock : MonoBehaviour
                     pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
-                transform.DOShakePosition(duration, strength, vibrato);
+                transform.DOShakePosition(duration, strength, vibrato).OnComplete(Complete);
 
                 offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるようにする
             }
@@ -160,7 +163,7 @@ public class PinLock : MonoBehaviour
 
             foreach (var pin in keys) // 鍵の照合アニメーション
             {
-                pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす
+                pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
 
                 if (!verify) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
                 {
@@ -171,6 +174,14 @@ public class PinLock : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Complete()
+    {
+        DOTween.Sequence(mask)
+            .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => uiWidth, x => uiWidth = x, 0, openDuration).SetEase(Ease.Linear))
+            .OnComplete(() => Destroy(gameObject));
     }
 
     LockPin CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
