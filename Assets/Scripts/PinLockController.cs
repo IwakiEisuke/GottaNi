@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
 /// </summary>
-public class PinLock : MonoBehaviour
+public class PinLockController : MonoBehaviour
 {
     [Header("GameSettings")]
     /// <summary>錠側のピンの数</summary>
@@ -42,7 +42,7 @@ public class PinLock : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool isPause;
 
-    LockPin[] locks, keys;
+    LockPinData[] locks, keys;
     Transform mask;
 
     private void Awake()
@@ -64,7 +64,7 @@ public class PinLock : MonoBehaviour
     {
         //錠側のピンを作成する
         var locksLength = new int[locksCount]; // keyの作成に使用する
-        locks = new LockPin[locksCount];
+        locks = new LockPinData[locksCount];
         for (int i = 0; i < locksCount; i++)
         {
             locksLength[i] = Random.Range(minLength, maxLength + 1);
@@ -74,7 +74,7 @@ public class PinLock : MonoBehaviour
 
         // 鍵側のピンを作成する。pinsLengthから長さを範囲で持ってきてmaxLengthとの差を求める
         var start = Random.Range(0, locksLength.Length);
-        keys = new LockPin[keysCount];
+        keys = new LockPinData[keysCount];
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
@@ -176,7 +176,7 @@ public class PinLock : MonoBehaviour
         }
     }
 
-    void Complete()
+    void Complete() // 終了時アニメーション。アニメーションを終えたらこのゲームオブジェクトを破棄する
     {
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
@@ -184,11 +184,11 @@ public class PinLock : MonoBehaviour
             .OnComplete(() => Destroy(gameObject));
     }
 
-    LockPin CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
+    LockPinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
     {
         var pinSize = Length * wGap;
 
-        var pin = Instantiate(pinPref, transform).GetComponent<LockPin>();
+        var pin = Instantiate(pinPref, transform).GetComponent<LockPinData>();
         pin.length = Length;
         pin.pos = pos;
         pin.transform.localScale = new Vector3(pinSize, hGap);
@@ -200,20 +200,20 @@ public class PinLock : MonoBehaviour
     }
 
 
-    float GetPinX(LockPin pin, float right) // 縦を揃えるソート
+    float GetPinX(LockPinData pin, float right) // 縦を揃えるソート
     {
         var pinSize = pin.length * wGap;
         var x = (pinSize - uiWidth) / 2f * -right - uiWidth / 2f;
         return x;
     }
 
-    float GetPinY(LockPin pin, float down) // 縦に並べる
+    float GetPinY(LockPinData pin, float down) // 縦に並べる
     {
         var y = Mathf.Lerp(-(keysCount / 2f - 1) * hGap, -uiHeight + (keysCount / 2f - 1) * hGap, (down + 1) / 2) - (pin.pos - keysCount / 2) * hGap;
         return y;
     }
 
-    Vector2 GetSortedPinPos(LockPin pin, float right, float down)
+    Vector2 GetSortedPinPos(LockPinData pin, float right, float down)
     {
         var x = GetPinX(pin, right);
         var y = GetPinY(pin, down);
