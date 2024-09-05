@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
@@ -44,6 +45,8 @@ public class PinLockController : MonoBehaviour
 
     LockPinData[] locks, keys;
     Transform mask;
+
+    public event UnityAction OnCompleteAction;
 
     private void Awake()
     {
@@ -181,7 +184,10 @@ public class PinLockController : MonoBehaviour
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => uiWidth, x => uiWidth = x, 0, openDuration).SetEase(Ease.Linear))
-            .OnComplete(() => Destroy(gameObject));
+            .OnComplete(() => {
+                OnCompleteAction?.Invoke();
+                Destroy(gameObject);
+            });
     }
 
     LockPinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
