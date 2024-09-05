@@ -41,7 +41,7 @@ public class PinLockController : MonoBehaviour
     [SerializeField] int vibrato;
 
     [Header("Debug")]
-    [SerializeField] bool isPause;
+    [SerializeField] bool isScrollPause;
 
     LockPinData[] locks, keys;
     Transform mask;
@@ -50,17 +50,17 @@ public class PinLockController : MonoBehaviour
 
     private void Awake()
     {
-        isPause = true;
+        isScrollPause = true;
         mask = GetComponentInChildren<SpriteMask>().transform;
 
         // 開始時アニメーション
         DOTween.Sequence(mask) 
-            .Append(DOTween.To(() => uiWidth, x => uiWidth = x, uiWidth, openDuration).SetEase(Ease.Linear))
-            .Append(DOTween.To(() => uiHeight, x => uiHeight = x, uiHeight, openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => 0, x => uiWidth = x, uiWidth, openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => 0, x => uiHeight = x, uiHeight, openDuration).SetEase(Ease.Linear))
             .OnComplete(Init);
 
-        uiWidth = 0;
-        uiHeight = 0;
+        uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
+        uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
     }
 
     public void Init()
@@ -87,7 +87,7 @@ public class PinLockController : MonoBehaviour
             Debug.Log(keyLength);
         }
 
-        isPause = false;
+        isScrollPause = false;
     }
 
     void Update()
@@ -98,7 +98,7 @@ public class PinLockController : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
-        if (!isPause) // ピンをスクロールさせる
+        if (!isScrollPause) // ピンをスクロールさせる
         {
             foreach (var pin in locks)
             {
@@ -117,12 +117,12 @@ public class PinLockController : MonoBehaviour
             }
         }
 
-        if (!isPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
+        if (!isScrollPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
         {
-            isPause = true;
+            isScrollPause = true;
 
-            var offsetY = 0f;
-            var offsetX = float.MaxValue;
+            var offsetY = 0f; // 錠のアニメーション距離
+            var offsetX = float.MaxValue; // 鍵のアニメーション距離
 
             bool verify = true;
             foreach (var key in keys)
@@ -153,11 +153,11 @@ public class PinLockController : MonoBehaviour
 
                 transform.DOShakePosition(duration, strength, vibrato).OnComplete(Complete);
 
-                offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるようにする
+                offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
             }
             else
             {
-                foreach (var pin in keys) // 失敗時の鍵の横移動の大きさ。半端なところに引っかかるようにする
+                foreach (var pin in keys) // 失敗時の鍵の横移動の大きさ。半端なところに引っかかるよう移動距離を設定する
                 {
                     var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - pin.transform.position.y) < hGap).ToList();
                     offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - pin.length * wGap - (x.length * wGap)));
@@ -173,7 +173,7 @@ public class PinLockController : MonoBehaviour
                     DOTween.Sequence(pin)
                    .AppendInterval(0.2f)
                    .Append(pin.transform.DOLocalMoveX(pin.transform.localPosition.x, 0.1f))
-                   .OnComplete(() => isPause = false);
+                   .OnComplete(() => isScrollPause = false);
                 }
             }
         }

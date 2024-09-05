@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PinLockGameManager : MonoBehaviour
 {
     [SerializeField] int gameCount;
     [SerializeField] GameObject pinLockGamePref;
-    
+
 
     void Start()
     {
