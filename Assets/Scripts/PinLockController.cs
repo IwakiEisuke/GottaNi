@@ -51,6 +51,7 @@ public class PinLockController : MonoBehaviour
     bool isClear;
 
     public event UnityAction OnCompleteAction;
+    public int addScore;
 
     private void Start()
     {

@@ -6,7 +6,7 @@ public class PinLockGameManager : MonoBehaviour
     [SerializeField] int score;
     [SerializeField] PinLockController[] sections;
     [SerializeField] PinLockProperties[] adds;
-
+    PinLockController game;
 
     void Awake()
     {
@@ -15,9 +15,15 @@ public class PinLockGameManager : MonoBehaviour
 
     void StartGame()
     {
-        gameCount++;
-        var game = Instantiate(sections[gameCount / adds.Length % sections.Length].gameObject, transform).GetComponent<PinLockController>();
-        adds[(gameCount - 1) % adds.Length].Add(game);
+        game = Instantiate(sections[gameCount / adds.Length % sections.Length].gameObject, transform).GetComponent<PinLockController>();
+        adds[gameCount % adds.Length].Add(game);
+        game.OnCompleteAction += OnCompleteAction;
         game.OnCompleteAction += StartGame;
+    }
+
+    void OnCompleteAction()
+    {
+        gameCount++;
+        score += game.addScore;
     }
 }

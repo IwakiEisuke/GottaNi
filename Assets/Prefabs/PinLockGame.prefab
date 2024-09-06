@@ -298,3 +298,4 @@ MonoBehaviour:
   strength: 0.4
   vibrato: 20
   isScrollPause: 0
+  addScore: 20
