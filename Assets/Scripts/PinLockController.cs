@@ -34,22 +34,28 @@ public class PinLockController : MonoBehaviour
     [SerializeField] float uiHeight;
     [SerializeField] float openDuration;
     [SerializeField] SpriteRenderer frame;
+    [SerializeField] float centerX, centerY;
 
     [Header("VerifyAnimationSettings")]
     [SerializeField] float duration;
     [SerializeField] float strength;
     [SerializeField] int vibrato;
 
+    ///<summary>スクロールの停止フラグ<br></br>ゲームの成功判定とは別</summary>
     [Header("Debug")]
     [SerializeField] bool isScrollPause;
 
     LockPinData[] locks, keys;
     Transform mask;
+    /// <summary>ゲームの成功判定</summary>
+    bool isClear;
 
     public event UnityAction OnCompleteAction;
 
     private void Awake()
     {
+        transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY);
+
         isScrollPause = true;
         mask = GetComponentInChildren<SpriteMask>().transform;
 
@@ -98,8 +104,15 @@ public class PinLockController : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
-        if (!isScrollPause) // ピンをスクロールさせる
+        if (!isClear)
         {
+            // 振動アニメーションを打ち消してしまうため、成功判定が出てからは処理しない
+            transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY); // UIの中心を合わせる
+        }
+
+        if (!isScrollPause) 
+        {
+            // ピンをスクロールさせる
             foreach (var pin in locks)
             {
                 var scrollSize = hGap * locksCount;
@@ -109,6 +122,7 @@ public class PinLockController : MonoBehaviour
                 pin.transform.localPosition = GetSortedPinPos(pin, 1, -1);
             }
 
+            // ピンをスクロールさせる
             foreach (var pin in keys)
             {
                 var scrollSize = hGap * locksCount;
@@ -124,7 +138,7 @@ public class PinLockController : MonoBehaviour
             var offsetY = 0f; // 錠のアニメーション距離
             var offsetX = float.MaxValue; // 鍵のアニメーション距離
 
-            bool verify = true;
+            isClear = true;
             foreach (var key in keys)
             {
                 var keyY = key.transform.position.y;
@@ -133,7 +147,7 @@ public class PinLockController : MonoBehaviour
 
                 if (key.length - 1 + locks[index].length != maxLength)
                 {
-                    verify = false;
+                    isClear = false;
                 }
                 else
                 {
@@ -143,7 +157,7 @@ public class PinLockController : MonoBehaviour
                 //Debug.Log($"{index} {key.length} {locks[index].length}");
             }
 
-            if (verify)
+            if (isClear)
             {
                 // 錠の縦移動アニメーション
                 foreach (var pin in locks)
@@ -168,7 +182,7 @@ public class PinLockController : MonoBehaviour
             {
                 pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
 
-                if (!verify) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
+                if (!isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
                 {
                     DOTween.Sequence(pin)
                    .AppendInterval(0.2f)

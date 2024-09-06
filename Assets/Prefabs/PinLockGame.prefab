@@ -292,7 +292,9 @@ MonoBehaviour:
   uiHeight: 6
   openDuration: 0.2
   frame: {fileID: 125435746270686230}
+  centerX: 0
+  centerY: 0
   duration: 0.4
   strength: 0.4
   vibrato: 20
-  isPause: 0
+  isScrollPause: 0
