@@ -3,11 +3,12 @@ using UnityEngine;
 public class PinLockGameManager : MonoBehaviour
 {
     [SerializeField] int gameCount;
-    [SerializeField] GameObject pinLockGamePref;
     [SerializeField] int score;
+    [SerializeField] PinLockController[] sections;
+    [SerializeField] PinLockProperties[] adds;
 
 
-    void Start()
+    void Awake()
     {
         StartGame();
     }
@@ -15,7 +16,8 @@ public class PinLockGameManager : MonoBehaviour
     void StartGame()
     {
         gameCount++;
-        var game = Instantiate(pinLockGamePref, transform).GetComponent<PinLockController>();
+        var game = Instantiate(sections[gameCount / adds.Length % sections.Length].gameObject, transform).GetComponent<PinLockController>();
+        adds[(gameCount - 1) % adds.Length].Add(game);
         game.OnCompleteAction += StartGame;
     }
 }

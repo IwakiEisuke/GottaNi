@@ -10,36 +10,36 @@ public class PinLockController : MonoBehaviour
 {
     [Header("GameSettings")]
     /// <summary>錠側のピンの数</summary>
-    [SerializeField] int locksCount;
+    public int locksCount;
     /// <summary>鍵側のピンの数</summary>
-    [SerializeField] int keysCount;
+    public int keysCount;
     /// <summary>最大のピンの長さ</summary>
-    [SerializeField] int maxLength;
+    public int maxLength;
     /// <summary>最小のピンの長さ</summary>
-    [SerializeField] int minLength;
+    public int minLength;
 
     [Header("PinSettings")]
-    [SerializeField] float wGap;
-    [SerializeField] float hGap;
-    [SerializeField] float scrollSpeed;
-    [SerializeField] float keysPos;
+    public float wGap;
+    public float hGap;
+    public float scrollSpeed;
+    public float keysPos;
 
     [Header("Object")]
-    [SerializeField] GameObject lockPref;
-    [SerializeField] GameObject keyPref;
-    [SerializeField] Transform keyParent;
+    public GameObject lockPref;
+    public GameObject keyPref;
+    public Transform keyParent;
 
     [Header("UISettings")]
-    [SerializeField] float uiWidth;
-    [SerializeField] float uiHeight;
-    [SerializeField] float openDuration;
-    [SerializeField] SpriteRenderer frame;
-    [SerializeField] float centerX, centerY;
+    public float uiWidth;
+    public float uiHeight;
+    public float openDuration;
+    public SpriteRenderer frame;
+    public float centerX, centerY;
 
-    [Header("VerifyAnimationSettings")]
-    [SerializeField] float duration;
-    [SerializeField] float strength;
-    [SerializeField] int vibrato;
+    [Header("GameClear AnimationSettings")]
+    public float duration;
+    public float strength;
+    public int vibrato;
 
     ///<summary>スクロールの停止フラグ<br></br>ゲームの成功判定とは別</summary>
     [Header("Debug")]
@@ -52,7 +52,7 @@ public class PinLockController : MonoBehaviour
 
     public event UnityAction OnCompleteAction;
 
-    private void Awake()
+    private void Start()
     {
         transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY);
 
@@ -139,7 +139,7 @@ public class PinLockController : MonoBehaviour
             var offsetX = float.MaxValue; // 鍵のアニメーション距離
 
             isClear = true;
-            foreach (var key in keys)
+            foreach (var key in keys) // 成功・失敗判定
             {
                 var keyY = key.transform.position.y;
                 var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
