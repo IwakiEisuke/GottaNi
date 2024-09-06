@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PinLockGameManager : MonoBehaviour
 {
@@ -6,10 +7,12 @@ public class PinLockGameManager : MonoBehaviour
     [SerializeField] int score;
     [SerializeField] PinLockController[] sections;
     [SerializeField] PinLockProperties[] adds;
+    [SerializeField] Text scoreText;
     PinLockController game;
 
     void Awake()
     {
+        scoreText.text = "Score : " + score.ToString("D3");
         StartGame();
     }
 
@@ -25,5 +28,6 @@ public class PinLockGameManager : MonoBehaviour
     {
         gameCount++;
         score += game.addScore;
+        scoreText.text = "Score : " + score.ToString("D3");
     }
 }
