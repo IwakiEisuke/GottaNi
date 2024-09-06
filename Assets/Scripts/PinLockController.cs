@@ -45,7 +45,7 @@ public class PinLockController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool isScrollPause;
 
-    LockPinData[] locks, keys;
+    PinData[] locks, keys;
     Transform mask;
     /// <summary>ゲームの成功判定</summary>
     bool isClear;
@@ -73,7 +73,7 @@ public class PinLockController : MonoBehaviour
     {
         //錠側のピンを作成する
         var locksLength = new int[locksCount]; // keyの作成に使用する
-        locks = new LockPinData[locksCount];
+        locks = new PinData[locksCount];
         for (int i = 0; i < locksCount; i++)
         {
             locksLength[i] = Random.Range(minLength, maxLength + 1);
@@ -83,7 +83,7 @@ public class PinLockController : MonoBehaviour
 
         // 鍵側のピンを作成する。pinsLengthから長さを範囲で持ってきてmaxLengthとの差を求める
         var start = Random.Range(0, locksLength.Length);
-        keys = new LockPinData[keysCount];
+        keys = new PinData[keysCount];
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
@@ -204,36 +204,32 @@ public class PinLockController : MonoBehaviour
             });
     }
 
-    LockPinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
+    PinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
     {
         var pinSize = Length * wGap;
-
-        var pin = Instantiate(pinPref, transform).GetComponent<LockPinData>();
+        var pin = Instantiate(pinPref, transform).GetComponent<PinData>();
         pin.length = Length;
         pin.pos = pos;
         pin.transform.localScale = new Vector3(pinSize, hGap);
-
-        pin.transform.Translate(0, -pos * hGap, 0); // 縦に並べる
         pin.transform.localPosition = GetSortedPinPos(pin, right, down);
-
         return pin;
     }
 
 
-    float GetPinX(LockPinData pin, float right) // 縦を揃えるソート
+    float GetPinX(PinData pin, float right) // 縦を揃えるソート
     {
         var pinSize = pin.length * wGap;
         var x = (pinSize - uiWidth) / 2f * -right - uiWidth / 2f;
         return x;
     }
 
-    float GetPinY(LockPinData pin, float down) // 縦に並べる
+    float GetPinY(PinData pin, float down) // 縦に並べる
     {
         var y = Mathf.Lerp(-(keysCount / 2f - 1) * hGap, -uiHeight + (keysCount / 2f - 1) * hGap, (down + 1) / 2) - (pin.pos - keysCount / 2) * hGap;
         return y;
     }
 
-    Vector2 GetSortedPinPos(LockPinData pin, float right, float down)
+    Vector2 GetSortedPinPos(PinData pin, float right, float down)
     {
         var x = GetPinX(pin, right);
         var y = GetPinY(pin, down);

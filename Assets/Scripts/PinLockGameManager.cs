@@ -4,6 +4,7 @@ public class PinLockGameManager : MonoBehaviour
 {
     [SerializeField] int gameCount;
     [SerializeField] GameObject pinLockGamePref;
+    [SerializeField] int score;
 
 
     void Start()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LockPinData : MonoBehaviour
+public class PinData : MonoBehaviour
 {
     public int length;
     public float pos;
