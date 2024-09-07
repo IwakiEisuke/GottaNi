@@ -120,13 +120,13 @@ public class PinLockController : MonoBehaviour
             {
                 pin.pos += Time.deltaTime * scrollSpeed;
                 pin.pos %= locksCount;
-                PinSetPos(pin);
+                PinSetPos(pin, 1, -1);
             }
 
             // ピンをスクロールさせる
             foreach (var pin in keys)
             {
-                PinSetPos(pin);
+                PinSetPos(pin, -1, keysPos);
             }
         }
 
@@ -258,10 +258,10 @@ public class PinLockController : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    void PinSetPos(PinData pin)
+    void PinSetPos(PinData pin, float right, float down)
     {
         var scrollSize = hGap * locksCount;
         pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
-        pin.transform.localPosition = GetSortedPinPos(pin, 1, -1);
+        pin.transform.localPosition = GetSortedPinPos(pin, right, down);
     }
 }
