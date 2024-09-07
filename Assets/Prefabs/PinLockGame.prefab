@@ -299,3 +299,4 @@ MonoBehaviour:
   vibrato: 20
   isScrollPause: 0
   addScore: 20
+  gameIsCompleteOnMissed: 1

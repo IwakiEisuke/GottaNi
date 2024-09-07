@@ -26,7 +26,7 @@ MonoBehaviour:
   hGapMin: 0
   scrollSpeedMax: 0
   scrollSpeedMin: 0
-  keysPosMax: 1
-  keysPosMin: -1
+  keysPosMax: 0.9
+  keysPosMin: -0.9
   uiWidth: 0
   uiHeight: 0

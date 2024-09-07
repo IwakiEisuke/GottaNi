@@ -53,6 +53,8 @@ public class PinLockController : MonoBehaviour
     public event UnityAction OnCompleteAction;
     public int addScore;
 
+    public bool gameIsCompleteOnMissed;
+
     private void Start()
     {
         transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY);
@@ -166,7 +168,7 @@ public class PinLockController : MonoBehaviour
                     pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
-                transform.DOShakePosition(duration, strength, vibrato).OnComplete(Complete);
+                transform.DOShakePosition(duration, strength, vibrato);
 
                 offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
             }
@@ -183,13 +185,20 @@ public class PinLockController : MonoBehaviour
             {
                 pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
 
-                if (!isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
+                if (!gameIsCompleteOnMissed && !isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
                 {
                     DOTween.Sequence(pin)
                    .AppendInterval(0.2f)
                    .Append(pin.transform.DOLocalMoveX(pin.transform.localPosition.x, 0.1f))
                    .OnComplete(() => isScrollPause = false);
                 }
+            }
+
+            if (gameIsCompleteOnMissed || isClear) // このゲームを終了させる処理
+            {
+                DOTween.Sequence()
+                    .AppendInterval(duration)
+                    .OnComplete(Complete);
             }
         }
     }
