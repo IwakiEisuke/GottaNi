@@ -173,7 +173,14 @@ public class PinLockController : MonoBehaviour
                 //Debug.Log($"{index} {key.length} {locks[index].length}");
             }
 
-            addScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+            if (isClear) // scoreを決定
+            {
+                addScore = maxAddScore * 2;
+            }
+            else
+            {
+                addScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+            }
 
             if (gameIsCompleteOnMissed || isClear)
             {
@@ -211,9 +218,7 @@ public class PinLockController : MonoBehaviour
 
             if (gameIsCompleteOnMissed || isClear) // このゲームを終了させる処理
             {
-                DOTween.Sequence()
-                    .AppendInterval(duration)
-                    .OnComplete(Complete);
+                Invoke(nameof(Complete), duration);
             }
         }
     }
