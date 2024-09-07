@@ -118,19 +118,15 @@ public class PinLockController : MonoBehaviour
             // ピンをスクロールさせる
             foreach (var pin in locks)
             {
-                var scrollSize = hGap * locksCount;
-                pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
                 pin.pos += Time.deltaTime * scrollSpeed;
                 pin.pos %= locksCount;
-                pin.transform.localPosition = GetSortedPinPos(pin, 1, -1);
+                PinSetPos(pin);
             }
 
             // ピンをスクロールさせる
             foreach (var pin in keys)
             {
-                var scrollSize = hGap * locksCount;
-                pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
-                pin.transform.localPosition = GetSortedPinPos(pin, -1, keysPos);
+                PinSetPos(pin);
             }
         }
 
@@ -236,15 +232,11 @@ public class PinLockController : MonoBehaviour
 
     PinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
     {
-        var pinSize = Length * wGap;
         var pin = Instantiate(pinPref, transform).GetComponent<PinData>();
         pin.length = Length;
         pin.pos = pos;
-        pin.transform.localScale = new Vector3(pinSize, hGap);
-        pin.transform.localPosition = GetSortedPinPos(pin, right, down);
         return pin;
     }
-
 
     float GetPinX(PinData pin, float right) // 縦を揃えるソート
     {
@@ -264,5 +256,12 @@ public class PinLockController : MonoBehaviour
         var x = GetPinX(pin, right);
         var y = GetPinY(pin, down);
         return new Vector2(x, y);
+    }
+
+    void PinSetPos(PinData pin)
+    {
+        var scrollSize = hGap * locksCount;
+        pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
+        pin.transform.localPosition = GetSortedPinPos(pin, 1, -1);
     }
 }
