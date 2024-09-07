@@ -94,7 +94,6 @@ public class PinLockController : MonoBehaviour
             keys[i] = CreatePin(keyLength + 1, i, -1, keysPos, keyPref);
             keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
-            Debug.Log(keyLength);
         }
 
         isScrollPause = false;
@@ -154,9 +153,10 @@ public class PinLockController : MonoBehaviour
                 {
                     isClear = false;
                 }
-                else // ¬Œ÷
+                
+                if (offsetY == 0) // ˆê‰ñˆ—‚·‚ê‚ÎOK
                 {
-                    offsetY = key.transform.position.y - locks[index].transform.position.y; // ¬Œ÷‚É‚µ‚©g—p‚µ‚È‚¢
+                    offsetY = key.transform.position.y - locks[index].transform.position.y;
                 }
 
                 var minLengthAtLocksPin = uiWidth - wGap * (key.length + locks[index].length);
