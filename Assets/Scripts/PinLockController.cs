@@ -56,6 +56,8 @@ public class PinLockController : MonoBehaviour
 
     public bool gameIsCompleteOnMissed;
 
+    public PinLockData pinLockData;
+
     private void Start()
     {
         transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY);
@@ -81,7 +83,7 @@ public class PinLockController : MonoBehaviour
         for (int i = 0; i < locksCount; i++)
         {
             locksLength[i] = Random.Range(minLength, maxLength + 1);
-            locks[i] = CreatePin(locksLength[i], i, 1, -1, lockPref);
+            locks[i] = PinData.Create(locksLength[i], i, lockPref);
             locks[i].name = "Pin" + i;
         }
 
@@ -91,10 +93,13 @@ public class PinLockController : MonoBehaviour
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
-            keys[i] = CreatePin(keyLength + 1, i, -1, keysPos, keyPref);
+            keys[i] = PinData.Create(keyLength + 1, i, keyPref);
             keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
         }
+
+        PinGroup.Create(locks, pinLockData, 1, -1, transform);
+        PinGroup.Create(keys, pinLockData, -1, 0, transform);
 
         isScrollPause = false;
     }
@@ -113,23 +118,6 @@ public class PinLockController : MonoBehaviour
             transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY); // UIの中心を合わせる
         }
 
-        if (!isScrollPause) 
-        {
-            // ピンをスクロールさせる
-            foreach (var pin in locks)
-            {
-                pin.pos += Time.deltaTime * scrollSpeed;
-                pin.pos %= locksCount;
-                PinSetPos(pin);
-            }
-
-            // ピンをスクロールさせる
-            foreach (var pin in keys)
-            {
-                PinSetPos(pin);
-            }
-        }
-
         if (!isScrollPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
         {
             isScrollPause = true;
@@ -145,7 +133,7 @@ public class PinLockController : MonoBehaviour
                 var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
                 var index = targets.IndexOf(targets.Min());
 
-                if (key.length - 1 + locks[index].length != maxLength) // 失敗
+                if (key.Length - 1 + locks[index].Length != maxLength) // 失敗
                 {
                     isClear = false;
                 }
@@ -155,7 +143,7 @@ public class PinLockController : MonoBehaviour
                     offsetY = key.transform.position.y - locks[index].transform.position.y;
                 }
 
-                var minLengthAtLocksPin = uiWidth - wGap * (key.length + locks[index].length);
+                var minLengthAtLocksPin = uiWidth - wGap * (key.Length + locks[index].Length);
                 if (minLengthAtLocksPin < offsetX)
                 {
                     offsetX = minLengthAtLocksPin;
@@ -195,7 +183,7 @@ public class PinLockController : MonoBehaviour
                 foreach (var pin in keys) // 失敗時の鍵の横移動の大きさ。半端なところに引っかかるよう移動距離を設定する
                 {
                     var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - pin.transform.position.y) < hGap).ToList();
-                    offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - pin.length * wGap - (x.length * wGap)));
+                    offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - pin.Length * wGap - (x.Length * wGap)));
                 }
             }
 
@@ -228,40 +216,5 @@ public class PinLockController : MonoBehaviour
                 OnCompleteAction?.Invoke();
                 Destroy(gameObject);
             });
-    }
-
-    PinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
-    {
-        var pin = Instantiate(pinPref, transform).GetComponent<PinData>();
-        pin.length = Length;
-        pin.pos = pos;
-        return pin;
-    }
-
-    float GetPinX(PinData pin, float right) // 縦を揃えるソート
-    {
-        var pinSize = pin.length * wGap;
-        var x = (pinSize - uiWidth) / 2f * -right - uiWidth / 2f;
-        return x;
-    }
-
-    float GetPinY(PinData pin, float down) // 縦に並べる
-    {
-        var y = Mathf.Lerp(-(keysCount / 2f - 1) * hGap, -uiHeight + (keysCount / 2f - 1) * hGap, (down + 1) / 2) - (pin.pos - keysCount / 2) * hGap;
-        return y;
-    }
-
-    Vector2 GetSortedPinPos(PinData pin, float right, float down)
-    {
-        var x = GetPinX(pin, right);
-        var y = GetPinY(pin, down);
-        return new Vector2(x, y);
-    }
-
-    void PinSetPos(PinData pin)
-    {
-        var scrollSize = hGap * locksCount;
-        pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
-        pin.transform.localPosition = GetSortedPinPos(pin, 1, -1);
     }
 }

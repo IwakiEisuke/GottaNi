@@ -241,6 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7572146549081654718}
   - component: {fileID: 2619434247193239849}
+  - component: {fileID: 5822556093959464885}
   m_Layer: 0
   m_Name: PinLockGame
   m_TagString: Untagged
@@ -301,3 +302,38 @@ MonoBehaviour:
   maxAddScore: 5
   addScore: 0
   gameIsCompleteOnMissed: 1
+  pinLockData: {fileID: 5822556093959464885}
+--- !u!114 &5822556093959464885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296828495978999899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dba34179db65a40859ed57ef31d68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locksCount: 15
+  keysCount: 5
+  maxLength: 0
+  minLength: 0
+  wGap: 0.5
+  hGap: 0.6
+  scrollSpeed: 8
+  keysPos: 0
+  lockPref: {fileID: 0}
+  keyPref: {fileID: 0}
+  keyParent: {fileID: 0}
+  uiWidth: 0
+  uiHeight: 0
+  openDuration: 0
+  frame: {fileID: 0}
+  centerX: 0
+  centerY: 0
+  duration: 0
+  strength: 0
+  vibrato: 0
+  isScrollPause: 0
+  isClear: 0
