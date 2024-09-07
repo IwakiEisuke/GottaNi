@@ -8,6 +8,7 @@ public class PinLockGameManager : MonoBehaviour
     [SerializeField] PinLockController[] sections;
     [SerializeField] PinLockProperties[] adds;
     [SerializeField] Text scoreText;
+    [SerializeField] float chanceGauge;
     PinLockController game;
 
     void Awake()

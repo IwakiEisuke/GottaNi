@@ -51,6 +51,7 @@ public class PinLockController : MonoBehaviour
     bool isClear;
 
     public event UnityAction OnCompleteAction;
+    public int maxAddScore;
     public int addScore;
 
     public bool gameIsCompleteOnMissed;
@@ -141,6 +142,7 @@ public class PinLockController : MonoBehaviour
             var offsetY = 0f; // 錠のアニメーション距離
             var offsetX = float.MaxValue; // 鍵のアニメーション距離
 
+            var hitPinCount = 0; // 合致したピンの数
             isClear = true;
             foreach (var key in keys) // 成功・失敗判定
             {
@@ -148,19 +150,24 @@ public class PinLockController : MonoBehaviour
                 var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
                 var index = targets.IndexOf(targets.Min());
 
-                if (key.length - 1 + locks[index].length != maxLength)
+                if (key.length - 1 + locks[index].length != maxLength) // 失敗
                 {
                     isClear = false;
                 }
-                else
+                else // 成功
                 {
+                    hitPinCount++; // この算出方法では見た目上の合致数とズレが生じるので変えたい
                     offsetY = key.transform.position.y - locks[index].transform.position.y; // 成功時にしか使用しない
                 }
+
+                offsetX = Mathf.Min(uiWidth - wGap * (key.length + locks[index].length), offsetX);
 
                 //Debug.Log($"{index} {key.length} {locks[index].length}");
             }
 
-            if (isClear)
+            addScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+
+            if (gameIsCompleteOnMissed || isClear)
             {
                 // 錠の縦移動アニメーション
                 foreach (var pin in locks)
@@ -168,9 +175,9 @@ public class PinLockController : MonoBehaviour
                     pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
-                transform.DOShakePosition(duration, strength, vibrato);
+                if (isClear) transform.DOShakePosition(duration, strength, vibrato);
 
-                offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
+                //offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
             }
             else
             {
