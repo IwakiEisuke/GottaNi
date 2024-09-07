@@ -298,6 +298,6 @@ MonoBehaviour:
   strength: 0.4
   vibrato: 20
   isScrollPause: 0
-  maxAddScore: 20
+  maxAddScore: 5
   addScore: 0
-  gameIsCompleteOnMissed: 0
+  gameIsCompleteOnMissed: 1

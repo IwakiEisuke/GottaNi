@@ -156,11 +156,19 @@ public class PinLockController : MonoBehaviour
                 }
                 else // 成功
                 {
-                    hitPinCount++; // この算出方法では見た目上の合致数とズレが生じるので変えたい
                     offsetY = key.transform.position.y - locks[index].transform.position.y; // 成功時にしか使用しない
                 }
 
-                offsetX = Mathf.Min(uiWidth - wGap * (key.length + locks[index].length), offsetX);
+                var minLengthAtLocksPin = uiWidth - wGap * (key.length + locks[index].length);
+                if (minLengthAtLocksPin < offsetX)
+                {
+                    offsetX = minLengthAtLocksPin;
+                    hitPinCount = 1;
+                }
+                else if (minLengthAtLocksPin == offsetX)
+                {
+                    hitPinCount++;
+                }
 
                 //Debug.Log($"{index} {key.length} {locks[index].length}");
             }

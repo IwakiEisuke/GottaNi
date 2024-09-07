@@ -340,8 +340,8 @@ MonoBehaviour:
   - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   adds:
   - {fileID: 11400000, guid: 195f33683ed2b4648b9ad55c67d3c750, type: 2}
-  - {fileID: 11400000, guid: 9f68f1006c1022341825aec4c85da35c, type: 2}
   scoreText: {fileID: 327805677}
+  chanceGauge: 0
 --- !u!4 &298637534
 Transform:
   m_ObjectHideFlags: 0
