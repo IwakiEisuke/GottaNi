@@ -6,9 +6,11 @@ public class PinLockGameManager : MonoBehaviour
     [SerializeField] int gameCount;
     [SerializeField] int score;
     [SerializeField] PinLockController[] sections;
-    [SerializeField] PinLockProperties[] adds;
+    [SerializeField] PinLockRandomizer[] adds;
     [SerializeField] Text scoreText;
     [SerializeField] float chanceGauge;
+    [SerializeField] float maxGauge;
+    [SerializeField] Slider gauge;
     PinLockController game;
 
     void Awake()
@@ -30,5 +32,23 @@ public class PinLockGameManager : MonoBehaviour
         gameCount++;
         score += game.AddScore;
         scoreText.text = "Score : " + score.ToString("D3");
+        chanceGauge += game.AddGauge;
+        SetGauge();
+    }
+
+    private void Update()
+    {
+        AddGauge(-1 * Time.deltaTime);
+    }
+
+    void AddGauge(float add)
+    {
+        chanceGauge += add;
+        SetGauge();
+    }
+
+    void SetGauge()
+    {
+        gauge.value = chanceGauge / maxGauge;
     }
 }

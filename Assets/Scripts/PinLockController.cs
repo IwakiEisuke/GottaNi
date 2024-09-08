@@ -45,6 +45,7 @@ public class PinLockController : MonoBehaviour
     public int maxAddScore;
     public int AddScore { get; private set; }
     public float multiplier;
+    public float AddGauge { get; private set; }
 
     [Header("Others")]
     public bool gameIsCompleteOnMissed;

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "new prop")]
-public class PinLockProperties : ScriptableObject
+public class PinLockRandomizer : ScriptableObject
 {
     [Header("GameSettings")]
     public int locksCountMax;
@@ -27,7 +27,7 @@ public class PinLockProperties : ScriptableObject
     public float uiWidth;
     public float uiHeight;
 
-    public PinLockProperties Add(PinLockController p)
+    public PinLockRandomizer Add(PinLockController p)
     {
         p.locksCount += Random.Range(locksCountMin, locksCountMax + 1);
         p.keysCount += Random.Range(keysCountMin, keysCountMax + 1);
