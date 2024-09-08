@@ -62,6 +62,8 @@ public class PinLockController : MonoBehaviour
     /// <summary>ゲームの成功判定</summary>
     bool isClear;
 
+    bool isShaking;
+
     PinData[] locks, keys;
     Transform mask;
 
@@ -116,9 +118,9 @@ public class PinLockController : MonoBehaviour
         frame.size = uiSize + new Vector2(2, 2);
         frame.transform.localPosition = -uiSize / 2;
 
-        if (!isClear)
+        if (!isShaking)
         {
-            // 振動アニメーションを打ち消してしまうため、成功判定が出てからは処理しない
+            // 振動アニメーションを打ち消さないように
             transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY); // UIの中心を合わせる
         }
 
@@ -197,7 +199,11 @@ public class PinLockController : MonoBehaviour
                     pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
                 }
 
-                if (isClear) transform.DOShakePosition(duration, strength, vibrato);
+                if (isClear)
+                {
+                    isShaking = true;
+                    transform.DOShakePosition(duration, strength, vibrato).OnComplete(() => isShaking = false);
+                }
 
                 //offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
             }

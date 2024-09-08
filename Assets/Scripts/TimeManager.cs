@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
-    [SerializeField] int initTime;
+    [SerializeField] int timeLimit;
     [SerializeField] Text timerText;
     [SerializeField] string format = @"mm\:ss";
     float t;
@@ -13,7 +13,7 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        t = initTime;
+        t = timeLimit;
     }
 
     void Update()

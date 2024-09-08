@@ -26,7 +26,7 @@ public class PinLockGameManager : MonoBehaviour
 
     void OnCompleteAction()
     {
-        if (gauge.IsChance) gauge.ResetChance();
+        if (gauge.IsChance) gauge.ResetGauge();
 
         gameCount++;
         scoreManager.AddScore(game.AddScore);

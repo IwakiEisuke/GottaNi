@@ -31,7 +31,7 @@ public class ChanceGauge : MonoBehaviour
         }
     }
 
-    public void ResetChance()
+    public void ResetGauge()
     {
         IsChance = false;
         chancePoint = 0;
