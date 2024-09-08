@@ -326,8 +326,11 @@ GameObject:
   m_Component:
   - component: {fileID: 298637534}
   - component: {fileID: 298637533}
+  - component: {fileID: 298637537}
+  - component: {fileID: 298637535}
+  - component: {fileID: 298637536}
   m_Layer: 0
-  m_Name: PinLockGameManager
+  m_Name: System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,9 +357,9 @@ MonoBehaviour:
   adds:
   - {fileID: 11400000, guid: 195f33683ed2b4648b9ad55c67d3c750, type: 2}
   scoreText: {fileID: 327805677}
-  chanceGauge: 0
-  maxGauge: 100
-  gauge: {fileID: 41566204}
+  scoreManager: {fileID: 298637537}
+  gauge: {fileID: 298637535}
+  spawner: {fileID: 298637536}
 --- !u!4 &298637534
 Transform:
   m_ObjectHideFlags: 0
@@ -372,6 +375,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &298637535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298637532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b3d970984b64e42aca7ae8edcdeb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gauge: {fileID: 41566204}
+  maxChancePoint: 100
+  chancePoint: 0
+--- !u!114 &298637536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298637532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11fa47db1c444f4c917b583413de318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalGame: {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  chanceGauge: {fileID: 298637535}
+--- !u!114 &298637537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298637532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53db5ac12d0754d4896443875158c5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  scoreText: {fileID: 327805677}
+  preText: 'Score : '
+  format: D3
 --- !u!1 &327805675
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +432,7 @@ GameObject:
   - component: {fileID: 327805678}
   - component: {fileID: 327805677}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
