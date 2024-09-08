@@ -26,11 +26,6 @@ public class PinLockGameManager : MonoBehaviour
     {
         gameCount++;
         scoreManager.AddScore(game.AddScore);
-        gauge.AddChancePoint(game.AddGauge);
-    }
-
-    private void Update()
-    {
-        gauge.AddChancePoint(-1 * Time.deltaTime);
+        gauge.AddChancePoint(game.AddChancePoint);
     }
 }

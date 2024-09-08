@@ -6,9 +6,11 @@ public class ChanceGauge : MonoBehaviour
     [SerializeField] Slider gauge;
     [SerializeField] float maxChancePoint;
     [SerializeField] float chancePoint;
+    [SerializeField] float decreaseSpeed;
 
     private void Update()
     {
+        chancePoint -= decreaseSpeed * Time.deltaTime;
         gauge.value = chancePoint / maxChancePoint;
     }
 

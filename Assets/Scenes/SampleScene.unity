@@ -349,14 +349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCount: 0
-  score: 0
-  sections:
-  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
-  - {fileID: 2619434247193239849, guid: 22b69f0db7afc9943824b7bc1c4b3360, type: 3}
-  - {fileID: 2619434247193239849, guid: e4b15328f2f2be64db92df799bc7dffd, type: 3}
   adds:
   - {fileID: 11400000, guid: 195f33683ed2b4648b9ad55c67d3c750, type: 2}
-  scoreText: {fileID: 327805677}
   scoreManager: {fileID: 298637537}
   gauge: {fileID: 298637535}
   spawner: {fileID: 298637536}
@@ -390,6 +384,7 @@ MonoBehaviour:
   gauge: {fileID: 41566204}
   maxChancePoint: 100
   chancePoint: 0
+  decreaseSpeed: 2
 --- !u!114 &298637536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,10 +411,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53db5ac12d0754d4896443875158c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  scoreText: {fileID: 327805677}
   preText: 'Score : '
-  format: D3
+  format: 000
+  scoreText: {fileID: 327805677}
+  score: 0
 --- !u!1 &327805675
 GameObject:
   m_ObjectHideFlags: 0

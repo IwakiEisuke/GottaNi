@@ -299,5 +299,6 @@ MonoBehaviour:
   vibrato: 20
   maxAddScore: 100
   multiplier: 2
+  maxAddChancePoint: 10
   gameIsCompleteOnMissed: 1
   isScrollPause: 0

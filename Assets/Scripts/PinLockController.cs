@@ -45,7 +45,10 @@ public class PinLockController : MonoBehaviour
     public int maxAddScore;
     public int AddScore { get; private set; }
     public float multiplier;
-    public float AddGauge { get; private set; }
+
+    [Header("Chance Settings")]
+    public float maxAddChancePoint;
+    public float AddChancePoint { get; private set; }
 
     [Header("Others")]
     public bool gameIsCompleteOnMissed;
@@ -178,10 +181,12 @@ public class PinLockController : MonoBehaviour
             if (isClear) // scoreを決定
             {
                 AddScore = (int)(maxAddScore * multiplier);
+                AddChancePoint = maxAddChancePoint * multiplier;
             }
             else
             {
                 AddScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+                AddChancePoint =  1f * hitPinCount / keysCount * maxAddChancePoint;
             }
 
             if (gameIsCompleteOnMissed || isClear)
