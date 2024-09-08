@@ -21,6 +21,7 @@ public class ChanceGauge : MonoBehaviour
 
     public void AddChancePoint(float add)
     {
+        if (chancePoint < 0) chancePoint = 0;
         chancePoint += add;
         chancePoint = Mathf.Clamp(chancePoint, 0, maxChancePoint);
 

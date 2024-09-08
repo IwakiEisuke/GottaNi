@@ -7,7 +7,9 @@ public class PinLockGameManager : MonoBehaviour
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
     [SerializeField] GameSpawner spawner;
+    [SerializeField] TimeManager timeManager;
     PinLockController game;
+    bool endGame;
 
     void Awake()
     {
@@ -29,5 +31,19 @@ public class PinLockGameManager : MonoBehaviour
         gameCount++;
         scoreManager.AddScore(game.AddScore);
         gauge.AddChancePoint(game.AddChancePoint);
+    }
+
+    private void Update()
+    {
+        if (timeManager.IsTimeUp && !endGame)
+        {
+            EndGame();
+        }
+    }
+
+    void EndGame()
+    {
+        endGame = true;
+        Debug.Log("GameOver");
     }
 }
