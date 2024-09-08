@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11fa47db1c444f4c917b583413de318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalGame: {fileID: 2619434247193239849, guid: e4b15328f2f2be64db92df799bc7dffd, type: 3}
+  normalGame: {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   _2xGame: {fileID: 2619434247193239849, guid: 22b69f0db7afc9943824b7bc1c4b3360, type: 3}
   _5xGame: {fileID: 2619434247193239849, guid: d61d8ddd38467a0498c668ed8942aab7, type: 3}
   _10xGame: {fileID: 2619434247193239849, guid: e4b15328f2f2be64db92df799bc7dffd, type: 3}
