@@ -277,13 +277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43128043ae03244da709b040284ea68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locksCount: 15
+  locksCount: 24
   keysCount: 5
   maxLength: 4
   minLength: 1
   wGap: 0.5
   hGap: 0.6
-  scrollSpeed: 8
+  scrollSpeed: 16
   keysPos: 0
   lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
   keyPref: {fileID: 3457169830033365834, guid: 6fcffd11275220a41b5854bd90a2e5b2, type: 3}
