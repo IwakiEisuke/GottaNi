@@ -7,21 +7,32 @@ public class ChanceGauge : MonoBehaviour
     [SerializeField] float maxChancePoint;
     [SerializeField] float chancePoint;
     [SerializeField] float decreaseSpeed;
+    public bool IsChance { get; private set; }
 
     private void Update()
     {
-        chancePoint -= decreaseSpeed * Time.deltaTime;
-        gauge.value = chancePoint / maxChancePoint;
-    }
+        if (!IsChance)
+        {
+            chancePoint -= decreaseSpeed * Time.deltaTime;
+        }
 
-    public bool IsChance()
-    {
-        return chancePoint >= maxChancePoint;
+        gauge.value = chancePoint / maxChancePoint;
     }
 
     public void AddChancePoint(float add)
     {
         chancePoint += add;
         chancePoint = Mathf.Clamp(chancePoint, 0, maxChancePoint);
+
+        if (chancePoint >= maxChancePoint)
+        {
+            IsChance = true;
+        }
+    }
+
+    public void ResetChance()
+    {
+        IsChance = false;
+        chancePoint = 0;
     }
 }

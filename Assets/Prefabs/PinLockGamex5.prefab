@@ -221,11 +221,11 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e5183da5c18e5d6469e141b0123296d8, type: 3}
-  m_Color: {r: 0.47190693, g: 0.31344244, b: 0.5018867, a: 1}
+  m_Color: {r: 0.33522967, g: 0.38316396, b: 0.7433963, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 0, y: 0}
+  m_Size: {x: 0, y: 30}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 7572146549081654718}
   - component: {fileID: 2619434247193239849}
   m_Layer: 0
-  m_Name: PinLockGamex10
+  m_Name: PinLockGamex5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   scrollSpeed: 8
   keysPos: 0
   lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
-  keyPref: {fileID: 3457169830033365834, guid: 6fcffd11275220a41b5854bd90a2e5b2, type: 3}
+  keyPref: {fileID: 3457169830033365834, guid: d555f085cc8a32d4fbe6ced2257ce614, type: 3}
   keyParent: {fileID: 2894856279905429629}
   uiWidth: 5
   uiHeight: 6
@@ -297,8 +297,8 @@ MonoBehaviour:
   duration: 0.4
   strength: 0.4
   vibrato: 20
-  maxAddScore: 100
+  maxAddScore: 50
   multiplier: 2
-  maxAddChancePoint: 50
+  maxAddChancePoint: 30
   gameIsCompleteOnMissed: 1
   isScrollPause: 0

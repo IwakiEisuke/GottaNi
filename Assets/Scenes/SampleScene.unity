@@ -149,7 +149,7 @@ RectTransform:
   m_GameObject: {fileID: 41566202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1564577443}
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 298637535}
   - component: {fileID: 298637536}
   m_Layer: 0
-  m_Name: System
+  m_Name: GameSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -398,6 +398,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalGame: {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  _2xGame: {fileID: 2619434247193239849, guid: 22b69f0db7afc9943824b7bc1c4b3360, type: 3}
+  _5xGame: {fileID: 2619434247193239849, guid: d61d8ddd38467a0498c668ed8942aab7, type: 3}
+  _10xGame: {fileID: 2619434247193239849, guid: e4b15328f2f2be64db92df799bc7dffd, type: 3}
   chanceGauge: {fileID: 298637535}
 --- !u!114 &298637537
 MonoBehaviour:
