@@ -41,20 +41,25 @@ public class PinLockController : MonoBehaviour
     public float strength;
     public int vibrato;
 
+    [Header("Score Settings")]
+    public int maxAddScore;
+    public int AddScore { get; private set; }
+    public float multiplier;
+
+    [Header("Others")]
+    public bool gameIsCompleteOnMissed;
+
     ///<summary>スクロールの停止フラグ<br></br>ゲームの成功判定とは別</summary>
     [Header("Debug")]
     [SerializeField] bool isScrollPause;
 
-    PinData[] locks, keys;
-    Transform mask;
+    public event UnityAction OnCompleteAction;
+
     /// <summary>ゲームの成功判定</summary>
     bool isClear;
 
-    public event UnityAction OnCompleteAction;
-    public int maxAddScore;
-    public int addScore;
-
-    public bool gameIsCompleteOnMissed;
+    PinData[] locks, keys;
+    Transform mask;
 
     private void Start()
     {
@@ -171,11 +176,11 @@ public class PinLockController : MonoBehaviour
 
             if (isClear) // scoreを決定
             {
-                addScore = maxAddScore * 2;
+                AddScore = (int)(maxAddScore * multiplier);
             }
             else
             {
-                addScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+                AddScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
             }
 
             if (gameIsCompleteOnMissed || isClear)

@@ -28,7 +28,7 @@ public class PinLockGameManager : MonoBehaviour
     void OnCompleteAction()
     {
         gameCount++;
-        score += game.addScore;
+        score += game.AddScore;
         scoreText.text = "Score : " + score.ToString("D3");
     }
 }
