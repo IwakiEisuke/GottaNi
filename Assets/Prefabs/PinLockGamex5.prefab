@@ -283,7 +283,7 @@ MonoBehaviour:
   minLength: 1
   wGap: 0.5
   hGap: 0.4
-  scrollSpeed: 10
+  scrollSpeed: 13
   keysPos: 0
   lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
   keyPref: {fileID: 3457169830033365834, guid: d555f085cc8a32d4fbe6ced2257ce614, type: 3}
