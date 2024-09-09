@@ -112,11 +112,13 @@ public class PinLockController : MonoBehaviour
 
     void Update()
     {
-        var uiSize = new Vector2(uiWidth, uiHeight);
-        mask.localScale = uiSize;
-        mask.localPosition = -uiSize / 2;
-        frame.size = uiSize + new Vector2(2, 2);
-        frame.transform.localPosition = -uiSize / 2;
+        {
+            var uiSize = new Vector2(uiWidth, uiHeight);
+            mask.localScale = uiSize;
+            mask.localPosition = -uiSize / 2;
+            frame.size = uiSize + new Vector2(2, 2);
+            frame.transform.localPosition = -uiSize / 2;
+        }
 
         if (!isShaking)
         {
@@ -148,9 +150,10 @@ public class PinLockController : MonoBehaviour
             var offsetY = 0f; // 錠のアニメーション距離
             var offsetX = float.MaxValue; // 鍵のアニメーション距離
 
+            // 成功・失敗判定
             var hitPinCount = 0; // 合致したピンの数
             isClear = true;
-            foreach (var key in keys) // 成功・失敗判定
+            foreach (var key in keys) 
             {
                 var keyY = key.transform.position.y;
                 var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
@@ -180,7 +183,8 @@ public class PinLockController : MonoBehaviour
                 //Debug.Log($"{index} {key.length} {locks[index].length}");
             }
 
-            if (isClear) // scoreを決定
+            // scoreを決定
+            if (isClear)
             {
                 AddScore = (int)(maxAddScore * multiplier);
                 AddChancePoint = maxAddChancePoint * multiplier;
@@ -191,6 +195,7 @@ public class PinLockController : MonoBehaviour
                 AddChancePoint =  1f * hitPinCount / keysCount * maxAddChancePoint;
             }
 
+            // アニメーション
             if (gameIsCompleteOnMissed || isClear)
             {
                 // 錠の縦移動アニメーション
@@ -231,12 +236,12 @@ public class PinLockController : MonoBehaviour
 
             if (gameIsCompleteOnMissed || isClear) // このゲームを終了させる処理
             {
-                Invoke(nameof(Complete), duration);
+                Invoke(nameof(EndGame), duration);
             }
         }
     }
 
-    void Complete() // 終了時アニメーション。アニメーションを終えたらこのゲームオブジェクトを破棄する
+    void EndGame() // 終了時アニメーション。アニメーションを終えたらこのゲームオブジェクトを破棄する
     {
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
@@ -245,6 +250,12 @@ public class PinLockController : MonoBehaviour
                 OnCompleteAction?.Invoke();
                 Destroy(gameObject);
             });
+    }
+
+    public void EndGameAA()
+    {
+        OnCompleteAction = null;
+        EndGame();
     }
 
     PinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)

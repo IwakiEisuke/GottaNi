@@ -45,5 +45,6 @@ public class PinLockGameManager : MonoBehaviour
     {
         endGame = true;
         Debug.Log("GameOver");
+        game.EndGameAA();
     }
 }
