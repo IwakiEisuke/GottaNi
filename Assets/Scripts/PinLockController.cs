@@ -35,6 +35,7 @@ public class PinLockController : MonoBehaviour
     public float openDuration;
     public SpriteRenderer frame;
     public float centerX, centerY;
+    public SpriteRenderer backGround;
 
     [Header("GameClear AnimationSettings")]
     public float duration;
@@ -92,7 +93,7 @@ public class PinLockController : MonoBehaviour
         for (int i = 0; i < locksCount; i++)
         {
             locksLength[i] = Random.Range(minLength, maxLength + 1);
-            locks[i] = CreatePin(locksLength[i], i, 1, -1, lockPref);
+            locks[i] = PinData.CreatePin(locksLength[i], i, lockPref, transform);
             locks[i].name = "Pin" + i;
         }
 
@@ -102,7 +103,7 @@ public class PinLockController : MonoBehaviour
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
-            keys[i] = CreatePin(keyLength + 1, i, -1, keysPos, keyPref);
+            keys[i] = PinData.CreatePin(keyLength + 1, i, keyPref, transform);
             keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
         }
@@ -118,6 +119,8 @@ public class PinLockController : MonoBehaviour
             mask.localPosition = -uiSize / 2;
             frame.size = uiSize + new Vector2(2, 2);
             frame.transform.localPosition = -uiSize / 2;
+            backGround.size = uiSize;
+            backGround.transform.localPosition = -uiSize / 2;
         }
 
         if (!isShaking)
@@ -131,117 +134,129 @@ public class PinLockController : MonoBehaviour
             // ピンをスクロールさせる
             foreach (var pin in locks)
             {
-                pin.pos += Time.deltaTime * scrollSpeed;
-                pin.pos %= locksCount;
-                PinSetPos(pin, 1, -1);
+                pin.AddPos(scrollSpeed, locksCount);
             }
 
-            // ピンをスクロールさせる
-            foreach (var pin in keys)
-            {
-                PinSetPos(pin, -1, keysPos);
-            }
+            PinSetPos(locks, 1, -1);
+            PinSetPos(keys, -1, keysPos);
         }
 
         if (!isScrollPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
         {
             isScrollPause = true;
 
-            var offsetY = 0f; // 錠のアニメーション距離
-            var offsetX = float.MaxValue; // 鍵のアニメーション距離
+            Verify(out var offset, out var hitPinCount);
 
-            // 成功・失敗判定
-            var hitPinCount = 0; // 合致したピンの数
-            isClear = true;
-            foreach (var key in keys) 
-            {
-                var keyY = key.transform.position.y;
-                var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
-                var index = targets.IndexOf(targets.Min());
+            SetScore(hitPinCount);
 
-                if (key.length - 1 + locks[index].length != maxLength) // 失敗
-                {
-                    isClear = false;
-                }
-                
-                if (offsetY == 0) // 一回処理すればOK
-                {
-                    offsetY = key.transform.position.y - locks[index].transform.position.y;
-                }
-
-                var minLengthAtLocksPin = uiWidth - wGap * (key.length + locks[index].length);
-                if (minLengthAtLocksPin < offsetX)
-                {
-                    offsetX = minLengthAtLocksPin;
-                    hitPinCount = 1;
-                }
-                else if (minLengthAtLocksPin == offsetX)
-                {
-                    hitPinCount++;
-                }
-
-                //Debug.Log($"{index} {key.length} {locks[index].length}");
-            }
-
-            // scoreを決定
-            if (isClear)
-            {
-                AddScore = (int)(maxAddScore * multiplier);
-                AddChancePoint = maxAddChancePoint * multiplier;
-            }
-            else
-            {
-                AddScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
-                AddChancePoint =  1f * hitPinCount / keysCount * maxAddChancePoint;
-            }
-
-            // アニメーション
-            if (gameIsCompleteOnMissed || isClear)
-            {
-                // 錠の縦移動アニメーション
-                foreach (var pin in locks)
-                {
-                    pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
-                }
-
-                if (isClear)
-                {
-                    isShaking = true;
-                    transform.DOShakePosition(duration, strength, vibrato).OnComplete(() => isShaking = false);
-                }
-
-                //offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
-            }
-            else
-            {
-                foreach (var pin in keys) // 失敗時の鍵の横移動の大きさ。半端なところに引っかかるよう移動距離を設定する
-                {
-                    var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - pin.transform.position.y) < hGap).ToList();
-                    offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - pin.length * wGap - (x.length * wGap)));
-                }
-            }
-
-            foreach (var pin in keys) // 鍵の照合アニメーション
-            {
-                pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
-
-                if (!gameIsCompleteOnMissed && !isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
-                {
-                    DOTween.Sequence(pin)
-                   .AppendInterval(0.2f)
-                   .Append(pin.transform.DOLocalMoveX(pin.transform.localPosition.x, 0.1f))
-                   .OnComplete(() => isScrollPause = false);
-                }
-            }
+            Animation(offset.x, offset.y);
 
             if (gameIsCompleteOnMissed || isClear) // このゲームを終了させる処理
             {
-                Invoke(nameof(EndGame), duration);
+                Invoke(nameof(Complete), duration);
             }
         }
     }
 
-    void EndGame() // 終了時アニメーション。アニメーションを終えたらこのゲームオブジェクトを破棄する
+    /// <summary>
+    /// 成功・失敗判定
+    /// </summary>
+    /// <param name="offset">x:錠のアニメーション距離<br></br>y:鍵のアニメーション距離</param>
+    /// <param name="hitPinCount">合致したピンの数</param>
+    void Verify(out Vector2 offset, out int hitPinCount)
+    {
+        offset.x = float.MaxValue; // 鍵のアニメーション距離
+        offset.y = 0;
+
+        hitPinCount = 0;
+        isClear = true;
+        foreach (var key in keys)
+        {
+            var keyY = key.transform.position.y;
+            var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
+            var index = targets.IndexOf(targets.Min());
+
+            if (key.length - 1 + locks[index].length != maxLength) // 失敗
+            {
+                isClear = false;
+            }
+
+            if (offset.y == 0) // 一回処理すればOK
+            {
+                offset.y = key.transform.position.y - locks[index].transform.position.y;
+            }
+
+            var minLengthAtLocksPin = uiWidth - wGap * (key.length + locks[index].length);
+            if (minLengthAtLocksPin < offset.x)
+            {
+                offset.x = minLengthAtLocksPin;
+                hitPinCount = 1;
+            }
+            else if (minLengthAtLocksPin == offset.x)
+            {
+                hitPinCount++;
+            }
+        }
+    }
+
+    void SetScore(int hitPinCount)
+    {
+        // scoreを決定
+        if (isClear)
+        {
+            AddScore = (int)(maxAddScore * multiplier);
+            AddChancePoint = maxAddChancePoint * multiplier;
+        }
+        else
+        {
+            AddScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+            AddChancePoint = 1f * hitPinCount / keysCount * maxAddChancePoint;
+        }
+    }
+
+    void Animation(float offsetX, float offsetY)
+    {
+        // アニメーション
+        if (gameIsCompleteOnMissed || isClear)
+        {
+            // 錠の縦移動アニメーション
+            foreach (var pin in locks)
+            {
+                pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
+            }
+
+            if (isClear)
+            {
+                isShaking = true;
+                transform.DOShakePosition(duration, strength, vibrato).OnComplete(() => isShaking = false);
+            }
+
+            //offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
+        }
+        else
+        {
+            foreach (var pin in keys) // 失敗時の鍵の横移動の大きさ。半端なところに引っかかるよう移動距離を設定する
+            {
+                var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - pin.transform.position.y) < hGap).ToList();
+                offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, uiWidth - pin.length * wGap - (x.length * wGap)));
+            }
+        }
+
+        foreach (var pin in keys) // 鍵の照合アニメーション
+        {
+            pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
+
+            if (!gameIsCompleteOnMissed && !isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
+            {
+                DOTween.Sequence(pin)
+               .AppendInterval(0.2f)
+               .Append(pin.transform.DOLocalMoveX(pin.transform.localPosition.x, 0.1f))
+               .OnComplete(() => isScrollPause = false);
+            }
+        }
+    }
+
+    void Complete() // 終了時アニメーションと加点等処理
     {
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
@@ -252,19 +267,12 @@ public class PinLockController : MonoBehaviour
             });
     }
 
-    public void EndGameAA()
+    public void ExitGame()
     {
         OnCompleteAction = null;
-        EndGame();
+        Complete();
     }
 
-    PinData CreatePin(int Length, float pos, float right, float down, GameObject pinPref)
-    {
-        var pin = Instantiate(pinPref, transform).GetComponent<PinData>();
-        pin.length = Length;
-        pin.pos = pos;
-        return pin;
-    }
 
     float GetPinX(PinData pin, float right) // 縦を揃えるソート
     {
@@ -291,5 +299,13 @@ public class PinLockController : MonoBehaviour
         var scrollSize = hGap * locksCount;
         pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
         pin.transform.localPosition = GetSortedPinPos(pin, right, down);
+    }
+
+    void PinSetPos(PinData[] pins, float right, float down)
+    {
+        foreach (var pin in pins)
+        {
+            PinSetPos(pin, right, down);
+        }
     }
 }
