@@ -10,6 +10,10 @@ public class GameSpawner : MonoBehaviour
     [SerializeField] PinLockController _10xGame;
     [SerializeField] ChanceGauge chanceGauge;
 
+    [Header("Position")]
+    [SerializeField] float centerX;
+    [SerializeField] float centerY;
+
     public PinLockController CreateGame()
     {
         if (chanceGauge.IsChance)
@@ -34,6 +38,9 @@ public class GameSpawner : MonoBehaviour
 
     PinLockController Create(PinLockController go)
     {
-        return Instantiate(go, transform).GetComponent<PinLockController>();
+        var game = Instantiate(go, transform).GetComponent<PinLockController>();
+        game.centerX = centerX;
+        game.centerY = centerY;
+        return game;
     }
 }

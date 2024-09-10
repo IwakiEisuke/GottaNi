@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PinLockGameManager : MonoBehaviour
 {
+    [SerializeField] float timeToStart;
     [SerializeField] int gameCount;
     [SerializeField] PinLockRandomizer[] adds;
     [SerializeField] ScoreManager scoreManager;
@@ -13,7 +14,7 @@ public class PinLockGameManager : MonoBehaviour
     private void Start()
     {
         timeManager.Init();
-        Invoke(nameof(StartGame), 3);
+        Invoke(nameof(StartGame), timeToStart);
     }
 
     public void StartGame()
