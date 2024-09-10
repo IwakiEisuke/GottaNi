@@ -282,15 +282,15 @@ MonoBehaviour:
   keysCount: 5
   maxLength: 4
   minLength: 1
-  wGap: 0.5
-  hGap: 0.4
+  wGap: 0.35
+  hGap: 0.3
   scrollSpeed: 13
   keysPos: 0
   lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
   keyPref: {fileID: 3457169830033365834, guid: d555f085cc8a32d4fbe6ced2257ce614, type: 3}
   keyParent: {fileID: 2894856279905429629}
-  uiWidth: 5
-  uiHeight: 6
+  uiWidth: 4
+  uiHeight: 5
   openDuration: 0.2
   frame: {fileID: 125435746270686230}
   centerX: 0
