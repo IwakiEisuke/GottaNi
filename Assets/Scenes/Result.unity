@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 1404783441}
   - component: {fileID: 1404783442}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,11 +1543,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5945195f2cbfc04197524cd3e4ab668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchorTargets: []
+  anchorTargets:
+  - {fileID: 2122547603}
   deltaTargets:
-  - {fileID: 183421230}
-  duration: 3
-  ease: 15
+  - {fileID: 1466754175}
+  - {fileID: 1836474140}
+  duration: 1
+  ease: 13
   moveType: 1
   playOnAwake: 0
 --- !u!1 &1756985557
@@ -1563,7 +1565,7 @@ GameObject:
   - component: {fileID: 1756985560}
   - component: {fileID: 1756985559}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1632,7 +1634,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1756985560}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1707130744}
+        m_TargetAssemblyTypeName: RectEasingController, Assembly-CSharp
+        m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1756985560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2222,7 +2236,7 @@ GameObject:
   - component: {fileID: 2123825586}
   - component: {fileID: 2123825585}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2291,7 +2305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2123825586}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1707130744}
+        m_TargetAssemblyTypeName: RectEasingController, Assembly-CSharp
+        m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2123825586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2337,5 +2363,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1902367411}
-  - {fileID: 1707130743}
   - {fileID: 1087234963}
+  - {fileID: 1707130743}
