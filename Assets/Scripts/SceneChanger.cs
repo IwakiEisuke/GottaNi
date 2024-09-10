@@ -1,31 +1,43 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField] Animator animator;
-    [SerializeField] AnimationClip anim;
+    [SerializeField] PlayableDirector director;
     [SerializeField] string sceneName;
+    [SerializeField] string[] unloadScenes;
     [SerializeField] bool trigger;
+    [SerializeField] float additionalDuration;
 
     public void ChangeScene()
     {
-        if (animator) animator.Play(anim.name);
-
-        if (anim)
+        if (director)
         {
-            Invoke(nameof(Load), anim.length);
+            director.Play();
+            Invoke(nameof(Load), (float)director.duration + additionalDuration);
         }
         else
         {
-            Load();
+            Invoke(nameof(Load), additionalDuration);
         }
     }
 
     void Load()
     {
-        SceneManager.LoadScene(sceneName);
+        foreach (string unload in unloadScenes)
+        {
+            SceneManager.UnloadSceneAsync(unload);
+        }
+
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    public void UnloadScene(string name)
+    {
+        SceneManager.UnloadSceneAsync(name);
     }
 
     private void Update()

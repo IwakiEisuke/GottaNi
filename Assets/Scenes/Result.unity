@@ -1477,6 +1477,125 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698763239}
   m_CullTransparentMesh: 1
+--- !u!1001 &1699118991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 954.3226
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1029.3088
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.55698
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697751783578618149, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734689879748385663, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: m_Name
+      value: SceneChanger
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029220286213635286, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: sceneName
+      value: Title
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029220286213635286, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: additionalDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029220286213635286, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: unloadScenes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029220286213635286, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: unloadScenes.Array.data[0]
+      value: Result
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029220286213635286, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: unloadScenes.Array.data[1]
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403020065497708884, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: sceneName
+      value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403020065497708884, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: additionalDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403020065497708884, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: unloadScenes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403020065497708884, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: unloadScenes.Array.data[0]
+      value: Result
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403020065497708884, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+      propertyPath: unloadScenes.Array.data[1]
+      value: Game
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+--- !u!114 &1699118992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6403020065497708884, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+  m_PrefabInstance: {fileID: 1699118991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4b9239e27888a4d8a64edef0d2d52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1699118993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6029220286213635286, guid: ae9cf25e9d78c6a4bbdc137e3898012d, type: 3}
+  m_PrefabInstance: {fileID: 1699118991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4b9239e27888a4d8a64edef0d2d52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1707130741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,6 +1635,7 @@ MonoBehaviour:
   ease: 15
   moveType: 0
   playOnAwake: 1
+  timeToPlay: 0.5
 --- !u!4 &1707130743
 Transform:
   m_ObjectHideFlags: 0
@@ -1552,6 +1672,7 @@ MonoBehaviour:
   ease: 13
   moveType: 1
   playOnAwake: 0
+  timeToPlay: 0
 --- !u!1 &1756985557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,6 +1759,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1707130744}
         m_TargetAssemblyTypeName: RectEasingController, Assembly-CSharp
         m_MethodName: Tween
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1699118992}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: ChangeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2318,6 +2451,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1699118993}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2123825586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2365,3 +2510,4 @@ SceneRoots:
   - {fileID: 1902367411}
   - {fileID: 1087234963}
   - {fileID: 1707130743}
+  - {fileID: 1699118991}

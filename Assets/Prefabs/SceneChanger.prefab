@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4b9239e27888a4d8a64edef0d2d52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  anim: {fileID: 7400000, guid: c825a06242475cc4db3d7e76e16ad904, type: 2}
+  director: {fileID: 0}
   sceneName: Game
+  unloadScenes: []
+  trigger: 0
 --- !u!114 &6029220286213635286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4b9239e27888a4d8a64edef0d2d52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  anim: {fileID: 7400000, guid: c825a06242475cc4db3d7e76e16ad904, type: 2}
+  director: {fileID: 0}
   sceneName: ScoreBoard
+  unloadScenes: []
+  trigger: 0

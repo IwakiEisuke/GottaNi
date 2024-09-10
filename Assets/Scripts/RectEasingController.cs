@@ -9,6 +9,7 @@ public class RectEasingController : MonoBehaviour
     [SerializeField] Ease ease;
     [SerializeField] MoveType moveType;
     [SerializeField] bool playOnAwake;
+    [SerializeField] float timeToPlay;
 
 
     void Start()
@@ -46,8 +47,8 @@ public class RectEasingController : MonoBehaviour
 
         void AnchorOpen(RectTransform t)
         {
-            t.DOAnchorMax(Vector2.one, duration).SetEase(ease);
-            t.DOAnchorMin(Vector2.zero, duration).SetEase(ease);
+            t.DOAnchorMax(Vector2.one, duration).SetEase(ease).SetDelay(timeToPlay);
+            t.DOAnchorMin(Vector2.zero, duration).SetEase(ease).SetDelay(timeToPlay);
             var vec = new Vector2(0.5f, 0.5f);
             t.anchorMax = vec;
             t.anchorMin = vec;
@@ -56,8 +57,8 @@ public class RectEasingController : MonoBehaviour
         void AnchorClose(RectTransform t)
         {
             var vec = new Vector2(0.5f, 0.5f);
-            t.DOAnchorMax(vec, duration).SetEase(ease);
-            t.DOAnchorMin(vec, duration).SetEase(ease);
+            t.DOAnchorMax(vec, duration).SetEase(ease).SetDelay(timeToPlay);
+            t.DOAnchorMin(vec, duration).SetEase(ease).SetDelay(timeToPlay);
         }
     }
 
@@ -75,13 +76,13 @@ public class RectEasingController : MonoBehaviour
 
         void DeltaOpen(RectTransform t)
         {
-            t.DOSizeDelta(t.sizeDelta, duration).SetEase(ease);
+            t.DOSizeDelta(t.sizeDelta, duration).SetEase(ease).SetDelay(timeToPlay);
             t.sizeDelta = Vector2.zero;
         }
 
         void DeltaClose(RectTransform t)
         {
-            t.DOSizeDelta(Vector2.zero, duration).SetEase(ease);
+            t.DOSizeDelta(Vector2.zero, duration).SetEase(ease).SetDelay(timeToPlay);
         }
     }
 
