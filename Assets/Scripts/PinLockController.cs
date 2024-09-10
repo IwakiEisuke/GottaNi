@@ -205,13 +205,13 @@ public class PinLockController : MonoBehaviour
         if (isClear)
         {
             AddScore = (int)(maxAddScore * multiplier);
-            AddChancePoint = maxAddChancePoint * multiplier;
         }
         else
         {
             AddScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
-            AddChancePoint = 1f * hitPinCount / keysCount * maxAddChancePoint;
         }
+
+        AddChancePoint = 1f * hitPinCount / keysCount * maxAddChancePoint;
     }
 
     void Animation(float offsetX, float offsetY)

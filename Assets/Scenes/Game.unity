@@ -586,6 +586,7 @@ MonoBehaviour:
   maxChancePoint: 100
   chancePoint: 0
   decreaseSpeed: 2
+  tweenDuration: 0.5
 --- !u!114 &298637536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +622,7 @@ MonoBehaviour:
   format: 000
   scoreText: {fileID: 1750024556}
   score: 0
+  tweenDuration: 1
 --- !u!114 &298637538
 MonoBehaviour:
   m_ObjectHideFlags: 0
