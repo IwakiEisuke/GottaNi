@@ -26,4 +26,6 @@ public class ScoreManager : MonoBehaviour
         DOTween.To(() => dummy, x => scoreText.text = preText + x.ToString(format), score + add, tweenDuration);
         score += add;
     }
+
+    public int GetScore() { return score; }
 }
