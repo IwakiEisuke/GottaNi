@@ -263,12 +263,13 @@ public class PinLockController : MonoBehaviour
             .Append(DOTween.To(() => uiWidth, x => uiWidth = x, 0, openDuration).SetEase(Ease.Linear))
             .OnComplete(() => {
                 OnCompleteAction?.Invoke();
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             });
     }
 
     public void ExitGame()
     {
+        DOTween.Kill(gameObject);
         OnCompleteAction = null;
         Complete();
     }

@@ -37,7 +37,7 @@ public class PinLockGameManager : MonoBehaviour
 
     public void EndGame()
     {
-        Debug.Log("GameOver");
+        //Debug.Log("GameOver");
         Ranking.AddRanking(scoreManager.GetScore());
         game.ExitGame();
     }

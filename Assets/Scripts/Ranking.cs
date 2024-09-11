@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Ranking
+public class Ranking
 {
-    readonly static RankingData data = GetRanking();
-
     public static RankingData GetRanking()
     {
         var json = PlayerPrefs.GetString("ranking");
         return JsonUtility.FromJson(json, typeof(RankingData)) as RankingData;
     }
+
     public static void AddRanking(int item)
     {
+        var data = GetRanking() ?? new RankingData();
         data.ranking.Add(item);
-        SetRanking();
+        SetRanking(data);
     }
 
     public static void ResetRanking()
@@ -21,7 +21,7 @@ public static class Ranking
         var json = JsonUtility.ToJson(new RankingData());
         PlayerPrefs.SetString("ranking", json);
     }
-    static void SetRanking()
+    static void SetRanking(RankingData data)
     {
         var json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("ranking", json);
@@ -31,5 +31,5 @@ public static class Ranking
 [System.Serializable]
 public class RankingData
 {
-    public List<int> ranking;
+    public List<int> ranking = new();
 }

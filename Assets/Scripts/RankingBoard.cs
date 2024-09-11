@@ -19,19 +19,27 @@ public class RankingBoard : MonoBehaviour
     {
         data = Ranking.GetRanking();
 
-        var ranking = data.ranking.OrderByDescending(x => x).ToArray();
-        var count = Mathf.Min(maxcount, ranking.Length);
+        if (data != null)
+        {
+            var ranking = data.ranking.OrderByDescending(x => x).ToArray();
+            var count = Mathf.Min(maxcount, ranking.Length);
 
-        for (int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
+            {
+                var t = Instantiate(textPref, transform).GetComponent<Text>();
+                t.text = $"{i + 1} : {ranking[i]:0000}";
+            }
+
+            var sm = FindAnyObjectByType<ScoreManager>();
+            if (sm && currentScoreText)
+            {
+                GenerateCurrent(sm.GetScore());
+            }
+        }
+        else
         {
             var t = Instantiate(textPref, transform).GetComponent<Text>();
-            t.text = $"{i + 1} : {ranking[i]:0000}";
-        }
-
-        var sm = FindAnyObjectByType<ScoreManager>();
-        if (sm && currentScoreText)
-        {
-            GenerateCurrent(sm.GetScore());
+            t.text = "NOTHING YET.";
         }
     }
 

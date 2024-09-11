@@ -6,6 +6,10 @@ public class RankingDebugger : MonoBehaviour
 {
     [SerializeField] RankingData data;
 
+    public void Delete()
+    {
+        PlayerPrefs.DeleteAll();
+    }
     public void ResetRanking()
     {
         Ranking.ResetRanking();
