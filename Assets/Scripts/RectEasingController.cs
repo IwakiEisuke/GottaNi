@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class RectEasingController : MonoBehaviour
@@ -10,7 +11,6 @@ public class RectEasingController : MonoBehaviour
     [SerializeField] MoveType moveType;
     [SerializeField] bool playOnAwake;
     [SerializeField] float timeToPlay;
-
 
     void Start()
     {
