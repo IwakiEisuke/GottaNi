@@ -298,7 +298,8 @@ public class PinLockController : MonoBehaviour
     void PinSetPos(PinData pin, float right, float down)
     {
         var scrollSize = hGap * locksCount;
-        pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
+        pin.GetComponent<SpriteRenderer>().size = new Vector3(wGap * pin.length, hGap);
+        //pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
         pin.transform.localPosition = GetSortedPinPos(pin, right, down);
     }
 

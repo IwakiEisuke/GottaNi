@@ -364,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locksCount: 24
   keysCount: 5
-  maxLength: 4
+  maxLength: 5
   minLength: 1
   wGap: 0.35
   hGap: 0.4
