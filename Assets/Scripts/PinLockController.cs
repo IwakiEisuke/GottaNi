@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
@@ -36,6 +37,8 @@ public class PinLockController : MonoBehaviour
     public SpriteRenderer frame;
     public float centerX, centerY;
     public SpriteRenderer backGround;
+    public float backGroundSpeedX;
+    public float backGroundSpeedY;
 
     [Header("GameClear AnimationSettings")]
     public float duration;
@@ -121,7 +124,7 @@ public class PinLockController : MonoBehaviour
             mask.localPosition = -uiSize / 2;
             frame.size = uiSize + new Vector2(2, 2);
             frame.transform.localPosition = -uiSize / 2;
-            backGround.size = uiSize;
+            backGround.size = uiSize + new Vector2(backGroundSpeedX, backGroundSpeedY) * (Time.time % 4);
             backGround.transform.localPosition = -uiSize / 2;
         }
 

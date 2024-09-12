@@ -221,7 +221,7 @@ SpriteRenderer:
   m_SortingLayerID: 291356979
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e5183da5c18e5d6469e141b0123296d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50260e50020ba11429f168953ca6b7eb, type: 3}
   m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -305,16 +305,16 @@ SpriteRenderer:
   m_SortingLayerID: 291356979
   m_SortingLayer: 1
   m_SortingOrder: -99
-  m_Sprite: {fileID: 21300000, guid: 8a26ee08559a6e042b2fc88bd5deb6a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 913487a8fd3146b47a1fbd2b900a28ac, type: 3}
   m_Color: {r: 0.17735851, g: 0.17735851, b: 0.17735851, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 2
   m_Size: {x: 0, y: 0}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &7296828495978999899
 GameObject:
@@ -380,6 +380,8 @@ MonoBehaviour:
   centerX: 0
   centerY: 0
   backGround: {fileID: 1857835901170962093}
+  backGroundSpeedX: 2
+  backGroundSpeedY: 0
   duration: 0.4
   strength: 0.4
   vibrato: 20

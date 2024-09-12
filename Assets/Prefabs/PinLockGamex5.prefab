@@ -221,7 +221,7 @@ SpriteRenderer:
   m_SortingLayerID: 291356979
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e5183da5c18e5d6469e141b0123296d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50260e50020ba11429f168953ca6b7eb, type: 3}
   m_Color: {r: 0.33522967, g: 0.38316396, b: 0.7433963, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -278,13 +278,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43128043ae03244da709b040284ea68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locksCount: 24
+  locksCount: 22
   keysCount: 5
   maxLength: 4
   minLength: 1
   wGap: 0.35
   hGap: 0.25
-  scrollSpeed: 13
+  scrollSpeed: 14
   keysPos: 0
   lockPref: {fileID: 3457169830033365834, guid: de9579f2749bf294da87d1cd99a28585, type: 3}
   keyPref: {fileID: 3457169830033365834, guid: d555f085cc8a32d4fbe6ced2257ce614, type: 3}
@@ -296,6 +296,8 @@ MonoBehaviour:
   centerX: 0
   centerY: 0
   backGround: {fileID: 4575599011028525334}
+  backGroundSpeedX: 1
+  backGroundSpeedY: 3
   duration: 0.4
   strength: 0.4
   vibrato: 20
@@ -377,14 +379,14 @@ SpriteRenderer:
   m_SortingLayerID: 291356979
   m_SortingLayer: 1
   m_SortingOrder: -99
-  m_Sprite: {fileID: 21300000, guid: 8a26ee08559a6e042b2fc88bd5deb6a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 913487a8fd3146b47a1fbd2b900a28ac, type: 3}
   m_Color: {r: 0.17735851, g: 0.17735851, b: 0.17735851, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 2
   m_Size: {x: 0, y: 0}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0

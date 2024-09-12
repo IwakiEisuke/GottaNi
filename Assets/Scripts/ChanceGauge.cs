@@ -34,6 +34,7 @@ public class ChanceGauge : MonoBehaviour
 
         if (chancePoint >= maxChancePoint)
         {
+            AudioManager.Play(SoundType.GaugeFull);
             IsChance = true;
         }
     }

@@ -16,7 +16,7 @@ public class GlitchElement01 : MonoBehaviour
 
     public void Update()
     {
-        X += speed * Time.deltaTime;
+        X = 13 + (speed * Time.time) % 13;
     }
 
     public static GlitchElement01 Create(GlitchElement01 prefab, float speed, Vector2 localPosition, Transform parent)

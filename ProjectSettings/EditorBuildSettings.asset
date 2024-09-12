@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BackGround.unity
     guid: e91a974e4bc134641b92d7db9d48f871
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Debugger.unity
     guid: d08a02b389fb5f24bad73182a5f55a2f
   m_configObjects: {}
