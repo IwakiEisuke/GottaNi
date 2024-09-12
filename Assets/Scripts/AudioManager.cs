@@ -1,4 +1,7 @@
 using DG.Tweening;
+using System;
+using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -14,12 +17,14 @@ public class AudioManager : MonoBehaviour
               OpenResult,
               CloseResult,
               GaugeFull,
-              AddScore,
-              InGameBGM,
-              OutGameBGM;
+              AddScore;
 
     [SerializeField] AudioSource SESource;
-    [SerializeField] AudioSource BGMSource;
+    [SerializeField] AudioSource BGMSource, InGameBGM,
+              OutGameBGM;
+
+    [SerializeField] float transitionTime = 5f;
+
 
     private void Awake()
     {
@@ -44,21 +49,33 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayBGM(BGMType type, float volume)
     {
+        var transitionTime = incetance.transitionTime;
         if (incetance)
         {
             var bgm = GetBGM(type);
-            if (bgm != null)
+
+            if (!bgm.isPlaying)
             {
-                incetance.BGMSource.clip = bgm;
-                incetance.BGMSource.volume = volume;
-                incetance.BGMSource.Play();
+                ChangeBGMVolume(bgm, volume, transitionTime);
+                bgm.Play();
+
+                var types = Enum.GetValues(typeof(BGMType));
+                foreach (BGMType t in types)
+                {
+                    if (t != type)
+                    {
+                        var otherBGM = GetBGM(t);
+                        ChangeBGMVolume(otherBGM, 0, transitionTime);
+                        otherBGM.Stop();
+                    }
+                }
             }
         }
     }
 
-    public static void ChangeBGMVolume(float volume)
+    public static Tweener ChangeBGMVolume(AudioSource source, float volume, float duration)
     {
-        incetance.BGMSource.volume = volume;
+        return DOTween.To(() => source.volume, x => source.volume = x, volume, duration);
     }
 
     static AudioClip GetSound(SoundType type)
@@ -80,7 +97,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    static AudioClip GetBGM(BGMType type)
+    static AudioSource GetBGM(BGMType type)
     {
         switch (type)
         {

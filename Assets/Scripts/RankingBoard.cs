@@ -17,8 +17,6 @@ public class RankingBoard : MonoBehaviour
 
     void Generate()
     {
-        AudioManager.Play(SoundType.OpenResult);
-
         data = Ranking.GetRanking();
 
         if (data != null)
