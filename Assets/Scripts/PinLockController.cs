@@ -75,6 +75,8 @@ public class PinLockController : MonoBehaviour
         isScrollPause = true;
         mask = GetComponentInChildren<SpriteMask>().transform;
 
+        AudioManager.Play(SoundType.OpenGame);
+
         // 開始時アニメーション
         DOTween.Sequence(mask) 
             .Append(DOTween.To(() => 0, x => uiWidth = x, uiWidth, openDuration).SetEase(Ease.Linear))
@@ -145,7 +147,7 @@ public class PinLockController : MonoBehaviour
         {
             isScrollPause = true;
 
-            Verify(out var offset, out var hitPinCount);
+            Matching(out var offset, out var hitPinCount);
 
             SetScore(hitPinCount);
 
@@ -163,7 +165,7 @@ public class PinLockController : MonoBehaviour
     /// </summary>
     /// <param name="offset">x:錠のアニメーション距離<br></br>y:鍵のアニメーション距離</param>
     /// <param name="hitPinCount">合致したピンの数</param>
-    void Verify(out Vector2 offset, out int hitPinCount)
+    void Matching(out Vector2 offset, out int hitPinCount)
     {
         offset.x = float.MaxValue; // 鍵のアニメーション距離
         offset.y = 0;
@@ -216,13 +218,15 @@ public class PinLockController : MonoBehaviour
 
     void Animation(float offsetX, float offsetY)
     {
+        var moveDuration = 0.1f;
         // アニメーション
         if (gameIsCompleteOnMissed || isClear)
         {
+            
             // 錠の縦移動アニメーション
             foreach (var pin in locks)
             {
-                pin.transform.DOLocalMoveY(offsetY, 0.1f).SetRelative();
+                pin.transform.DOLocalMoveY(offsetY, moveDuration).SetRelative();
             }
 
             if (isClear)
@@ -244,7 +248,7 @@ public class PinLockController : MonoBehaviour
 
         foreach (var pin in keys) // 鍵の照合アニメーション
         {
-            pin.transform.DOLocalMoveX(offsetX, 0.05f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
+            pin.transform.DOLocalMoveX(offsetX, moveDuration / 2f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
 
             if (!gameIsCompleteOnMissed && !isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
             {
@@ -254,10 +258,14 @@ public class PinLockController : MonoBehaviour
                .OnComplete(() => isScrollPause = false);
             }
         }
+
+        AudioManager.Play(isClear ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
     }
 
     void Complete() // 終了時アニメーションと加点等処理
     {
+        AudioManager.Play(SoundType.CloseGame);
+
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => uiWidth, x => uiWidth = x, 0, openDuration).SetEase(Ease.Linear))

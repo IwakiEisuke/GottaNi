@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     [SerializeField] string background;
 
-    void Start()
+    void Awake()
     {
         var a = SceneManager.GetSceneByName(background);
         if (a.buildIndex == -1)

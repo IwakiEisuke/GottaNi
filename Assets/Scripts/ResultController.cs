@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class ResultController : MonoBehaviour
 {
-    void Start()
+    public void Close()
     {
-
+        AudioManager.Play(SoundType.CloseResult);
     }
 }
