@@ -1119,6 +1119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 0.5
+  titleButton: {fileID: 2123825585}
+  restartButton: {fileID: 1756985559}
 --- !u!1 &1220321629
 GameObject:
   m_ObjectHideFlags: 0

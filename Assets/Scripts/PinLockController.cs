@@ -62,6 +62,7 @@ public class PinLockController : MonoBehaviour
     [SerializeField] bool isScrollPause;
 
     public event UnityAction OnCompleteAction;
+    public UnityEvent OnCompleteEvent;
 
     /// <summary>ゲームの成功判定</summary>
     bool isClear;
@@ -268,6 +269,7 @@ public class PinLockController : MonoBehaviour
     void Complete() // 終了時アニメーションと加点等処理
     {
         AudioManager.Play(SoundType.CloseGame);
+        OnCompleteEvent.Invoke();
 
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))

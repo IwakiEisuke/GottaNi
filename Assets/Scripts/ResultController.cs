@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ResultController : MonoBehaviour
 {
     [SerializeField] float waitTime;
+    [SerializeField] Button titleButton, restartButton;
 
     private void Start()
     {
@@ -21,5 +22,17 @@ public class ResultController : MonoBehaviour
     public void Close()
     {
         AudioManager.Play(SoundType.CloseResult);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            titleButton.onClick.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            restartButton.onClick.Invoke();
+        }
     }
 }
