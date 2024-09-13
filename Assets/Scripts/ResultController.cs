@@ -26,11 +26,11 @@ public class ResultController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && titleButton)
         {
             titleButton.onClick.Invoke();
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R) && restartButton)
         {
             restartButton.onClick.Invoke();
         }

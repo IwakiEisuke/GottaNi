@@ -19,7 +19,7 @@ public class RankingBoard : MonoBehaviour
     {
         data = Ranking.GetRanking();
 
-        if (data != null)
+        if (!(data == null || data.ranking.Count == 0))
         {
             var ranking = data.ranking.OrderByDescending(x => x).ToArray();
             var count = Mathf.Min(maxcount, ranking.Length);

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -32,7 +33,8 @@ public class SceneChanger : MonoBehaviour
             SceneManager.UnloadSceneAsync(unload);
         }
 
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        StartCoroutine(nameof(Co), sceneName);
+        //SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
     public void UnloadScene(string name)
@@ -47,5 +49,12 @@ public class SceneChanger : MonoBehaviour
             trigger = false;
             ChangeScene();
         }
+    }
+
+    public IEnumerator Co(string scene)
+    {
+        yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        var aaa = SceneManager.GetSceneByName(scene);
+        SceneManager.SetActiveScene(aaa);
     }
 }
