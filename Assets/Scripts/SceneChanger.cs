@@ -28,12 +28,8 @@ public class SceneChanger : MonoBehaviour
 
     void Load()
     {
-        foreach (string unload in unloadScenes)
-        {
-            SceneManager.UnloadSceneAsync(unload);
-        }
-
         StartCoroutine(nameof(Co), sceneName);
+        
         //SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
@@ -56,5 +52,9 @@ public class SceneChanger : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
         var aaa = SceneManager.GetSceneByName(scene);
         SceneManager.SetActiveScene(aaa);
+        foreach (string unload in unloadScenes)
+        {
+            SceneManager.UnloadSceneAsync(unload);
+        }
     }
 }

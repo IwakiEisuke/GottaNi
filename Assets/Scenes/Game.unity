@@ -529,9 +529,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalGame: {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
-  _2xGame: {fileID: 2619434247193239849, guid: 22b69f0db7afc9943824b7bc1c4b3360, type: 3}
-  _5xGame: {fileID: 2619434247193239849, guid: d61d8ddd38467a0498c668ed8942aab7, type: 3}
-  _10xGame: {fileID: 2619434247193239849, guid: e4b15328f2f2be64db92df799bc7dffd, type: 3}
+  _2xGame: {fileID: 2253899312325596236, guid: da7205bfb223fea4cabae3cd954767e4, type: 3}
+  _5xGame: {fileID: 2253899312325596236, guid: 862b8af461820ee44a1fb6fd2e4afa9f, type: 3}
+  _10xGame: {fileID: 2253899312325596236, guid: f122ebb8c096bd54fb93eb5099e2ea75, type: 3}
   chanceGauge: {fileID: 298637535}
   centerX: 0
   centerY: -0.32

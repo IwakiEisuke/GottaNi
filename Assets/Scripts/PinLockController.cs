@@ -66,7 +66,6 @@ public class PinLockController : MonoBehaviour
 
     /// <summary>ÉQÅ[ÉÄÇÃê¨å˜îªíË</summary>
     bool isClear;
-
     bool isShaking;
 
     PinData[] locks, keys;
@@ -125,7 +124,8 @@ public class PinLockController : MonoBehaviour
             mask.localPosition = -uiSize / 2;
             frame.size = uiSize + new Vector2(2, 2);
             frame.transform.localPosition = -uiSize / 2;
-            backGround.size = uiSize + new Vector2(backGroundSpeedX, backGroundSpeedY) * (Time.time % 4);
+            backGround.size = uiSize;
+            backGround.material.SetVector("_ScrollSpeed", new Vector2(backGroundSpeedX, backGroundSpeedY));
             backGround.transform.localPosition = -uiSize / 2;
         }
 
