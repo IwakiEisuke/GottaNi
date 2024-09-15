@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager incetance;
+    public static AudioManager instance;
     [SerializeField]
     AudioClip MatchingSuccess,
               MatchingFailure,
@@ -20,37 +20,39 @@ public class AudioManager : MonoBehaviour
               AddScore;
 
     [SerializeField] AudioSource SESource;
-    [SerializeField] AudioSource BGMSource, InGameBGM,
-              OutGameBGM;
+    [SerializeField] AudioSource BGMSource, InGameBGM, OutGameBGM;
 
     [SerializeField] float transitionTime = 5f;
 
 
     private void Awake()
     {
-        if (incetance != null)
+        if (instance == null)
         {
-            Destroy(incetance);
+            instance = this;
         }
-        incetance = this;
+        else
+        {
+            Destroy(this);
+        }
     }
 
     public static void Play(SoundType type)
     {
-        if (incetance)
+        if (instance)
         {
             var se = GetSound(type);
             if (se != null)
             {
-                incetance.SESource.PlayOneShot(se);
+                instance.SESource.PlayOneShot(se);
             }
         }
     }
 
     public static void PlayBGM(BGMType type, float volume)
     {
-        var transitionTime = incetance.transitionTime;
-        if (incetance)
+        var transitionTime = instance.transitionTime;
+        if (instance)
         {
             var bgm = GetBGM(type);
 
@@ -80,31 +82,30 @@ public class AudioManager : MonoBehaviour
 
     static AudioClip GetSound(SoundType type)
     {
-        switch (type)
+        return type switch
         {
-            case SoundType.MatchingSuccess: return incetance.MatchingSuccess;
-            case SoundType.MatchingFailure: return incetance.MatchingFailure;
-            case SoundType.ButtonHover: return incetance.ButtonHover;
-            case SoundType.ButtonPressed: return incetance.ButtonPressed;
-            case SoundType.OpenGame: return incetance.GameOpen;
-            case SoundType.CloseGame: return incetance.GameClose;
-            case SoundType.OpenResult: return incetance.OpenResult;
-            case SoundType.CloseResult: return incetance.CloseResult;
-            case SoundType.GaugeFull: return incetance.GaugeFull;
-            case SoundType.AddScore: return incetance.AddScore;
-            
-            default: return null;
-        }
+            SoundType.MatchingSuccess => instance.MatchingSuccess,
+            SoundType.MatchingFailure => instance.MatchingFailure,
+            SoundType.ButtonHover => instance.ButtonHover,
+            SoundType.ButtonPressed => instance.ButtonPressed,
+            SoundType.OpenGame => instance.GameOpen,
+            SoundType.CloseGame => instance.GameClose,
+            SoundType.OpenResult => instance.OpenResult,
+            SoundType.CloseResult => instance.CloseResult,
+            SoundType.GaugeFull => instance.GaugeFull,
+            SoundType.AddScore => instance.AddScore,
+            _ => null,
+        };
     }
 
     static AudioSource GetBGM(BGMType type)
     {
-        switch (type)
+        return type switch
         {
-            case BGMType.InGameBGM: return incetance.InGameBGM;
-            case BGMType.OutGameBGM: return incetance.OutGameBGM;
-            default: return null;
-        }
+            BGMType.InGameBGM => instance.InGameBGM,
+            BGMType.OutGameBGM => instance.OutGameBGM,
+            _ => null,
+        };
     }
 }
 

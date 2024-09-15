@@ -50,8 +50,8 @@ public class SceneChanger : MonoBehaviour
     public IEnumerator Co(string scene)
     {
         yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-        var aaa = SceneManager.GetSceneByName(scene);
-        SceneManager.SetActiveScene(aaa);
+        var loadScene = SceneManager.GetSceneByName(scene);
+        SceneManager.SetActiveScene(loadScene);
         foreach (string unload in unloadScenes)
         {
             SceneManager.UnloadSceneAsync(unload);

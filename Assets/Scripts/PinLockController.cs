@@ -108,8 +108,8 @@ public class PinLockController : MonoBehaviour
         for (int i = 0; i < keysCount; i++)
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
-            keys[i] = PinData.CreatePin(keyLength + 1, i, keyPref, transform);
-            keys[i].transform.SetParent(keyParent);
+            keys[i] = PinData.CreatePin(keyLength + 1, i, keyPref, keyParent);
+            //keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
         }
 
@@ -310,9 +310,7 @@ public class PinLockController : MonoBehaviour
 
     void PinSetPos(PinData pin, float right, float down)
     {
-        var scrollSize = hGap * locksCount;
         pin.GetComponent<SpriteRenderer>().size = new Vector3(wGap * pin.length, hGap);
-        //pin.transform.localScale = new Vector3(wGap * pin.length, hGap);
         pin.transform.localPosition = GetSortedPinPos(pin, right, down);
     }
 
