@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b825735b030d098478d73ba57e475555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aaa: Set
   data:
     ranking: 6400000000000000e8030000
 --- !u!1 &989048542

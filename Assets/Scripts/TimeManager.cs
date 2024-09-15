@@ -42,11 +42,17 @@ public class TimeManager : MonoBehaviour
 
             if (t <= 0)
             {
-                t = 0;
-                onTimeUpEvent.Invoke();
-                IsTimeUp = true;
+                EndGame();
             }
         }
+    }
+
+    [ContextMenu("EndGame")]
+    public void EndGame()
+    {
+        t = 0;
+        onTimeUpEvent.Invoke();
+        IsTimeUp = true;
     }
 
     public void ViewResult()

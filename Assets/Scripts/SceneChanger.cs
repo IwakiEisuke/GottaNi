@@ -1,9 +1,7 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
 
 public class SceneChanger : MonoBehaviour
 {
@@ -28,8 +26,8 @@ public class SceneChanger : MonoBehaviour
 
     void Load()
     {
-        StartCoroutine(nameof(Co), sceneName);
-        
+        StartCoroutine(nameof(LoadScene), sceneName);
+
         //SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
@@ -47,14 +45,19 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    public IEnumerator Co(string scene)
+    public IEnumerator LoadScene(string scene)
     {
         yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+
         var loadScene = SceneManager.GetSceneByName(scene);
         SceneManager.SetActiveScene(loadScene);
+
         foreach (string unload in unloadScenes)
         {
-            SceneManager.UnloadSceneAsync(unload);
+            if (SceneManager.GetSceneByName(unload).isLoaded)
+            {
+                SceneManager.UnloadSceneAsync(unload);
+            }
         }
     }
 }

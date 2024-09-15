@@ -1301,6 +1301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1404783441}
   - component: {fileID: 1404783442}
+  - component: {fileID: 1404783443}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -1355,6 +1356,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1404783443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404783440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64f5c98fe4161c4e836896b173eaaf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doChangeInteractable: 1
+  buttons: []
 --- !u!1 &1466754174
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2671,7 +2686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
