@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
@@ -81,7 +80,7 @@ public class PinLockController : MonoBehaviour
         AudioManager.Play(SoundType.OpenGame);
 
         // 開始時アニメーション
-        DOTween.Sequence(mask) 
+        DOTween.Sequence(mask)
             .Append(DOTween.To(() => 0, x => uiWidth = x, uiWidth, openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => 0, x => uiHeight = x, uiHeight, openDuration).SetEase(Ease.Linear))
             .OnComplete(Init);
@@ -116,18 +115,21 @@ public class PinLockController : MonoBehaviour
         isScrollPause = false;
     }
 
+    void SetUISize()
+    {
+        var uiSize = new Vector2(uiWidth, uiHeight);
+        mask.localScale = uiSize;
+        mask.localPosition = -uiSize / 2;
+        frame.size = uiSize + new Vector2(2, 2);
+        frame.transform.localPosition = -uiSize / 2;
+        backGround.size = uiSize;
+        backGround.material.SetVector("_ScrollSpeed", new Vector2(backGroundSpeedX, backGroundSpeedY));
+        backGround.transform.localPosition = -uiSize / 2;
+    }
+
     void Update()
     {
-        {
-            var uiSize = new Vector2(uiWidth, uiHeight);
-            mask.localScale = uiSize;
-            mask.localPosition = -uiSize / 2;
-            frame.size = uiSize + new Vector2(2, 2);
-            frame.transform.localPosition = -uiSize / 2;
-            backGround.size = uiSize;
-            backGround.material.SetVector("_ScrollSpeed", new Vector2(backGroundSpeedX, backGroundSpeedY));
-            backGround.transform.localPosition = -uiSize / 2;
-        }
+        SetUISize();
 
         if (!isShaking)
         {
@@ -135,7 +137,7 @@ public class PinLockController : MonoBehaviour
             transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY); // UIの中心を合わせる
         }
 
-        if (!isScrollPause) 
+        if (!isScrollPause)
         {
             // ピンをスクロールさせる
             foreach (var pin in locks)
@@ -226,7 +228,7 @@ public class PinLockController : MonoBehaviour
         // アニメーション
         if (gameIsCompleteOnMissed || isClear)
         {
-            
+
             // 錠の縦移動アニメーション
             foreach (var pin in locks)
             {
@@ -238,8 +240,6 @@ public class PinLockController : MonoBehaviour
                 isShaking = true;
                 transform.DOShakePosition(duration, strength, vibrato).OnComplete(() => isShaking = false);
             }
-
-            //offsetX = uiWidth - wGap * (maxLength + 1); // 成功時の鍵の横移動の大きさ。ピッタリ嵌まるよう移動距離を設定する
         }
         else
         {
@@ -274,7 +274,8 @@ public class PinLockController : MonoBehaviour
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => uiHeight, x => uiHeight = x, 0, openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => uiWidth, x => uiWidth = x, 0, openDuration).SetEase(Ease.Linear))
-            .OnComplete(() => {
+            .OnComplete(() =>
+            {
                 OnCompleteAction?.Invoke();
                 gameObject.SetActive(false);
             });
