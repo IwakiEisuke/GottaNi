@@ -626,7 +626,6 @@ GameObject:
   - component: {fileID: 583652597}
   - component: {fileID: 583652600}
   - component: {fileID: 583652599}
-  - component: {fileID: 583652598}
   - component: {fileID: 583652601}
   - component: {fileID: 583652602}
   m_Layer: 5
@@ -655,23 +654,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &583652598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583652596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8953af593b608344aac628c7e2cf498e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    ranking: 
-  currentScoreText: {fileID: 0}
-  textPref: {fileID: 3201686401253105132, guid: c0f23ad7e032b014493d199ace3a44f5, type: 3}
-  maxcount: 99
 --- !u!114 &583652599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1360,6 +1342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1897091191}
   - component: {fileID: 1897091190}
+  - component: {fileID: 1897091192}
   m_Layer: 0
   m_Name: ResultController
   m_TagString: Untagged
@@ -1397,6 +1380,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1897091192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897091189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8953af593b608344aac628c7e2cf498e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 583652597}
+  data:
+    ranking: 
+  currentScoreText: {fileID: 0}
+  textPref: {fileID: 3201686401253105132, guid: c0f23ad7e032b014493d199ace3a44f5, type: 3}
+  maxCount: 99
 --- !u!1 &2124865070
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,16 +1,21 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class RankingBoard : MonoBehaviour
 {
+    [SerializeField] Transform parent;
     [SerializeField] RankingData data;
     [SerializeField] Text currentScoreText;
     [SerializeField] GameObject textPref;
-    [SerializeField] int maxcount;
+    [SerializeField] int maxCount;
 
     void Start()
     {
+        if (parent == null) parent = transform;
+
         DestroyChildren();
         Generate();
     }
@@ -21,14 +26,7 @@ public class RankingBoard : MonoBehaviour
 
         if (!(data == null || data.ranking.Count == 0))
         {
-            var ranking = data.ranking.OrderByDescending(x => x).ToArray();
-            var count = Mathf.Min(maxcount, ranking.Length);
-
-            for (int i = 0; i < count; i++)
-            {
-                var t = Instantiate(textPref, transform).GetComponent<Text>();
-                t.text = $"{i + 1} : {ranking[i]:0000}";
-            }
+            StartCoroutine(GenerateRanking());
 
             var sm = FindAnyObjectByType<ScoreManager>();
             if (sm && currentScoreText)
@@ -38,8 +36,21 @@ public class RankingBoard : MonoBehaviour
         }
         else
         {
-            var t = Instantiate(textPref, transform).GetComponent<Text>();
+            var t = Instantiate(textPref, parent).GetComponent<Text>();
             t.text = "NOTHING YET.";
+        }
+    }
+
+    private IEnumerator GenerateRanking()
+    {
+        var ranking = data.ranking.OrderByDescending(x => x).ToArray();
+        var count = Mathf.Min(maxCount, ranking.Length);
+
+        for (int i = 0; i < count; i++)
+        {
+            var t = Instantiate(textPref, parent).GetComponent<Text>();
+            t.text = $"{i + 1} : {ranking[i]:0000}";
+            yield return null;
         }
     }
 
@@ -50,7 +61,7 @@ public class RankingBoard : MonoBehaviour
 
     void DestroyChildren()
     {
-        foreach (Transform t in transform)
+        foreach (Transform t in parent)
         {
             Destroy(t.gameObject);
         }

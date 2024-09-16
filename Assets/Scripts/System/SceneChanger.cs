@@ -27,8 +27,6 @@ public class SceneChanger : MonoBehaviour
     void Load()
     {
         StartCoroutine(nameof(LoadScene), sceneName);
-
-        //SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
     public void UnloadScene(string name)
