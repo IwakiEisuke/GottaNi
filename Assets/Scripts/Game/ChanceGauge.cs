@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChanceGauge : MonoBehaviour
+public class ChanceGauge : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] Slider gauge;
     [SerializeField] float maxChancePoint;
@@ -22,7 +22,7 @@ public class ChanceGauge : MonoBehaviour
         if (!isTweening) gauge.value = chancePoint / maxChancePoint;
     }
 
-    public void AddChancePoint(float add)
+    private void AddChancePoint(float add)
     {
         if (chancePoint < 0) chancePoint = 0;
         chancePoint += add;
@@ -43,5 +43,15 @@ public class ChanceGauge : MonoBehaviour
     {
         IsChance = false;
         chancePoint = 0;
+    }
+
+    public void OnSectionComplete(GameSectionResult result)
+    {
+        if (IsChance)
+        {
+            ResetGauge();
+        }
+
+        AddChancePoint(result.chancePoint);
     }
 }

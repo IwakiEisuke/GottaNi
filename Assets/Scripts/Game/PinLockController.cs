@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
 /// </summary>
-public class PinLockController : MonoBehaviour
+public class PinLockController : ResultSender
 {
     [Header("GameSettings")]
     /// <summary>錠側のピンの数</summary>
@@ -46,12 +47,10 @@ public class PinLockController : MonoBehaviour
 
     [Header("Score Settings")]
     public int maxAddScore;
-    public int AddScore { get; private set; }
     public float multiplier;
 
     [Header("Chance Settings")]
     public float maxAddChancePoint;
-    public float AddChancePoint { get; private set; }
 
     [Header("Others")]
     public bool gameIsCompleteOnMissed;
@@ -60,15 +59,14 @@ public class PinLockController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool isScrollPause;
 
-    public event UnityAction OnCompleteAction;
-    public UnityEvent OnCompleteEvent;
 
-    /// <summary>ゲームの成功判定</summary>
-    bool isClear;
+    public UnityEvent OnCompleteEvent;
     bool isShaking;
 
     PinData[] locks, keys;
     Transform mask;
+
+    GameSectionResult result;
 
     private void Start()
     {
@@ -159,7 +157,7 @@ public class PinLockController : MonoBehaviour
 
             Animation(offset.x, offset.y);
 
-            if (gameIsCompleteOnMissed || isClear) // このゲームを終了させる処理
+            if (gameIsCompleteOnMissed || result.success) // このゲームを終了させる処理
             {
                 Invoke(nameof(Complete), duration);
             }
@@ -177,7 +175,7 @@ public class PinLockController : MonoBehaviour
         offset.y = 0;
 
         hitPinCount = 0;
-        isClear = true;
+        result.success = true;
         foreach (var key in keys)
         {
             var keyY = key.transform.position.y;
@@ -186,7 +184,7 @@ public class PinLockController : MonoBehaviour
 
             if (key.length - 1 + locks[index].length != maxLength) // 失敗
             {
-                isClear = false;
+                result.success = false;
             }
 
             if (offset.y == 0) // 一回処理すればOK
@@ -210,23 +208,23 @@ public class PinLockController : MonoBehaviour
     void SetScore(int hitPinCount)
     {
         // scoreを決定
-        if (isClear)
+        if (result.success)
         {
-            AddScore = (int)(maxAddScore * multiplier);
+            result.score = (int)(maxAddScore * multiplier);
         }
         else
         {
-            AddScore = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
+            result.score = (int)(1f * hitPinCount / keysCount * maxAddScore); // 合致したピンの割合でスコアを決定
         }
 
-        AddChancePoint = 1f * hitPinCount / keysCount * maxAddChancePoint;
+        result.chancePoint = 1f * hitPinCount / keysCount * maxAddChancePoint;
     }
 
     void Animation(float offsetX, float offsetY)
     {
         var moveDuration = 0.1f;
         // アニメーション
-        if (gameIsCompleteOnMissed || isClear)
+        if (gameIsCompleteOnMissed || result.success)
         {
 
             // 錠の縦移動アニメーション
@@ -235,7 +233,7 @@ public class PinLockController : MonoBehaviour
                 pin.transform.DOLocalMoveY(offsetY, moveDuration).SetRelative();
             }
 
-            if (isClear)
+            if (result.success)
             {
                 isShaking = true;
                 transform.DOShakePosition(duration, strength, vibrato).OnComplete(() => isShaking = false);
@@ -254,7 +252,7 @@ public class PinLockController : MonoBehaviour
         {
             pin.transform.DOLocalMoveX(offsetX, moveDuration / 2f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
 
-            if (!gameIsCompleteOnMissed && !isClear) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
+            if (!gameIsCompleteOnMissed && !result.success) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
             {
                 DOTween.Sequence(pin)
                .AppendInterval(0.2f)
@@ -263,7 +261,7 @@ public class PinLockController : MonoBehaviour
             }
         }
 
-        AudioManager.Play(isClear ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
+        AudioManager.Play(result.success ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
     }
 
     void Complete() // 終了時アニメーションと加点等処理
@@ -276,15 +274,13 @@ public class PinLockController : MonoBehaviour
             .Append(DOTween.To(() => uiWidth, x => uiWidth = x, 0, openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
-                OnCompleteAction?.Invoke();
-                gameObject.SetActive(false);
+                ChangeState(result);
             });
     }
 
     public void ExitGame()
     {
         DOTween.Kill(gameObject);
-        OnCompleteAction = null;
         Complete();
     }
 
@@ -321,5 +317,11 @@ public class PinLockController : MonoBehaviour
         {
             PinSetPos(pin, right, down);
         }
+    }
+
+    public override void ChangeState(GameSectionResult result)
+    {
+        NotifyObservers(result);
+        gameObject.SetActive(false);
     }
 }

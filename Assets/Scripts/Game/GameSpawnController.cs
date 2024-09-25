@@ -26,15 +26,12 @@ public class GameSpawnController : MonoBehaviour
         {
             var rand = Random.Range(0, 100f);
 
-            switch (rand)
+            return rand switch
             {
-                case < 50:
-                    return Create(_2xGame);
-                case < 75:
-                    return Create(_5xGame);
-                default:
-                    return Create(_10xGame);
-            }
+                < 50 => Create(_2xGame),
+                < 75 => Create(_5xGame),
+                _ => Create(_10xGame),
+            };
         }
         else
         {

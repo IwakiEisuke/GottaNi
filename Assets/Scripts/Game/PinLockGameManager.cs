@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PinLockGameManager : MonoBehaviour
+public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] float timeToStart;
     [SerializeField] int gameCount;
-    [SerializeField] PinLockRandomizer[] adds;
+    //[SerializeField] PinLockRandomizer[] adds;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
     [SerializeField] GameSpawnController spawner;
@@ -20,24 +20,24 @@ public class PinLockGameManager : MonoBehaviour
     public void StartGame()
     {
         game = spawner.CreateGame();
-        adds[gameCount % adds.Length].Add(game);
-        game.OnCompleteAction += OnCompleteAction;
-        game.OnCompleteAction += StartGame;
+        //adds[gameCount % adds.Length].Add(game);
+
+        game.RegisterObserver(scoreManager);
+        game.RegisterObserver(gauge);
+        game.RegisterObserver(this);
+
         timeManager.StartTimer();
-    }
-
-    void OnCompleteAction()
-    {
-        if (gauge.IsChance) gauge.ResetGauge();
-
-        gameCount++;
-        scoreManager.AddScore(game.AddScore);
-        gauge.AddChancePoint(game.AddChancePoint);
     }
 
     public void EndGame()
     {
         Ranking.AddRanking(scoreManager.GetScore());
         game.ExitGame();
+    }
+
+    public void OnSectionComplete(GameSectionResult result)
+    {
+        gameCount++;
+        StartGame();
     }
 }

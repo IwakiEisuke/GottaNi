@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] string preText = "Score : ";
     [SerializeField] string format = "D3"; 
@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = preText + score.ToString(format);
     }
 
-    public void AddScore(int add)
+    private void AddScore(int add)
     {
         var dummy = score;
 
@@ -41,4 +41,9 @@ public class ScoreManager : MonoBehaviour
     }
 
     public int GetScore() { return score; }
+
+    public void OnSectionComplete(GameSectionResult result)
+    {
+        AddScore(result.score);
+    }
 }

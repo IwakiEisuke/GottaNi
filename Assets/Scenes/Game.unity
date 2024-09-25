@@ -1112,8 +1112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToStart: 0.5
   gameCount: 0
-  adds:
-  - {fileID: 11400000, guid: 195f33683ed2b4648b9ad55c67d3c750, type: 2}
   scoreManager: {fileID: 6377555947705634683}
   gauge: {fileID: 4072771318148909601}
   spawner: {fileID: 8875921371232779175}
@@ -1270,6 +1268,7 @@ MonoBehaviour:
   _2xGame: {fileID: 2253899312325596236, guid: da7205bfb223fea4cabae3cd954767e4, type: 3}
   _5xGame: {fileID: 2253899312325596236, guid: 862b8af461820ee44a1fb6fd2e4afa9f, type: 3}
   _10xGame: {fileID: 2253899312325596236, guid: f122ebb8c096bd54fb93eb5099e2ea75, type: 3}
+  timeBonusGame: {fileID: 0}
   chanceGauge: {fileID: 4072771318148909601}
   centerX: 0
   centerY: -0.32
