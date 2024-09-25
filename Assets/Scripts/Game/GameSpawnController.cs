@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSpawner : MonoBehaviour
+public class GameSpawnController : MonoBehaviour
 {
+    [Header("ScoreGames")]
     [SerializeField] PinLockController normalGame;
     [SerializeField] PinLockController _2xGame;
     [SerializeField] PinLockController _5xGame;
     [SerializeField] PinLockController _10xGame;
+
+    [Header("AdditionalGames")]
+    [SerializeField] TimeBonusGame timeBonusGame;
+
+    [Header("Gauge")]
     [SerializeField] ChanceGauge chanceGauge;
 
     [Header("Position")]

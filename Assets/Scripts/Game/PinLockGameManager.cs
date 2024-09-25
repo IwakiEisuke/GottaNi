@@ -7,7 +7,7 @@ public class PinLockGameManager : MonoBehaviour
     [SerializeField] PinLockRandomizer[] adds;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
-    [SerializeField] GameSpawner spawner;
+    [SerializeField] GameSpawnController spawner;
     [SerializeField] TimeManager timeManager;
     PinLockController game;
 
