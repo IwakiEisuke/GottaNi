@@ -8,6 +8,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: hGap
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: keyPref
+      value: 
+      objectReference: {fileID: 8679832967312921419, guid: 8f133997abe97ef45a7589795cb89eb0, type: 3}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: locksCount
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: maxAddScore
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: scrollSpeed
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: backGroundSpeedX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: backGroundSpeedY
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: maxAddChancePoint
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 125435746270686230, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
       propertyPath: m_Color.b
       value: 0.74509805

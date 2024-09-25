@@ -4,13 +4,5 @@ using UnityEngine;
 
 public class GameAnimation : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    [SerializeField] PinLockGameProperties xx;
 }

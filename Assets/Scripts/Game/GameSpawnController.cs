@@ -40,8 +40,7 @@ public class GameSpawnController : MonoBehaviour
     PinLockController Create(PinLockController go)
     {
         var game = Instantiate(go, transform).GetComponent<PinLockController>();
-        game.centerX = centerX;
-        game.centerY = centerY;
+
         return game;
     }
 }
