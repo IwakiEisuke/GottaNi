@@ -57,7 +57,7 @@ public class PinLockController : ResultSender
 
     ///<summary>スクロールの停止フラグ<br></br>ゲームの成功判定とは別</summary>
     [Header("Debug")]
-    [SerializeField] bool isScrollPause;
+    [SerializeField] bool isScroll;
 
 
     public UnityEvent OnCompleteEvent;
@@ -72,7 +72,7 @@ public class PinLockController : ResultSender
     {
         transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY);
 
-        isScrollPause = true;
+        isScroll = false;
         mask = GetComponentInChildren<SpriteMask>().transform;
 
         AudioManager.Play(SoundType.OpenGame);
@@ -81,13 +81,52 @@ public class PinLockController : ResultSender
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => 0, x => uiWidth = x, uiWidth, openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => 0, x => uiHeight = x, uiHeight, openDuration).SetEase(Ease.Linear))
-            .OnComplete(Init);
+            .OnComplete(InitPin);
 
         uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
         uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
     }
 
-    public void Init()
+    void Update()
+    {
+        SetUISize();
+
+        if (!isShaking)
+        {
+            // 振動アニメーションを打ち消さないように
+            transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY); // UIの中心を合わせる
+        }
+
+        if (isScroll)
+        {
+            // ピンをスクロールさせる
+            foreach (var pin in locks)
+            {
+                pin.AddPos(scrollSpeed, locksCount);
+            }
+
+            PinSetPos(locks, 1, -1);
+            PinSetPos(keys, -1, keysPos);
+        }
+
+        if (isScroll && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
+        {
+            isScroll = false;
+
+            Matching(out var offset, out var hitPinCount);
+
+            SetScore(hitPinCount);
+
+            Animation(offset.x, offset.y);
+
+            if (gameIsCompleteOnMissed || result.success) // このゲームを終了させる処理
+            {
+                Invoke(nameof(Complete), duration);
+            }
+        }
+    }
+
+    public void InitPin()
     {
         //錠側のピンを作成する
         var locksLength = new int[locksCount]; // keyの作成に使用する
@@ -106,11 +145,10 @@ public class PinLockController : ResultSender
         {
             var keyLength = maxLength - locksLength[(i + start) % locksLength.Length];
             keys[i] = PinData.CreatePin(keyLength + 1, i, keyPref, keyParent);
-            //keys[i].transform.SetParent(keyParent);
             keys[i].name = "Pin" + i;
         }
 
-        isScrollPause = false;
+        isScroll = true;
     }
 
     void SetUISize()
@@ -123,45 +161,6 @@ public class PinLockController : ResultSender
         backGround.size = uiSize;
         backGround.material.SetVector("_ScrollSpeed", new Vector2(backGroundSpeedX, backGroundSpeedY));
         backGround.transform.localPosition = -uiSize / 2;
-    }
-
-    void Update()
-    {
-        SetUISize();
-
-        if (!isShaking)
-        {
-            // 振動アニメーションを打ち消さないように
-            transform.position = new Vector3(uiWidth / 2 + centerX, uiHeight / 2 + centerY); // UIの中心を合わせる
-        }
-
-        if (!isScrollPause)
-        {
-            // ピンをスクロールさせる
-            foreach (var pin in locks)
-            {
-                pin.AddPos(scrollSpeed, locksCount);
-            }
-
-            PinSetPos(locks, 1, -1);
-            PinSetPos(keys, -1, keysPos);
-        }
-
-        if (!isScrollPause && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
-        {
-            isScrollPause = true;
-
-            Matching(out var offset, out var hitPinCount);
-
-            SetScore(hitPinCount);
-
-            Animation(offset.x, offset.y);
-
-            if (gameIsCompleteOnMissed || result.success) // このゲームを終了させる処理
-            {
-                Invoke(nameof(Complete), duration);
-            }
-        }
     }
 
     /// <summary>
@@ -257,7 +256,7 @@ public class PinLockController : ResultSender
                 DOTween.Sequence(pin)
                .AppendInterval(0.2f)
                .Append(pin.transform.DOLocalMoveX(pin.transform.localPosition.x, 0.1f))
-               .OnComplete(() => isScrollPause = false);
+               .OnComplete(() => isScroll = true);
             }
         }
 
@@ -278,12 +277,20 @@ public class PinLockController : ResultSender
             });
     }
 
-    public void ExitGame()
+    void PinSetPos(PinData[] pins, float right, float down)
     {
-        DOTween.Kill(gameObject);
-        Complete();
+        foreach (var pin in pins)
+        {
+            pin.GetComponent<SpriteRenderer>().size = new Vector3(wGap * pin.length, hGap);
+            pin.transform.localPosition = GetSortedPinPos(pin, right, down);
+        }
     }
-
+    Vector2 GetSortedPinPos(PinData pin, float right, float down)
+    {
+        var x = GetPinX(pin, right);
+        var y = GetPinY(pin, down);
+        return new Vector2(x, y);
+    }
 
     float GetPinX(PinData pin, float right) // 縦を揃えるソート
     {
@@ -298,25 +305,10 @@ public class PinLockController : ResultSender
         return y;
     }
 
-    Vector2 GetSortedPinPos(PinData pin, float right, float down)
+    public void ExitGame()
     {
-        var x = GetPinX(pin, right);
-        var y = GetPinY(pin, down);
-        return new Vector2(x, y);
-    }
-
-    void PinSetPos(PinData pin, float right, float down)
-    {
-        pin.GetComponent<SpriteRenderer>().size = new Vector3(wGap * pin.length, hGap);
-        pin.transform.localPosition = GetSortedPinPos(pin, right, down);
-    }
-
-    void PinSetPos(PinData[] pins, float right, float down)
-    {
-        foreach (var pin in pins)
-        {
-            PinSetPos(pin, right, down);
-        }
+        DOTween.Kill(gameObject);
+        Complete();
     }
 
     public override void ChangeState(GameSectionResult result)

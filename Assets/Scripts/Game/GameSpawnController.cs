@@ -24,9 +24,7 @@ public class GameSpawnController : MonoBehaviour
     {
         if (chanceGauge.IsChance)
         {
-            var rand = Random.Range(0, 100f);
-
-            return rand switch
+            return Random.Range(0, 100f) switch
             {
                 < 50 => Create(_2xGame),
                 < 75 => Create(_5xGame),
