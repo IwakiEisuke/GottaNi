@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeBonusGame : MonoBehaviour
+public class TimeBonusGame : GameBase
 {
     [SerializeField] float targetAngle;
     [SerializeField] float angleRange;
     [SerializeField] float speed;
     [SerializeField] Transform clockHandPivot;
 
-    void Start()
+    public override void StartGame()
     {
 
     }

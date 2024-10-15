@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 長さがランダムなピンがスクロールし続けるので、それにタイミングを合わせて反対側のピンをがっちりはめると解ける鍵。
 /// </summary>
-public class PinLockController : ResultSender
+public class PinLockController : GameBase
 {
     [SerializeField] PinLockGameProperties p;
     [SerializeField] UnityEvent OnCompleteEvent;
@@ -15,13 +15,12 @@ public class PinLockController : ResultSender
     [Header("Debug")]
     [SerializeField] bool isScroll;
 
-    GameSectionResult result;
     PinData[] locks, keys;
     bool isShaking;
 
     Transform mask;
 
-    private void Start()
+    public override void StartGame()
     {
         transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 +  p.centerY);
 
@@ -226,7 +225,8 @@ public class PinLockController : ResultSender
             .Append(DOTween.To(() => p.uiWidth, x => p.uiWidth = x, 0, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
-                ChangeState(result);
+                OnComplete();
+                gameObject.SetActive(false);
             });
     }
 
@@ -262,11 +262,5 @@ public class PinLockController : ResultSender
     {
         DOTween.Kill(gameObject);
         Complete();
-    }
-
-    public override void ChangeState(GameSectionResult result)
-    {
-        NotifyObservers(result);
-        gameObject.SetActive(false);
     }
 }

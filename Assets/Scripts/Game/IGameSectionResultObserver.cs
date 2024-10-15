@@ -40,4 +40,9 @@ public struct GameSectionResult
         this.success = success;
         this.time = time;
     }
+
+    public static GameSectionResult operator +(GameSectionResult a, GameSectionResult b)
+    {
+        return new GameSectionResult(a.score + b.score, a.chancePoint + b.chancePoint, a.success && b.success, a.time + b.time);
+    }
 }
