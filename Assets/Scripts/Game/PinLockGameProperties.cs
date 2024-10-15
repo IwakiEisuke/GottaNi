@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PinLockGameProperties : MonoBehaviour
@@ -48,4 +49,9 @@ public class PinLockGameProperties : MonoBehaviour
     /// <summary>¸”s‚ÉƒQ[ƒ€‚ğI—¹‚³‚¹‚é‚©</summary>
     [Header("Others")]
     public bool gameCloseEvenIfMissing;
+
+    public PinLockGameProperties Clone()
+    {
+        return (PinLockGameProperties)MemberwiseClone();
+    }
 }

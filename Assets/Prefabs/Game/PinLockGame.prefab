@@ -364,8 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43128043ae03244da709b040284ea68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aaa: {fileID: -5581755505268669953}
-  isScroll: 0
+  p: {fileID: -5581755505268669953}
   OnCompleteEvent:
     m_PersistentCalls:
       m_Calls:
@@ -381,6 +380,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isScroll: 0
 --- !u!114 &-5581755505268669953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +410,7 @@ MonoBehaviour:
   frame: {fileID: 125435746270686230}
   centerX: 0
   centerY: 0
-  backGround: {fileID: 0}
+  backGround: {fileID: 1857835901170962093}
   backGroundSpeedX: 2
   backGroundSpeedY: 0
   duration: 0.4

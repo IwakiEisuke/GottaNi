@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /// </summary>
 public class PinLockController : ResultSender
 {
-    [SerializeField] PinLockGameProperties aaa;
+    [SerializeField] PinLockGameProperties p;
     [SerializeField] UnityEvent OnCompleteEvent;
     ///<summary>スクロールの停止フラグ<br></br>ゲームの成功判定とは別</summary>
     [Header("Debug")]
@@ -23,7 +23,7 @@ public class PinLockController : ResultSender
 
     private void Start()
     {
-        transform.position = new Vector3(aaa.uiWidth / 2 + aaa.centerX, aaa.uiHeight / 2 +  aaa.centerY);
+        transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 +  p.centerY);
 
         isScroll = false;
         mask = GetComponentInChildren<SpriteMask>().transform;
@@ -32,12 +32,12 @@ public class PinLockController : ResultSender
 
         // 開始時アニメーション
         DOTween.Sequence(mask)
-            .Append(DOTween.To(() => 0, x => aaa.uiWidth = x, aaa.uiWidth, aaa.openDuration).SetEase(Ease.Linear))
-            .Append(DOTween.To(() => 0, x => aaa.uiHeight = x, aaa.uiHeight, aaa.openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => 0, x => p.uiWidth = x, p.uiWidth, p.openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => 0, x => p.uiHeight = x, p.uiHeight, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(InitPin);
 
-        aaa.uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
-        aaa.uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
+        p.uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
+        p.uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
     }
 
     void Update()
@@ -47,7 +47,7 @@ public class PinLockController : ResultSender
         if (!isShaking)
         {
             // 振動アニメーションを打ち消さないように
-            transform.position = new Vector3(aaa.uiWidth / 2 + aaa.centerX, aaa.uiHeight / 2 + aaa.centerY); // UIの中心を合わせる
+            transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 + p.centerY); // UIの中心を合わせる
         }
 
         if (isScroll)
@@ -55,11 +55,11 @@ public class PinLockController : ResultSender
             // ピンをスクロールさせる
             foreach (var pin in locks)
             {
-                pin.AddPos(aaa.scrollSpeed, aaa.locksCount);
+                pin.AddPos(p.scrollSpeed, p.locksCount);
             }
 
             PinSetPos(locks, 1, -1);
-            PinSetPos(keys, -1, aaa.keysPos);
+            PinSetPos(keys, -1, p.keysPos);
         }
 
         if (isScroll && Input.GetKeyDown(KeyCode.Space)) // 鍵の照合
@@ -72,9 +72,9 @@ public class PinLockController : ResultSender
 
             Animation(offset.x, offset.y);
 
-            if (aaa.gameCloseEvenIfMissing || result.success) // このゲームを終了させる処理
+            if (p.gameCloseEvenIfMissing || result.success) // このゲームを終了させる処理
             {
-                Invoke(nameof(Complete), aaa.duration);
+                Invoke(nameof(Complete), p.duration);
             }
         }
     }
@@ -82,22 +82,22 @@ public class PinLockController : ResultSender
     public void InitPin()
     {
         //錠側のピンを作成する
-        var locksLength = new int[aaa.locksCount]; // keyの作成に使用する
-        locks = new PinData[aaa.locksCount];
-        for (int i = 0; i < aaa.locksCount; i++)
+        var locksLength = new int[p.locksCount]; // keyの作成に使用する
+        locks = new PinData[p.locksCount];
+        for (int i = 0; i < p.locksCount; i++)
         {
-            locksLength[i] = Random.Range(aaa.minLength, aaa.maxLength + 1);
-            locks[i] = PinData.CreatePin(locksLength[i], i, aaa.lockPref, transform);
+            locksLength[i] = Random.Range(p.minLength, p.maxLength + 1);
+            locks[i] = PinData.CreatePin(locksLength[i], i, p.lockPref, transform);
             locks[i].name = "Pin" + i;
         }
 
         // 鍵側のピンを作成する。pinsLengthから長さを範囲で持ってきてmaxLengthとの差を求める
         var start = Random.Range(0, locksLength.Length);
-        keys = new PinData[aaa.keysCount];
-        for (int i = 0; i < aaa.keysCount; i++)
+        keys = new PinData[p.keysCount];
+        for (int i = 0; i < p.keysCount; i++)
         {
-            var keyLength = aaa.maxLength - locksLength[(i + start) % locksLength.Length];
-            keys[i] = PinData.CreatePin(keyLength + 1, i, aaa.keyPref, aaa.keyParent);
+            var keyLength = p.maxLength - locksLength[(i + start) % locksLength.Length];
+            keys[i] = PinData.CreatePin(keyLength + 1, i, p.keyPref, p.keyParent);
             keys[i].name = "Pin" + i;
         }
 
@@ -106,14 +106,14 @@ public class PinLockController : ResultSender
 
     void SetUISize()
     {
-        var uiSize = new Vector2(aaa.uiWidth, aaa.uiHeight);
+        var uiSize = new Vector2(p.uiWidth, p.uiHeight);
         mask.localScale = uiSize;
         mask.localPosition = -uiSize / 2;
-        aaa.frame.size = uiSize + new Vector2(2, 2);
-        aaa.frame.transform.localPosition = -uiSize / 2;
-        aaa.backGround.size = uiSize;
-        aaa.backGround.material.SetVector("_ScrollSpeed", new Vector2(aaa.backGroundSpeedX, aaa.backGroundSpeedY));
-        aaa.backGround.transform.localPosition = -uiSize / 2;
+        p.frame.size = uiSize + new Vector2(2, 2);
+        p.frame.transform.localPosition = -uiSize / 2;
+        p.backGround.size = uiSize;
+        p.backGround.material.SetVector("_ScrollSpeed", new Vector2(p.backGroundSpeedX, p.backGroundSpeedY));
+        p.backGround.transform.localPosition = -uiSize / 2;
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public class PinLockController : ResultSender
             var targets = locks.Select(x => Mathf.Abs(x.transform.position.y - keyY)).ToList();
             var index = targets.IndexOf(targets.Min());
 
-            if (key.length - 1 + locks[index].length != aaa.maxLength) // 失敗
+            if (key.length - 1 + locks[index].length != p.maxLength) // 失敗
             {
                 result.success = false;
             }
@@ -144,7 +144,7 @@ public class PinLockController : ResultSender
                 offset.y = key.transform.position.y - locks[index].transform.position.y;
             }
 
-            var minLengthAtLocksPin = aaa.uiWidth - aaa.wGap * (key.length + locks[index].length);
+            var minLengthAtLocksPin = p.uiWidth - p.wGap * (key.length + locks[index].length);
             if (minLengthAtLocksPin < offset.x)
             {
                 offset.x = minLengthAtLocksPin;
@@ -162,21 +162,21 @@ public class PinLockController : ResultSender
         // scoreを決定
         if (result.success)
         {
-            result.score = (int)(aaa.maxAddScore * aaa.multiplier);
+            result.score = (int)(p.maxAddScore * p.multiplier);
         }
         else
         {
-            result.score = (int)(1f * hitPinCount / aaa.keysCount * aaa.maxAddScore); // 合致したピンの割合でスコアを決定
+            result.score = (int)(1f * hitPinCount / p.keysCount * p.maxAddScore); // 合致したピンの割合でスコアを決定
         }
 
-        result.chancePoint = 1f * hitPinCount / aaa.keysCount * aaa.maxAddChancePoint;
+        result.chancePoint = 1f * hitPinCount / p.keysCount * p.maxAddChancePoint;
     }
 
     void Animation(float offsetX, float offsetY)
     {
         var moveDuration = 0.1f;
         // アニメーション
-        if (aaa.gameCloseEvenIfMissing || result.success)
+        if (p.gameCloseEvenIfMissing || result.success)
         {
 
             // 錠の縦移動アニメーション
@@ -188,15 +188,15 @@ public class PinLockController : ResultSender
             if (result.success)
             {
                 isShaking = true;
-                transform.DOShakePosition(aaa.duration, aaa.strength, aaa.vibrato).OnComplete(() => isShaking = false);
+                transform.DOShakePosition(p.duration, p.strength, p.vibrato).OnComplete(() => isShaking = false);
             }
         }
         else
         {
             foreach (var pin in keys) // 失敗時の鍵の横移動の大きさ。半端なところに引っかかるよう移動距離を設定する
             {
-                var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - pin.transform.position.y) < aaa.hGap).ToList();
-                offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, aaa.uiWidth - pin.length * aaa.wGap - (x.length * aaa.wGap)));
+                var offsetKeys = locks.Where(x => Mathf.Abs(x.transform.position.y - pin.transform.position.y) < p.hGap).ToList();
+                offsetKeys.ForEach(x => offsetX = Mathf.Min(offsetX, p.uiWidth - pin.length * p.wGap - (x.length * p.wGap)));
             }
         }
 
@@ -204,7 +204,7 @@ public class PinLockController : ResultSender
         {
             pin.transform.DOLocalMoveX(offsetX, moveDuration / 2f).SetRelative().SetEase(Ease.Linear); // 右に動かす。成功時・失敗時共通
 
-            if (!aaa.gameCloseEvenIfMissing && !result.success) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
+            if (!p.gameCloseEvenIfMissing && !result.success) // 失敗の場合元に戻すアニメーションも再生してポーズを解除
             {
                 DOTween.Sequence(pin)
                .AppendInterval(0.2f)
@@ -222,8 +222,8 @@ public class PinLockController : ResultSender
         OnCompleteEvent.Invoke();
 
         DOTween.Sequence(mask)
-            .Append(DOTween.To(() => aaa.uiHeight, x => aaa.uiHeight = x, 0, aaa.openDuration).SetEase(Ease.Linear))
-            .Append(DOTween.To(() => aaa.uiWidth, x => aaa.uiWidth = x, 0, aaa.openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => p.uiHeight, x => p.uiHeight = x, 0, p.openDuration).SetEase(Ease.Linear))
+            .Append(DOTween.To(() => p.uiWidth, x => p.uiWidth = x, 0, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
                 ChangeState(result);
@@ -234,7 +234,7 @@ public class PinLockController : ResultSender
     {
         foreach (var pin in pins)
         {
-            pin.GetComponent<SpriteRenderer>().size = new Vector3(aaa.wGap * pin.length, aaa.hGap);
+            pin.GetComponent<SpriteRenderer>().size = new Vector3(p.wGap * pin.length, p.hGap);
             pin.transform.localPosition = GetSortedPinPos(pin, right, down);
         }
     }
@@ -247,14 +247,14 @@ public class PinLockController : ResultSender
 
     float GetPinX(PinData pin, float right) // 縦を揃えるソート
     {
-        var pinSize = pin.length * aaa.wGap;
-        var x = (pinSize - aaa.uiWidth) / 2f * -right - aaa.uiWidth / 2f;
+        var pinSize = pin.length * p.wGap;
+        var x = (pinSize - p.uiWidth) / 2f * -right - p.uiWidth / 2f;
         return x;
     }
 
     float GetPinY(PinData pin, float down) // 縦に並べる
     {
-        var y = Mathf.Lerp(-(aaa.keysCount / 2f - 1) * aaa.hGap, -aaa.uiHeight + (aaa.keysCount / 2f - 1) * aaa.hGap, (down + 1) / 2) - (pin.pos - aaa.keysCount / 2) * aaa.hGap;
+        var y = Mathf.Lerp(-(p.keysCount / 2f - 1) * p.hGap, -p.uiHeight + (p.keysCount / 2f - 1) * p.hGap, (down + 1) / 2) - (pin.pos - p.keysCount / 2) * p.hGap;
         return y;
     }
 

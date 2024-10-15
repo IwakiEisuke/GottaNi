@@ -27,19 +27,21 @@ public class PinLockRandomizer : ScriptableObject
     public float uiWidth;
     public float uiHeight;
 
-    //public PinLockRandomizer Add(PinLockController p)
-    //{
-    //    p.locksCount += Random.Range(locksCountMin, locksCountMax + 1);
-    //    p.keysCount += Random.Range(keysCountMin, keysCountMax + 1);
-    //    p.maxLength += Random.Range(maxLengthMin, maxLengthMax + 1);
-    //    p.minLength += Random.Range(minLengthMin, minLengthMax + 1);
-    //    p.wGap += Random.Range(wGapMin, wGapMax);
-    //    p.hGap += Random.Range(hGapMin, hGapMax);
-    //    p.scrollSpeed += Random.Range(scrollSpeedMin, scrollSpeedMax);
-    //    p.keysPos += Random.Range(keysPosMin, keysPosMax);
-    //    p.uiWidth += uiWidth;
-    //    p.uiHeight += uiHeight;
+    public PinLockGameProperties Add(PinLockGameProperties original)
+    {
+        var p = original.Clone();
 
-    //    return this;
-    //}
+        p.locksCount += Random.Range(locksCountMin, locksCountMax + 1);
+        p.keysCount += Random.Range(keysCountMin, keysCountMax + 1);
+        p.maxLength += Random.Range(maxLengthMin, maxLengthMax + 1);
+        p.minLength += Random.Range(minLengthMin, minLengthMax + 1);
+        p.wGap += Random.Range(wGapMin, wGapMax);
+        p.hGap += Random.Range(hGapMin, hGapMax);
+        p.scrollSpeed += Random.Range(scrollSpeedMin, scrollSpeedMax);
+        p.keysPos += Random.Range(keysPosMin, keysPosMax);
+        p.uiWidth += uiWidth;
+        p.uiHeight += uiHeight;
+
+        return p;
+    }
 }
