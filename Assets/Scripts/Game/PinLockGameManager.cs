@@ -20,7 +20,6 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     public void StartGame()
     {
         game = spawner.CreateGame();
-        //adds[gameCount % adds.Length].Add(game);
 
         game.RegisterObserver(scoreManager);
         game.RegisterObserver(gauge);

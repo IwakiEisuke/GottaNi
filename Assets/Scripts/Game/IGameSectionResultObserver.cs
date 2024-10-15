@@ -31,11 +31,13 @@ public struct GameSectionResult
     public int score;
     public float chancePoint;
     public bool success;
+    public int time;
 
-    public GameSectionResult(int score, float chancePoint, bool success)
+    public GameSectionResult(int score, float chancePoint, bool success, int time)
     {
         this.score = score;
         this.chancePoint = chancePoint;
         this.success = success;
+        this.time = time;
     }
 }
