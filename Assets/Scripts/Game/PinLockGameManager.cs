@@ -4,12 +4,11 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] float timeToStart;
     [SerializeField] int gameCount;
-    //[SerializeField] PinLockRandomizer[] adds;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
     [SerializeField] GameSpawnController spawner;
     [SerializeField] TimeManager timeManager;
-    PinLockController game;
+    GameSectionManager section;
 
     private void Start()
     {
@@ -19,11 +18,11 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 
     public void StartGame()
     {
-        game = spawner.CreateGame();
+        section = spawner.StartNewSection();
 
-        game.RegisterObserver(scoreManager);
-        game.RegisterObserver(gauge);
-        game.RegisterObserver(this);
+        section.RegisterObserver(scoreManager);
+        section.RegisterObserver(gauge);
+        section.RegisterObserver(this);
 
         timeManager.StartTimer();
     }
@@ -31,7 +30,6 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     public void EndGame()
     {
         Ranking.AddRanking(scoreManager.GetScore());
-        game.ExitGame();
     }
 
     public void OnSectionComplete(GameSectionResult result)
