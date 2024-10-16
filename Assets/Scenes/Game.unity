@@ -554,6 +554,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &965056069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965056071}
+  - component: {fileID: 965056070}
+  m_Layer: 0
+  m_Name: GameSectionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &965056070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965056069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ba240c1424b2d40b5c8dc343f3cfc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &965056071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965056069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1250166993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,11 +1308,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11fa47db1c444f4c917b583413de318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  section: {fileID: 965056070}
   normalGame: {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   _2xGame: {fileID: 2253899312325596236, guid: da7205bfb223fea4cabae3cd954767e4, type: 3}
   _5xGame: {fileID: 2253899312325596236, guid: 862b8af461820ee44a1fb6fd2e4afa9f, type: 3}
   _10xGame: {fileID: 2253899312325596236, guid: f122ebb8c096bd54fb93eb5099e2ea75, type: 3}
-  timeBonusGame: {fileID: 0}
+  timeBonusGame: {fileID: 2041073079539827220, guid: a38af444a58db8a44a6f239839bde458, type: 3}
   chanceGauge: {fileID: 4072771318148909601}
   centerX: 0
   centerY: -0.32
@@ -1278,6 +1323,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 269984497}
   - {fileID: 5215157205387062313}
+  - {fileID: 965056071}
   - {fileID: 154288053}
   - {fileID: 248132756}
   - {fileID: 1555307237}

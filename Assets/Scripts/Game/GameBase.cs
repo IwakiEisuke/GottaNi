@@ -6,6 +6,7 @@ public abstract class GameBase : MonoBehaviour
 {
     public Action<GameSectionResult> sendResult;
     public GameSectionResult result;
+    public bool isPlaying;
 
     public abstract void StartGame();
 

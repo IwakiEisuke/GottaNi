@@ -37,10 +37,17 @@ public class PinLockController : GameBase
 
         p.uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
         p.uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
+
+        isPlaying = true;
     }
 
     void Update()
     {
+        if (!isPlaying)
+        {
+            return;
+        }
+
         SetUISize();
 
         if (!isShaking)
@@ -225,8 +232,8 @@ public class PinLockController : GameBase
             .Append(DOTween.To(() => p.uiWidth, x => p.uiWidth = x, 0, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
-                OnComplete();
                 gameObject.SetActive(false);
+                OnComplete();
             });
     }
 
@@ -258,7 +265,7 @@ public class PinLockController : GameBase
         return y;
     }
 
-    public void ExitGame()
+    public override void ExitGame()
     {
         DOTween.Kill(gameObject);
         Complete();
