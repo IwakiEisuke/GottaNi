@@ -25,6 +25,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+      propertyPath: scrollSpeed
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -5581755505268669953, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
       propertyPath: backGroundSpeedX
       value: 5
       objectReference: {fileID: 0}

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
@@ -14,12 +15,13 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 
     private void Start()
     {
-        timeManager.Init();
         Invoke(nameof(StartGame), timeToStart);
     }
 
-    public void StartGame()
+    private void StartGame()
     {
+        timeManager.Init();
+
         section = spawner.StartNewSection();
 
         section.RegisterObserver(scoreManager);
@@ -29,7 +31,15 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
         timeManager.StartTimer();
     }
 
-    public void EndGame()
+    private void Next()
+    {
+        if (isPlaying)
+        {
+            spawner.StartNewSection();
+        }
+    }
+
+    private void EndGame()
     {
         Ranking.AddRanking(scoreManager.GetScore());
         isPlaying = false;
@@ -38,10 +48,6 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     public void OnSectionComplete(GameSectionResult result)
     {
         gameCount++;
-
-        if (isPlaying)
-        {
-            StartGame();
-        }
+        Next();
     }
 }
