@@ -192,6 +192,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeBonusGame
       objectReference: {fileID: 0}
+    - target: {fileID: 2041073079539827220, guid: a38af444a58db8a44a6f239839bde458, type: 3}
+      propertyPath: speed
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041073079539827220, guid: a38af444a58db8a44a6f239839bde458, type: 3}
+      propertyPath: isPlaying
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041073079539827220, guid: a38af444a58db8a44a6f239839bde458, type: 3}
+      propertyPath: angleRange
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041073079539827220, guid: a38af444a58db8a44a6f239839bde458, type: 3}
+      propertyPath: targetAngle
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 6978630909710580731, guid: a38af444a58db8a44a6f239839bde458, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -26,7 +26,12 @@ public class TimeBonusGame : GameBase
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            EndGame();
+            var theta = clockHandPivot.rotation.eulerAngles.z; // 0Å`360
+
+            if (Mathf.Abs(theta - targetAngle) < angleRange / 2)
+            {
+                EndGame();
+            }
         }
     }
 
