@@ -13,13 +13,20 @@ public abstract class GameBase : MonoBehaviour
 
     public abstract void StartGame();
 
-    public virtual void OnComplete()
+    /// <summary>
+    /// 結果を通知。ゲームシーケンスを進ませる。
+    /// </summary>
+    public void SendResult()
     {
-        sendResult(result);
+        sendResult?.Invoke(result);
     }
 
+    /// <summary>
+    /// ゲーム終了処理
+    /// </summary>
     public virtual void EndGame()
     {
         gameObject.SetActive(false);
+        SendResult();
     }
 }

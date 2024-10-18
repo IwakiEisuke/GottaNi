@@ -7,44 +7,61 @@ using UnityEngine;
 /// </summary>
 public class GameSectionManager : ResultSender
 {
+    GameSectionResult init = new(0, 0, true, 0);
     GameSectionResult result = new(0, 0, true, 0);
     GameBase[] sequence;
     int count = -1;
 
-    void RunNextGame(GameSectionResult result)
+    /// <summary>
+    /// ゲームシーケンスを順次実行する。
+    /// </summary>
+    /// <param name="result"></param>
+    void RunSequence(GameSectionResult result)
     {
-        if (result.success)
+        if (result.success) // 前にプレイされたゲームが成功したか？
         {
             count++;
             if (count < sequence.Length)
             {
                 sequence[count].StartGame();
-                sequence[count].sendResult = RunNextGame;
+                sequence[count].sendResult = RunSequence; // ゲームがプレイされた後、ゲーム側でこのメソッドを呼び出す
                 this.result += result;
             }
             else
             {
-                ChangeState(result);
+                ChangeState(result); // シーケンスを完走したらオブザーバーへ通知。
             }
         }
         else //失敗したらその時点で終了する
         {
-            ChangeState(result);
+            EndGame();
+            ChangeState(result); // ChangeState実行時点で次のセクションが実行されることに注意
         }
     }
 
-    public void SetGames(GameBase[] game)
+    /// <summary>
+    /// 渡されたゲームシーケンスを開始する
+    /// </summary>
+    /// <param name="newSequence"></param>
+    public void StartSection(GameBase[] newSequence)
     {
-        sequence = game;
+        sequence = newSequence;
         count = -1;
-        RunNextGame(result);
+        result = init;
+        RunSequence(result);
     }
 
+    /// <summary>
+    /// 各ゲームを終了させる
+    /// </summary>
     public void EndGame()
     {
         foreach (var game in sequence)
         {
-            game.EndGame();
+            if (game.gameObject.activeSelf)
+            {
+                game.EndGame();
+            }
         }
     }
 }

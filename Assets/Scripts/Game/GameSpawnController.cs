@@ -25,16 +25,20 @@ public class GameSpawnController : MonoBehaviour
 
     public GameSectionManager StartNewSection()
     {
-        section.SetGames(CreateSection());
+        section.StartSection(CreateSection());
 
         return section;
     }
 
+    /// <summary>
+    /// 新たにゲームシーケンスを作成する
+    /// </summary>
+    /// <returns></returns>
     GameBase[] CreateSection()
     {
         List<GameBase> sequence = new();
 
-        if (chanceGauge.IsChance)
+        if (!chanceGauge.IsChance)
         {
             sequence.Add(Random.Range(0, 100f) switch
             {

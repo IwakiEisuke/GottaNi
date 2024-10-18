@@ -233,8 +233,13 @@ public class PinLockController : GameBase
             .OnComplete(() =>
             {
                 gameObject.SetActive(false);
-                OnComplete();
+                SendResult();
             });
+    }
+    public override void EndGame()
+    {
+        DOTween.Kill(gameObject);
+        Complete();
     }
 
     void PinSetPos(PinData[] pins, float right, float down)
@@ -263,11 +268,5 @@ public class PinLockController : GameBase
     {
         var y = Mathf.Lerp(-(p.keysCount / 2f - 1) * p.hGap, -p.uiHeight + (p.keysCount / 2f - 1) * p.hGap, (down + 1) / 2) - (pin.pos - p.keysCount / 2) * p.hGap;
         return y;
-    }
-
-    public override void EndGame()
-    {
-        DOTween.Kill(gameObject);
-        Complete();
     }
 }

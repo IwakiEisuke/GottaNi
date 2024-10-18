@@ -12,11 +12,26 @@ public class TimeBonusGame : GameBase
 
     public override void StartGame()
     {
-
+        isPlaying = true;
     }
 
     void Update()
     {
+        if (!isPlaying)
+        {
+            return;
+        }
+
         clockHandPivot.Rotate(0, 0, -speed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EndGame();
+        }
+    }
+
+    public override void EndGame()
+    {
+        base.EndGame();
     }
 }
