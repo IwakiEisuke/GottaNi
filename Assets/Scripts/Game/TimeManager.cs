@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ public class TimeManager : MonoBehaviour
     float t;
 
     public bool IsTimeUp { get; private set; }
+
     bool isPlay;
 
     public void Init()
@@ -47,10 +49,11 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("EndGame")]
-    public void EndGame()
+    [ContextMenu("Force quit the game")]
+    void EndGame()
     {
         t = 0;
+        isPlay = false;
         onTimeUpEvent.Invoke();
         IsTimeUp = true;
     }

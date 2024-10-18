@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 各ゲームセクションの結果の保持し、ゲーム進行を制御するクラス。
+/// </summary>
 public class GameSectionManager : ResultSender
 {
     GameSectionResult result = new(0, 0, true, 0);
@@ -35,5 +38,13 @@ public class GameSectionManager : ResultSender
         sequence = game;
         count = -1;
         RunNextGame(result);
+    }
+
+    public void EndGame()
+    {
+        foreach (var game in sequence)
+        {
+            game.EndGame();
+        }
     }
 }

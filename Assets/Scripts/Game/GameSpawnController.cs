@@ -23,7 +23,14 @@ public class GameSpawnController : MonoBehaviour
     [SerializeField] float centerX;
     [SerializeField] float centerY;
 
-    public GameBase[] CreateSection()
+    public GameSectionManager StartNewSection()
+    {
+        section.SetGames(CreateSection());
+
+        return section;
+    }
+
+    GameBase[] CreateSection()
     {
         List<GameBase> sequence = new();
 
@@ -52,12 +59,5 @@ public class GameSpawnController : MonoBehaviour
     GameBase CreateGame(GameBase go)
     {
         return Instantiate(go, section.transform).GetComponent<GameBase>();
-    }
-
-    public GameSectionManager StartNewSection()
-    {
-        section.SetGames(CreateSection());
-
-        return section;
     }
 }

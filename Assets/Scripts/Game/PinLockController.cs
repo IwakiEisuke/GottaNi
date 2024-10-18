@@ -265,7 +265,7 @@ public class PinLockController : GameBase
         return y;
     }
 
-    public override void ExitGame()
+    public override void EndGame()
     {
         DOTween.Kill(gameObject);
         Complete();

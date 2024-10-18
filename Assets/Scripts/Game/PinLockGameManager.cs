@@ -10,6 +10,8 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     [SerializeField] TimeManager timeManager;
     GameSectionManager section;
 
+    bool isPlaying = true;
+
     private void Start()
     {
         timeManager.Init();
@@ -30,11 +32,16 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     public void EndGame()
     {
         Ranking.AddRanking(scoreManager.GetScore());
+        isPlaying = false;
     }
 
     public void OnSectionComplete(GameSectionResult result)
     {
         gameCount++;
-        StartGame();
+
+        if (isPlaying)
+        {
+            StartGame();
+        }
     }
 }

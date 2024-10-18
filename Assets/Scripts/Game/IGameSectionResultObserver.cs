@@ -8,7 +8,9 @@ public interface IGameSectionResultObserver
     void OnSectionComplete(GameSectionResult result);
 }
 
-
+/// <summary>
+/// 各ゲームセクションの結果を通知するSubjectが継承するクラス
+/// </summary>
 public abstract class ResultSender : MonoBehaviour
 {
     private readonly List<IGameSectionResultObserver> observers = new();
