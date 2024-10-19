@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4dcd77057ce1a429b194f6508fcf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaying: 0
   targetAngle: 0
   angleRange: 0
   speed: 5
   clockHandPivot: {fileID: 1297989595147851742}
+  sector: {fileID: 0}
 --- !u!1 &2644074047190453817
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8285072124991734644}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.013122091, w: 0.999914}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

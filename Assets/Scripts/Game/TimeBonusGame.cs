@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeBonusGame : GameBase
 {
@@ -9,10 +10,15 @@ public class TimeBonusGame : GameBase
     [SerializeField] float angleRange;
     [SerializeField] float speed;
     [SerializeField] Transform clockHandPivot;
+    [SerializeField] Image sector;
 
     public override void StartGame()
     {
         isPlaying = true;
+    }
+    public override void EndGame()
+    {
+        base.EndGame();
     }
 
     void Update()
@@ -23,6 +29,7 @@ public class TimeBonusGame : GameBase
         }
 
         clockHandPivot.Rotate(0, 0, -speed * Time.deltaTime);
+        SetAngles();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -35,8 +42,19 @@ public class TimeBonusGame : GameBase
         }
     }
 
-    public override void EndGame()
+    private void SetAngles()
     {
-        base.EndGame();
+        targetAngle = (360 + targetAngle) % 360;
+
+        if (sector)
+        {
+            sector.fillAmount = angleRange / 360;
+            sector.transform.rotation = Quaternion.Euler(0, 0, 180 + angleRange / 2 + targetAngle);
+        }
+    }
+
+    private void OnValidate()
+    {
+        SetAngles();
     }
 }
