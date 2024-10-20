@@ -9,7 +9,7 @@ public abstract class GameBase : MonoBehaviour
 {
     public Action<GameSectionResult> sendResult;
     public GameSectionResult result;
-    public bool isPlaying;
+    public bool isPlaying = false;
 
     public abstract void StartGame();
 

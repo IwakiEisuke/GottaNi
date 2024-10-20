@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class GameSectionManager : ResultSender
 {
+    [SerializeField] float spacing;
+    [SerializeField] float offsetY;
+
     GameSectionResult init = new(0, 0, true, 0);
     GameSectionResult result = new(0, 0, true, 0);
     GameBase[] sequence;
@@ -46,6 +49,17 @@ public class GameSectionManager : ResultSender
     /// <param name="newSequence"></param>
     public void StartSection(GameBase[] newSequence)
     {
+        for (int i = 0; i < newSequence.Length; i++)
+        {
+            var vec = new Vector3();
+            // “™ŠÔŠu‚Å‰¡•À‚Ñ‚É‚·‚é
+            vec.x = (i - ((newSequence.Length - 1) / 2f)) * spacing;
+            // c‚É‚¸‚ç‚·
+            vec.y = offsetY;
+
+            newSequence[i].transform.position += vec;
+        }
+
         sequence = newSequence;
         count = -1;
         result = init;

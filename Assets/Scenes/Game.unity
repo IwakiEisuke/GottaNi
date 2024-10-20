@@ -583,6 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ba240c1424b2d40b5c8dc343f3cfc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spacing: 6
+  offsetY: -0.5
 --- !u!4 &965056071
 Transform:
   m_ObjectHideFlags: 0

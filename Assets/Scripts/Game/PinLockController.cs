@@ -22,7 +22,8 @@ public class PinLockController : GameBase
 
     public override void StartGame()
     {
-        transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 +  p.centerY);
+        p.centerX = transform.position.x;
+        p.centerY = transform.position.y;
 
         isScroll = false;
         mask = GetComponentInChildren<SpriteMask>().transform;

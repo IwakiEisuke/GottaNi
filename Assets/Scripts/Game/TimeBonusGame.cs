@@ -21,11 +21,12 @@ public class TimeBonusGame : GameBase
     [SerializeField] Material m;
     [SerializeField] SpriteRenderer display;
 
+    new bool isPlaying = false; // これが無いとなんか開幕"true"になる。GameBaseの方で"false"に初期化してるのだけど。（PinLockControllerの方では"false"になってるっぽい?）
+
     private void Start()
     {
         m.SetFloat("_Seed", Random.Range(0f, 100));
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 2, startDuration);
-        isPlaying = false;
     }
 
     public override void StartGame()
