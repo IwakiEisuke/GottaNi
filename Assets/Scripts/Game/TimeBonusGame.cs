@@ -49,7 +49,7 @@ public class TimeBonusGame : GameBase
             var handAngle = clockHandPivot.rotation.eulerAngles.z; // 0Å`360
 
             var diff = handAngle - targetAngle;
-            diff = Mathf.Abs((180 + diff) % 360 - 180);
+            diff = Mathf.Abs((180 * 3 + diff) % 360 - 180);
 
             if (diff < angleRange / 2)
             {
@@ -72,7 +72,7 @@ public class TimeBonusGame : GameBase
 
     private void SetAngles()
     {
-        targetAngle = (180 + targetAngle) % 360 - 180;
+        targetAngle = (180 * 3 + targetAngle) % 360 - 180;
 
         if (sector)
         {

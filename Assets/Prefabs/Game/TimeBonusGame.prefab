@@ -25,7 +25,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225875875048366291}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9807853, w: -0.19509034}
+  m_LocalRotation: {x: -0, y: -0, z: 0.19509034, w: 0.9807853}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaying: 1
-  targetAngle: 0
+  targetAngle: -180
   angleRange: 45
   speed: 360
   startDuration: 2
@@ -206,6 +206,7 @@ MonoBehaviour:
   clockHandPivot: {fileID: 3884276396344546476}
   sector: {fileID: 6678189577071230527}
   m: {fileID: -876546973899608171, guid: f201fbb525269e24e95b473224700dca, type: 3}
+  display: {fileID: 0}
 --- !u!1 &2256171145675069573
 GameObject:
   m_ObjectHideFlags: 0
