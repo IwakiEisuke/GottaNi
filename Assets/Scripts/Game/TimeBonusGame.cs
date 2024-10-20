@@ -6,19 +6,29 @@ using UnityEngine.UI;
 
 public class TimeBonusGame : GameBase
 {
+    [Header("GameSettings")]
     [SerializeField] float targetAngle;
     [SerializeField] float angleRange;
     [SerializeField] float speed;
+
+    [Header("AnimationSettings")]
+    [SerializeField] float startDuration;
+    [SerializeField] float endDuration;
+
+    [Header("Others")]
     [SerializeField] Transform clockHandPivot;
     [SerializeField] Image sector;
+    [SerializeField] Material m;
+
+    private void Start()
+    {
+        m.SetFloat("_Seed", Random.Range(0f, 100));
+        DOTween.To(() => 0f, x => m.SetFloat("_T", x), 2, startDuration);
+    }
 
     public override void StartGame()
     {
         isPlaying = true;
-    }
-    public override void EndGame()
-    {
-        base.EndGame();
     }
 
     void Update()
@@ -27,6 +37,8 @@ public class TimeBonusGame : GameBase
         {
             return;
         }
+
+        Debug.Log(m.GetFloat("_T"));
 
         clockHandPivot.Rotate(0, 0, -speed * Time.deltaTime);
         SetAngles();
@@ -42,6 +54,13 @@ public class TimeBonusGame : GameBase
         }
     }
 
+    public override void EndGame()
+    {
+        isPlaying = false;
+        DOTween.To(() => 2f, x => m.SetFloat("_T", x), 0, endDuration)
+            .OnComplete(() => base.EndGame());
+    }
+
     private void SetAngles()
     {
         targetAngle = (360 + targetAngle) % 360;
@@ -53,8 +72,11 @@ public class TimeBonusGame : GameBase
         }
     }
 
+#if UNITY_EDITOR
     private void OnValidate()
     {
         SetAngles();
     }
+#endif
+
 }
