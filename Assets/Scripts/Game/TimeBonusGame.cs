@@ -53,8 +53,16 @@ public class TimeBonusGame : GameBase
 
             if (diff < angleRange / 2)
             {
-                EndGame();
+                result.time = 10;
+                result.success = true;
             }
+            else
+            {
+                result.time = 0;
+                result.success = false;
+            }
+
+            EndGame();
         }
     }
 
@@ -65,7 +73,7 @@ public class TimeBonusGame : GameBase
         DOTween.To(() => m.GetFloat("_T"), x => m.SetFloat("_T", x), 0, endDuration)
             .OnComplete(() => 
             { 
-                display.gameObject.SetActive(false); 
+                if (display) display.gameObject.SetActive(false); 
                 base.EndGame(); 
             });
     }

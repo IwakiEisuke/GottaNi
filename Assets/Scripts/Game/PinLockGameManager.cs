@@ -26,6 +26,7 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 
         section.RegisterObserver(scoreManager);
         section.RegisterObserver(gauge);
+        section.RegisterObserver(timeManager);
         section.RegisterObserver(this);
 
         timeManager.StartTimer();

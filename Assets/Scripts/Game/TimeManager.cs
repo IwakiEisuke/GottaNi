@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] int timeLimit;
     [SerializeField] Text timerText;
@@ -61,5 +61,10 @@ public class TimeManager : MonoBehaviour
     public void ViewResult()
     {
         SceneManager.LoadScene("Result", LoadSceneMode.Additive);
+    }
+
+    public void OnSectionComplete(GameSectionResult result)
+    {
+        AddTime(result.time);
     }
 }

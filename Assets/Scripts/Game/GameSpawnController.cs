@@ -38,7 +38,7 @@ public class GameSpawnController : MonoBehaviour
     {
         List<GameBase> sequence = new();
 
-        if (!chanceGauge.IsChance)
+        if (chanceGauge.IsChance)
         {
             sequence.Add(Random.Range(0, 100f) switch
             {
@@ -54,9 +54,9 @@ public class GameSpawnController : MonoBehaviour
         }
         else
         {
+            sequence.Add(CreateGame(timeBonusGame));
             sequence.Add(CreateGame(normalGame));
         }
-
         return sequence.ToArray();
     }
 

@@ -80,7 +80,7 @@ public class PinLockController : GameBase
 
             if (p.gameCloseEvenIfMissing || result.success) // このゲームを終了させる処理
             {
-                Invoke(nameof(Complete), p.duration);
+                Invoke(nameof(EndGame), p.duration);
             }
         }
     }
@@ -222,8 +222,10 @@ public class PinLockController : GameBase
         AudioManager.Play(result.success ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
     }
 
-    void Complete() // 終了時アニメーションと加点等処理
+    public override void EndGame()
     {
+        DOTween.Kill(gameObject);
+
         AudioManager.Play(SoundType.CloseGame);
         OnCompleteEvent.Invoke();
 
@@ -232,14 +234,8 @@ public class PinLockController : GameBase
             .Append(DOTween.To(() => p.uiWidth, x => p.uiWidth = x, 0, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
-                gameObject.SetActive(false);
-                SendResult();
+                base.EndGame();
             });
-    }
-    public override void EndGame()
-    {
-        DOTween.Kill(gameObject);
-        Complete();
     }
 
     void PinSetPos(PinData[] pins, float right, float down)
