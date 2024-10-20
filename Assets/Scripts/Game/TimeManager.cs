@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +8,23 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour, IGameSectionResultObserver
 {
+    [SerializeField] float animateDuration;
     [SerializeField] int timeLimit;
     [SerializeField] Text timerText;
     [SerializeField] string format = @"mm\:ss";
+
+    [Space(16)]
     [SerializeField] UnityEvent onTimeUpEvent;
     float t;
 
     public bool IsTimeUp { get; private set; }
 
-    bool isPlay;
+    bool isPlaying;
+
+    private void Start()
+    {
+        t = timeLimit;
+    }
 
     public void Init()
     {
@@ -26,19 +35,22 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
 
     public void StartTimer()
     {
-        isPlay = true;
+        isPlaying = true;
     }
 
     void Update()
     {
-        if (isPlay) AddTime(-Time.deltaTime);
+        Debug.Log(DOTween.IsTweening(gameObject));
+
+        if (isPlaying) t -= Time.deltaTime;
+
+        UpdateTimer();
     }
 
-    public void AddTime(float add)
+    private void UpdateTimer()
     {
         if (!IsTimeUp)
         {
-            t += add;
             var span = TimeSpan.FromSeconds(Mathf.CeilToInt(t));
             timerText.text = span.ToString(format);
 
@@ -49,11 +61,16 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
         }
     }
 
+    private void AddTime(float add)
+    {
+        DOTween.To(() => t, x => t = x, t + add, animateDuration).SetEase(Ease.Linear);
+    }
+
     [ContextMenu("Force quit the game")]
     void EndGame()
     {
         t = 0;
-        isPlay = false;
+        isPlaying = false;
         onTimeUpEvent.Invoke();
         IsTimeUp = true;
     }

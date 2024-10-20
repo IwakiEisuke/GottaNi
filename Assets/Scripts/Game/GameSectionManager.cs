@@ -18,24 +18,25 @@ public class GameSectionManager : ResultSender
     /// <param name="result"></param>
     void RunSequence(GameSectionResult result)
     {
-        if (result.success) // 前にプレイされたゲームが成功したか？
+        this.result += result;
+
+        if (this.result.success) // 前にプレイされたゲームが成功したか？
         {
             count++;
             if (count < sequence.Length)
             {
                 sequence[count].StartGame();
                 sequence[count].sendResult = RunSequence; // ゲームがプレイされた後、ゲーム側でこのメソッドを呼び出す
-                this.result += result;
             }
             else
             {
-                ChangeState(result); // シーケンスを完走したらオブザーバーへ通知。
+                ChangeState(this.result); // シーケンスを完走したらオブザーバーへ通知。
             }
         }
         else //失敗したらその時点で終了する
         {
             EndGame();
-            ChangeState(result); // ChangeState実行時点で次のセクションが実行されることに注意
+            ChangeState(this.result); // ChangeState実行時点で次のセクションが実行されることに注意
         }
     }
 

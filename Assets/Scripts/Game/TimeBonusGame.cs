@@ -25,6 +25,7 @@ public class TimeBonusGame : GameBase
     {
         m.SetFloat("_Seed", Random.Range(0f, 100));
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 2, startDuration);
+        isPlaying = false;
     }
 
     public override void StartGame()
@@ -38,8 +39,6 @@ public class TimeBonusGame : GameBase
         {
             return;
         }
-
-        Debug.Log(m.GetFloat("_T"));
 
         clockHandPivot.Rotate(0, 0, -speed * Time.deltaTime);
         SetAngles();

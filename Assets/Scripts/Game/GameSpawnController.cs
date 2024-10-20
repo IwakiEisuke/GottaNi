@@ -54,8 +54,8 @@ public class GameSpawnController : MonoBehaviour
         }
         else
         {
-            sequence.Add(CreateGame(timeBonusGame));
             sequence.Add(CreateGame(normalGame));
+            sequence.Add(CreateGame(timeBonusGame));
         }
         return sequence.ToArray();
     }
