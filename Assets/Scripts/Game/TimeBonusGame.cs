@@ -19,6 +19,7 @@ public class TimeBonusGame : GameBase
     [SerializeField] Transform clockHandPivot;
     [SerializeField] Image sector;
     [SerializeField] Material m;
+    [SerializeField] SpriteRenderer display;
 
     private void Start()
     {
@@ -45,9 +46,12 @@ public class TimeBonusGame : GameBase
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var theta = clockHandPivot.rotation.eulerAngles.z; // 0Å`360
+            var handAngle = clockHandPivot.rotation.eulerAngles.z; // 0Å`360
 
-            if (Mathf.Abs(theta - targetAngle) < angleRange / 2)
+            var diff = handAngle - targetAngle;
+            diff = Mathf.Abs((180 + diff) % 360 - 180);
+
+            if (diff < angleRange / 2)
             {
                 EndGame();
             }
@@ -57,13 +61,18 @@ public class TimeBonusGame : GameBase
     public override void EndGame()
     {
         isPlaying = false;
-        DOTween.To(() => 2f, x => m.SetFloat("_T", x), 0, endDuration)
-            .OnComplete(() => base.EndGame());
+        DOTween.Kill(gameObject);
+        DOTween.To(() => m.GetFloat("_T"), x => m.SetFloat("_T", x), 0, endDuration)
+            .OnComplete(() => 
+            { 
+                display.gameObject.SetActive(false); 
+                base.EndGame(); 
+            });
     }
 
     private void SetAngles()
     {
-        targetAngle = (360 + targetAngle) % 360;
+        targetAngle = (180 + targetAngle) % 360 - 180;
 
         if (sector)
         {
