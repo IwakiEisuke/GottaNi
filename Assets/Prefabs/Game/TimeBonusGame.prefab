@@ -199,12 +199,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaying: 1
-  addTimeSeconds: 0
+  addTimeSeconds: 10
   targetAngle: 0
   minAngleRange: 15
   maxAngleRange: 15
-  minSpeed: 450
-  maxSpeed: 450
+  minSpeed: 360
+  maxSpeed: 360
   startDuration: 1.5
   endDuration: 0.5
   clockHandPivot: {fileID: 3884276396344546476}

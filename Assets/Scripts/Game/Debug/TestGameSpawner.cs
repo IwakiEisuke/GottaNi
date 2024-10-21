@@ -6,10 +6,14 @@ public class TestGameSpawner : GameSpawnerBase
 {
     [SerializeField] GameSectionManager section;
     [SerializeField] GameBase[] sequence;
+    [SerializeField] bool playOnAwake;
 
     private void Start()
     {
-        section.StartSection();
+        if (playOnAwake)
+        {
+            section.StartSection();
+        }
     }
 
     /// <summary>

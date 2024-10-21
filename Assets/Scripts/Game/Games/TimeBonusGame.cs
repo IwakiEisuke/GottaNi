@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TimeBonusGame : GameBase
 {
     [Header("GameSettings")]
-    [SerializeField] int addTimeSeconds;
+    [SerializeField] int addTimeSeconds = 10;
     [SerializeField] float targetAngle;
     [SerializeField] float minAngleRange = 20;
     [SerializeField] float maxAngleRange = 45;
@@ -71,6 +71,8 @@ public class TimeBonusGame : GameBase
                 result.time = 0;
                 result.success = false;
             }
+
+            Debug.Log(result.success ? "success" : "failure");
 
             CompleteGame();
         }

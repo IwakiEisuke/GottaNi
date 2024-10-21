@@ -172,6 +172,7 @@ MonoBehaviour:
   sequence:
   - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   - {fileID: 2253899312325596236, guid: 862b8af461820ee44a1fb6fd2e4afa9f, type: 3}
+  playOnAwake: 1
 --- !u!114 &493434621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,51 +191,6 @@ MonoBehaviour:
   openDelay: 0.38
   closeStartDelay: 0
   closeEndDelay: 0
---- !u!21 &1042215940
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Glitch(instance)
-  m_Shader: {fileID: -6465566751694194690, guid: e1aec17c5f453eb4ea52f8b1eae895b0, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _IsPlaying: 0
-    m_Colors:
-    - _ScrollSpeed: {r: 2, g: 0, b: 0, a: 0}
-  m_BuildTextureStacks: []
 --- !u!1001 &1825156533
 PrefabInstance:
   m_ObjectHideFlags: 0
