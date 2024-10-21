@@ -10,8 +10,10 @@ public class GameSectionManager : ResultSender
     [SerializeField] GameSpawnerBase spawner;
     [SerializeField] float spacing;
     [SerializeField] float offsetY;
-    [SerializeField] float startDelay;
-    [SerializeField] float endDelay;
+
+    [SerializeField] float openDelay;
+    [SerializeField] float closeStartDelay;
+    [SerializeField] float closeEndDelay;
 
     GameSectionResult init = new(0, 0, true, 0);
     GameSectionResult result = new(0, 0, true, 0);
@@ -36,12 +38,12 @@ public class GameSectionManager : ResultSender
             }
             else
             {
-                StartCoroutine(EndGame(startDelay, endDelay)); // シーケンスを完走したらオブザーバーへ通知。
+                StartCoroutine(EndSection(closeStartDelay, closeEndDelay)); // シーケンスを完走したらオブザーバーへ通知。
             }
         }
         else //失敗したらその時点で終了する
         {
-            StartCoroutine(EndGame(startDelay, endDelay));
+            StartCoroutine(EndSection(closeStartDelay, closeEndDelay));
         }
     }
 
@@ -72,13 +74,20 @@ public class GameSectionManager : ResultSender
         sequence = newSequence;
         count = -1;
         result = init;
+        StartCoroutine(OpenSection(openDelay));
+    }
+
+    private IEnumerator OpenSection(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         RunSequence(result);
     }
 
     /// <summary>
     /// 各ゲームを終了させる
     /// </summary>
-    private IEnumerator EndGame(float startDelay, float endDelay)
+    private IEnumerator EndSection(float startDelay, float endDelay)
     {
         yield return new WaitForSeconds(startDelay);
 
@@ -100,6 +109,6 @@ public class GameSectionManager : ResultSender
     /// </summary>
     public void ExecuteEndGame()
     {
-        StartCoroutine(EndGame(startDelay, endDelay));
+        StartCoroutine(EndSection(closeStartDelay, closeEndDelay));
     }
 }

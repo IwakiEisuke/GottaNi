@@ -171,6 +171,7 @@ MonoBehaviour:
   section: {fileID: 493434621}
   sequence:
   - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
 --- !u!114 &493434621
 MonoBehaviour:
@@ -187,8 +188,9 @@ MonoBehaviour:
   spawner: {fileID: 493434620}
   spacing: 5
   offsetY: 0
-  startDelay: 0
-  endDelay: 0
+  openDelay: 0.38
+  closeStartDelay: 0
+  closeEndDelay: 0
 --- !u!1001 &1825156533
 PrefabInstance:
   m_ObjectHideFlags: 0

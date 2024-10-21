@@ -20,12 +20,14 @@ public class PinLockController : GameBase
 
     Transform mask;
 
-    public override void StartGame()
+    private void Start()
     {
+        isPlaying = false;
+        isScroll = false;
+
         p.centerX = transform.position.x;
         p.centerY = transform.position.y;
 
-        isScroll = false;
         mask = GetComponentInChildren<SpriteMask>().transform;
 
         AudioManager.Play(SoundType.OpenGame);
@@ -33,12 +35,15 @@ public class PinLockController : GameBase
         // 開始時アニメーション
         DOTween.Sequence(mask)
             .Append(DOTween.To(() => 0, x => p.uiWidth = x, p.uiWidth, p.openDuration).SetEase(Ease.Linear))
-            .Append(DOTween.To(() => 0, x => p.uiHeight = x, p.uiHeight, p.openDuration).SetEase(Ease.Linear))
-            .OnComplete(InitPin);
+            .Append(DOTween.To(() => 0, x => p.uiHeight = x, p.uiHeight, p.openDuration).SetEase(Ease.Linear));
 
         p.uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
         p.uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
+    }
 
+    public override void StartGame()
+    {
+        InitPin();
         isPlaying = true;
     }
 
