@@ -8,8 +8,12 @@ public class TimeBonusGame : GameBase
 {
     [Header("GameSettings")]
     [SerializeField] float targetAngle;
-    [SerializeField] float angleRange;
-    [SerializeField] float speed;
+    [SerializeField] float minAngleRange = 20;
+    [SerializeField] float maxAngleRange = 45;
+    float angleRange;
+    [SerializeField] float minSpeed = 360;
+    [SerializeField] float maxSpeed = 360 * 2;
+    float speed;
 
     [Header("AnimationSettings")]
     [SerializeField] float startDuration;
@@ -26,6 +30,12 @@ public class TimeBonusGame : GameBase
     private void Start()
     {
         m.SetFloat("_Seed", Random.Range(0f, 100));
+
+        speed = Random.Range(minSpeed, maxSpeed);
+        targetAngle = Random.Range(0f, 360f);
+        angleRange = Random.Range(minAngleRange, maxAngleRange);
+        SetAngles();
+
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 2, startDuration);
     }
 

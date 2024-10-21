@@ -25,7 +25,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225875875048366291}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9807853, w: -0.19509034}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: -0.00000004371139}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.125
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -200,8 +200,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlaying: 1
   targetAngle: 0
-  angleRange: 45
-  speed: 360
+  minAngleRange: 20
+  maxAngleRange: 45
+  minSpeed: 360
+  maxSpeed: 720
   startDuration: 1.5
   endDuration: 0.5
   clockHandPivot: {fileID: 3884276396344546476}

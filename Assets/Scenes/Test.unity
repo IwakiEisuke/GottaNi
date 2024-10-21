@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 493434621}
   - component: {fileID: 493434620}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Section
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,8 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   section: {fileID: 493434621}
   sequence:
-  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
-  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
 --- !u!114 &493434621
 MonoBehaviour:
@@ -248,71 +246,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
---- !u!1001 &8177817516690940796
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1714648156102883489, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_Name
-      value: TimeBonusGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 1714648156102883489, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1825156533}
-  - {fileID: 8177817516690940796}
   - {fileID: 493434619}
