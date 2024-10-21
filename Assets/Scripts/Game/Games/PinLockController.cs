@@ -18,6 +18,8 @@ public class PinLockController : GameBase
     PinData[] locks, keys;
     bool isShaking;
 
+    Material m;
+
     Transform mask;
 
     private void Start()
@@ -29,6 +31,8 @@ public class PinLockController : GameBase
         p.centerY = transform.position.y;
 
         mask = GetComponentInChildren<SpriteMask>().transform;
+        m = p.backGround.material; // Renderer.material‚Ìgetter‚ÍŽ©“®“I‚É•¡»‚ð•Ô‚·
+        m.SetVector("_ScrollSpeed", new Vector2(p.backGroundSpeedX, p.backGroundSpeedY));
 
         AudioManager.Play(SoundType.OpenGame);
 
@@ -118,7 +122,6 @@ public class PinLockController : GameBase
         p.frame.size = uiSize + new Vector2(2, 2);
         p.frame.transform.localPosition = -uiSize / 2;
         p.backGround.size = uiSize;
-        p.backGround.material.SetVector("_ScrollSpeed", new Vector2(p.backGroundSpeedX, p.backGroundSpeedY));
         p.backGround.transform.localPosition = -uiSize / 2;
 
         if (!isShaking)
@@ -245,7 +248,8 @@ public class PinLockController : GameBase
             .Append(DOTween.To(() => p.uiWidth, x => p.uiWidth = x, 0, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
-                base.PlayClosingAnimation(); ;
+                base.PlayClosingAnimation();
+                Destroy(m);
             });
     }
 

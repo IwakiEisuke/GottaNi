@@ -1223,6 +1223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64f5c98fe4161c4e836896b173eaaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doChangeInteractable: 0
   buttons: []
 --- !u!1 &1959917810
 GameObject:

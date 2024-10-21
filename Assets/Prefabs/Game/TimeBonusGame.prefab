@@ -203,8 +203,8 @@ MonoBehaviour:
   targetAngle: 0
   minAngleRange: 15
   maxAngleRange: 15
-  minSpeed: 360
-  maxSpeed: 540
+  minSpeed: 450
+  maxSpeed: 450
   startDuration: 1.5
   endDuration: 0.5
   clockHandPivot: {fileID: 3884276396344546476}
