@@ -202,7 +202,7 @@ MonoBehaviour:
   addTimeSeconds: 0
   targetAngle: 0
   minAngleRange: 15
-  maxAngleRange: 45
+  maxAngleRange: 15
   minSpeed: 360
   maxSpeed: 540
   startDuration: 1.5

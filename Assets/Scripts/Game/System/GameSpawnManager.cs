@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ゲームシーケンスを作成する
 /// </summary>
-public class GameSpawnController : GameSpawnerBase
+public class GameSpawnManager : GameSpawnerBase
 {
     [Header("ScoreGames")]
     [SerializeField] PinLockController normalGame;
