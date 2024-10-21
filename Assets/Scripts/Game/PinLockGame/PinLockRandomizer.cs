@@ -27,8 +27,10 @@ public class PinLockRandomizer : ScriptableObject
     public float uiWidth;
     public float uiHeight;
 
-    public PinLockRandomizer Add(PinLockController p)
+    public PinLockGameProperties Add(PinLockGameProperties original)
     {
+        var p = original.Clone();
+
         p.locksCount += Random.Range(locksCountMin, locksCountMax + 1);
         p.keysCount += Random.Range(keysCountMin, keysCountMax + 1);
         p.maxLength += Random.Range(maxLengthMin, maxLengthMax + 1);
@@ -40,6 +42,6 @@ public class PinLockRandomizer : ScriptableObject
         p.uiWidth += uiWidth;
         p.uiHeight += uiHeight;
 
-        return this;
+        return p;
     }
 }

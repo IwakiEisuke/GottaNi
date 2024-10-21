@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6635656844627142916}
   - component: {fileID: 7155202333091420118}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 3921111196060782593}
   - component: {fileID: 6300142065653535005}
   - component: {fileID: 2585295654031515222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: glitch1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

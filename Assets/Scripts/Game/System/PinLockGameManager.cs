@@ -1,43 +1,53 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] float timeToStart;
     [SerializeField] int gameCount;
-    //[SerializeField] PinLockRandomizer[] adds;
+    [SerializeField] GameSectionManager section;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
-    [SerializeField] GameSpawnController spawner;
     [SerializeField] TimeManager timeManager;
-    PinLockController game;
+
+    bool isPlaying = true;
 
     private void Start()
     {
-        timeManager.Init();
         Invoke(nameof(StartGame), timeToStart);
     }
 
-    public void StartGame()
+    private void StartGame()
     {
-        game = spawner.CreateGame();
-        //adds[gameCount % adds.Length].Add(game);
+        timeManager.Init();
 
-        game.RegisterObserver(scoreManager);
-        game.RegisterObserver(gauge);
-        game.RegisterObserver(this);
+        section.RegisterObserver(scoreManager);
+        section.RegisterObserver(gauge);
+        section.RegisterObserver(timeManager);
+        section.RegisterObserver(this);
 
         timeManager.StartTimer();
+
+        Next();
     }
 
-    public void EndGame()
+    private void Next()
+    {
+        if (isPlaying)
+        {
+            section.StartSection();
+        }
+    }
+
+    private void EndGame()
     {
         Ranking.AddRanking(scoreManager.GetScore());
-        game.ExitGame();
+        isPlaying = false;
     }
 
     public void OnSectionComplete(GameSectionResult result)
     {
         gameCount++;
-        StartGame();
+        Next();
     }
 }
