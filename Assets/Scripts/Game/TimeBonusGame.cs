@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TimeBonusGame : GameBase
 {
     [Header("GameSettings")]
+    [SerializeField] int addTimeSeconds;
     [SerializeField] float targetAngle;
     [SerializeField] float minAngleRange = 20;
     [SerializeField] float maxAngleRange = 45;
@@ -25,10 +26,9 @@ public class TimeBonusGame : GameBase
     [SerializeField] Material m;
     [SerializeField] SpriteRenderer display;
 
-    new bool isPlaying = false; // これが無いとなんか開幕"true"になる。GameBaseの方で"false"に初期化してるのだけど。（PinLockControllerの方では"false"になってるっぽい?）
-
     private void Start()
     {
+        isPlaying = false;
         m.SetFloat("_Seed", Random.Range(0f, 100));
 
         speed = Random.Range(minSpeed, maxSpeed);
@@ -63,7 +63,7 @@ public class TimeBonusGame : GameBase
 
             if (diff < angleRange / 2)
             {
-                result.time = 10;
+                result.time = addTimeSeconds;
                 result.success = true;
             }
             else
@@ -78,7 +78,6 @@ public class TimeBonusGame : GameBase
 
     public override void CompleteGame()
     {
-        isPlaying = false;
         base.CompleteGame();
     }
 
