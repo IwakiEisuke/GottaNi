@@ -86,4 +86,9 @@ public class GameSectionManager : ResultSender
 
         ChangeState(this.result); // ChangeState実行時点で次のセクションが実行されることに注意
     }
+
+    public void ExecuteEndGame()
+    {
+        StartCoroutine(EndGame(startDelay, endDelay));
+    }
 }

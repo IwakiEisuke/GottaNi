@@ -586,7 +586,7 @@ MonoBehaviour:
   spacing: 6
   offsetY: -0.5
   startDelay: 0
-  endDelay: 1
+  endDelay: 0.5
 --- !u!4 &965056071
 Transform:
   m_ObjectHideFlags: 0
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animateDuration: 0.3
-  timeLimit: 90
+  timeLimit: 6
   timerText: {fileID: 1250166995}
   format: mm\:ss
   onTimeUpEvent:
@@ -1267,7 +1267,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 965056070}
         m_TargetAssemblyTypeName: GameSectionManager, Assembly-CSharp
-        m_MethodName: EndGame
+        m_MethodName: ExecuteEndGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
