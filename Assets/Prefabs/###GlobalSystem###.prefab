@@ -510,7 +510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 2919342345623918408}
-  m: {fileID: 0}
   scrollSpeedX: 2
   scrollSpeedY: 0
 --- !u!1 &5391641628632481345
@@ -858,8 +857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9529412, g: 0.9529412, b: 0.9529412, a: 1}
+  m_Material: {fileID: -876546973899608171, guid: 31c28b556e3577f489e2436f494c436e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
