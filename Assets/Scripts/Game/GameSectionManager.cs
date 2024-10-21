@@ -9,6 +9,8 @@ public class GameSectionManager : ResultSender
 {
     [SerializeField] float spacing;
     [SerializeField] float offsetY;
+    [SerializeField] float startDelay;
+    [SerializeField] float endDelay;
 
     GameSectionResult init = new(0, 0, true, 0);
     GameSectionResult result = new(0, 0, true, 0);
@@ -19,7 +21,7 @@ public class GameSectionManager : ResultSender
     /// ゲームシーケンスを順次実行する。
     /// </summary>
     /// <param name="result"></param>
-    void RunSequence(GameSectionResult result)
+    private void RunSequence(GameSectionResult result)
     {
         this.result += result;
 
@@ -33,13 +35,12 @@ public class GameSectionManager : ResultSender
             }
             else
             {
-                ChangeState(this.result); // シーケンスを完走したらオブザーバーへ通知。
+                StartCoroutine(EndGame(startDelay, endDelay)); // シーケンスを完走したらオブザーバーへ通知。
             }
         }
         else //失敗したらその時点で終了する
         {
-            EndGame();
-            ChangeState(this.result); // ChangeState実行時点で次のセクションが実行されることに注意
+            StartCoroutine(EndGame(startDelay, endDelay));
         }
     }
 
@@ -69,14 +70,20 @@ public class GameSectionManager : ResultSender
     /// <summary>
     /// 各ゲームを終了させる
     /// </summary>
-    public void EndGame()
+    private IEnumerator EndGame(float startDelay, float endDelay)
     {
+        yield return new WaitForSeconds(startDelay);
+
         foreach (var game in sequence)
         {
             if (game.gameObject.activeSelf)
             {
-                game.EndGame();
+                game.PlayClosingAnimation();
             }
         }
+
+        yield return new WaitForSeconds(endDelay);
+
+        ChangeState(this.result); // ChangeState実行時点で次のセクションが実行されることに注意
     }
 }

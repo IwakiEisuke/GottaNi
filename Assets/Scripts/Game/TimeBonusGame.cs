@@ -62,19 +62,24 @@ public class TimeBonusGame : GameBase
                 result.success = false;
             }
 
-            EndGame();
+            CompleteGame();
         }
     }
 
-    public override void EndGame()
+    public override void CompleteGame()
     {
         isPlaying = false;
+        base.CompleteGame();
+    }
+
+    public override void PlayClosingAnimation()
+    {
         DOTween.Kill(gameObject);
         DOTween.To(() => m.GetFloat("_T"), x => m.SetFloat("_T", x), 0, endDuration)
-            .OnComplete(() => 
-            { 
-                if (display) display.gameObject.SetActive(false); 
-                base.EndGame(); 
+            .OnComplete(() =>
+            {
+                if (display) display.gameObject.SetActive(false);
+                base.PlayClosingAnimation();
             });
     }
 

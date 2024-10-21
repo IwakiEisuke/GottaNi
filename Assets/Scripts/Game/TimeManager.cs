@@ -40,10 +40,7 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
 
     void Update()
     {
-        Debug.Log(DOTween.IsTweening(gameObject));
-
         if (isPlaying) t -= Time.deltaTime;
-
         UpdateTimer();
     }
 

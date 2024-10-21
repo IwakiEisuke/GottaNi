@@ -585,6 +585,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spacing: 6
   offsetY: -0.5
+  startDelay: 0
+  endDelay: 1
 --- !u!4 &965056071
 Transform:
   m_ObjectHideFlags: 0

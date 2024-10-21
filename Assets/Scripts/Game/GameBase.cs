@@ -24,9 +24,14 @@ public abstract class GameBase : MonoBehaviour
     /// <summary>
     /// ƒQ[ƒ€I—¹ˆ—
     /// </summary>
-    public virtual void EndGame()
+    public virtual void CompleteGame()
+    {
+        isPlaying = false;
+        SendResult();
+    }
+
+    public virtual void PlayClosingAnimation()
     {
         gameObject.SetActive(false);
-        SendResult();
     }
 }

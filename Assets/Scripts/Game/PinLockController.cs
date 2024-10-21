@@ -44,17 +44,11 @@ public class PinLockController : GameBase
 
     void Update()
     {
+        UpdateUI();
+
         if (!isPlaying)
         {
             return;
-        }
-
-        SetUISize();
-
-        if (!isShaking)
-        {
-            // 振動アニメーションを打ち消さないように
-            transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 + p.centerY); // UIの中心を合わせる
         }
 
         if (isScroll)
@@ -77,11 +71,11 @@ public class PinLockController : GameBase
 
             SetScore(hitPinCount);
 
-            Animation(offset.x, offset.y);
+            PlayMatchingAnimation(offset.x, offset.y);
 
             if (p.gameCloseEvenIfMissing || result.success) // このゲームを終了させる処理
             {
-                Invoke(nameof(EndGame), p.duration);
+                Invoke(nameof(CompleteGame), p.duration);
             }
         }
     }
@@ -111,7 +105,7 @@ public class PinLockController : GameBase
         isScroll = true;
     }
 
-    void SetUISize()
+    void UpdateUI()
     {
         var uiSize = new Vector2(p.uiWidth, p.uiHeight);
         mask.localScale = uiSize;
@@ -121,6 +115,12 @@ public class PinLockController : GameBase
         p.backGround.size = uiSize;
         p.backGround.material.SetVector("_ScrollSpeed", new Vector2(p.backGroundSpeedX, p.backGroundSpeedY));
         p.backGround.transform.localPosition = -uiSize / 2;
+
+        if (!isShaking)
+        {
+            // 振動アニメーションを打ち消さないように
+            transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 + p.centerY); // UIの中心を合わせる
+        }
     }
 
     /// <summary>
@@ -179,7 +179,7 @@ public class PinLockController : GameBase
         result.chancePoint = 1f * hitPinCount / p.keysCount * p.maxAddChancePoint;
     }
 
-    void Animation(float offsetX, float offsetY)
+    void PlayMatchingAnimation(float offsetX, float offsetY)
     {
         var moveDuration = 0.1f;
         // アニメーション
@@ -223,7 +223,12 @@ public class PinLockController : GameBase
         AudioManager.Play(result.success ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
     }
 
-    public override void EndGame()
+    public override void CompleteGame()
+    {
+        base.CompleteGame();
+    }
+
+    public override void PlayClosingAnimation()
     {
         DOTween.Kill(gameObject);
 
@@ -235,7 +240,7 @@ public class PinLockController : GameBase
             .Append(DOTween.To(() => p.uiWidth, x => p.uiWidth = x, 0, p.openDuration).SetEase(Ease.Linear))
             .OnComplete(() =>
             {
-                base.EndGame();
+                base.PlayClosingAnimation(); ;
             });
     }
 
