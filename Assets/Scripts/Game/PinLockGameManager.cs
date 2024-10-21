@@ -5,11 +5,10 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] float timeToStart;
     [SerializeField] int gameCount;
+    [SerializeField] GameSectionManager section;
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
-    [SerializeField] GameSpawnController spawner;
     [SerializeField] TimeManager timeManager;
-    GameSectionManager section;
 
     bool isPlaying = true;
 
@@ -22,21 +21,21 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     {
         timeManager.Init();
 
-        section = spawner.StartNewSection();
-
         section.RegisterObserver(scoreManager);
         section.RegisterObserver(gauge);
         section.RegisterObserver(timeManager);
         section.RegisterObserver(this);
 
         timeManager.StartTimer();
+
+        Next();
     }
 
     private void Next()
     {
         if (isPlaying)
         {
-            spawner.StartNewSection();
+            section.StartSection();
         }
     }
 

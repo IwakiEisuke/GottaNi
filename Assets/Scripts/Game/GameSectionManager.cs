@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GameSectionManager : ResultSender
 {
+    [SerializeField] GameSpawnerBase spawner;
     [SerializeField] float spacing;
     [SerializeField] float offsetY;
     [SerializeField] float startDelay;
@@ -45,11 +46,18 @@ public class GameSectionManager : ResultSender
     }
 
     /// <summary>
-    /// 渡されたゲームシーケンスを開始する
+    /// 新たなゲームシーケンスを開始する
     /// </summary>
-    /// <param name="newSequence"></param>
-    public void StartSection(GameBase[] newSequence)
+    [ContextMenu("StartSection")]
+    public void StartSection()
     {
+        var newSequence = spawner.CreateSequence();
+
+        foreach (var game in newSequence)
+        {
+            game.transform.parent = transform;
+        }
+
         for (int i = 0; i < newSequence.Length; i++)
         {
             var vec = new Vector3();
@@ -87,6 +95,9 @@ public class GameSectionManager : ResultSender
         ChangeState(this.result); // ChangeState実行時点で次のセクションが実行されることに注意
     }
 
+    /// <summary>
+    /// イベント等で外から呼び出す用
+    /// </summary>
     public void ExecuteEndGame()
     {
         StartCoroutine(EndGame(startDelay, endDelay));

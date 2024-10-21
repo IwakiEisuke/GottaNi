@@ -123,6 +123,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &493434617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493434619}
+  - component: {fileID: 493434621}
+  - component: {fileID: 493434620}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493434619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493434617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.0990472, y: -1.1508553, z: -0.048909523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &493434620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493434617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e70cbfb3cd7b3c40b679f361a1c3b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  section: {fileID: 493434621}
+  sequence:
+  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
+--- !u!114 &493434621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493434617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ba240c1424b2d40b5c8dc343f3cfc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 493434620}
+  spacing: 5
+  offsetY: 0
+  startDelay: 0
+  endDelay: 0
 --- !u!1001 &1825156533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,6 +258,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeBonusGame
       objectReference: {fileID: 0}
+    - target: {fileID: 1714648156102883489, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5269285978439304886, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -243,3 +313,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1825156533}
   - {fileID: 8177817516690940796}
+  - {fileID: 493434619}

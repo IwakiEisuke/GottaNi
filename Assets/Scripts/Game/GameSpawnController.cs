@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSpawnController : MonoBehaviour
+/// <summary>
+/// ゲームシーケンスを作成する
+/// </summary>
+public class GameSpawnController : GameSpawnerBase
 {
-    [Header("GameSectionManager")]
-    [SerializeField] GameSectionManager section;
-
     [Header("ScoreGames")]
     [SerializeField] PinLockController normalGame;
     [SerializeField] PinLockController _2xGame;
@@ -19,22 +19,10 @@ public class GameSpawnController : MonoBehaviour
     [Header("Gauge")]
     [SerializeField] ChanceGauge chanceGauge;
 
-    [Header("Position")]
-    [SerializeField] float centerX;
-    [SerializeField] float centerY;
-
-    public GameSectionManager StartNewSection()
-    {
-        section.StartSection(CreateSection());
-
-        return section;
-    }
-
     /// <summary>
     /// 新たにゲームシーケンスを作成する
     /// </summary>
-    /// <returns></returns>
-    GameBase[] CreateSection()
+    public override GameBase[] CreateSequence()
     {
         List<GameBase> sequence = new();
 
@@ -58,9 +46,14 @@ public class GameSpawnController : MonoBehaviour
         }
         return sequence.ToArray();
     }
+}
 
-    GameBase CreateGame(GameBase go)
+public abstract class GameSpawnerBase : MonoBehaviour
+{
+    public abstract GameBase[] CreateSequence();
+
+    protected virtual GameBase CreateGame(GameBase go)
     {
-        return Instantiate(go, section.transform).GetComponent<GameBase>();
+        return Instantiate(go).GetComponent<GameBase>();
     }
 }
