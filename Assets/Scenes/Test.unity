@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   section: {fileID: 493434621}
   sequence:
-  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
   - {fileID: 2253899312325596236, guid: 862b8af461820ee44a1fb6fd2e4afa9f, type: 3}
   playOnAwake: 1
 --- !u!114 &493434621
@@ -199,6 +199,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 300429112931914567, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.96981126
+      objectReference: {fileID: 0}
+    - target: {fileID: 300429112931914567, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.96981126
+      objectReference: {fileID: 0}
+    - target: {fileID: 300429112931914567, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.96981126
+      objectReference: {fileID: 0}
     - target: {fileID: 4749977889760636784, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
