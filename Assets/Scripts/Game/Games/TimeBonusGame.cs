@@ -38,7 +38,7 @@ public class TimeBonusGame : GameBase
         angleRange = Random.Range(minAngleRange, maxAngleRange);
         SetAngles();
 
-        DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1.5f, startDuration);
+        DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1, startDuration);
     }
 
     public override void StartGame()
