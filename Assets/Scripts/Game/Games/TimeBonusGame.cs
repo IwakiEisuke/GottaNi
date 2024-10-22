@@ -19,6 +19,8 @@ public class TimeBonusGame : GameBase
     [Header("AnimationSettings")]
     [SerializeField] float startDuration;
     [SerializeField] float endDuration;
+    [SerializeField] float successDuration;
+    [SerializeField] float failureDuration;
 
     [Header("Others")]
     [SerializeField] Transform clockHandPivot;
@@ -36,7 +38,7 @@ public class TimeBonusGame : GameBase
         angleRange = Random.Range(minAngleRange, maxAngleRange);
         SetAngles();
 
-        DOTween.To(() => 0f, x => m.SetFloat("_T", x), 2.5f, startDuration);
+        DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1.5f, startDuration);
     }
 
     public override void StartGame()
@@ -65,22 +67,34 @@ public class TimeBonusGame : GameBase
             {
                 result.time = addTimeSeconds;
                 result.success = true;
+                PlaySuccessAnimation();
             }
             else
             {
                 result.time = 0;
                 result.success = false;
+                PlayFailureAnimation();
             }
 
             Debug.Log(result.success ? "success" : "failure");
-
-            CompleteGame();
         }
     }
 
     public override void CompleteGame()
     {
         base.CompleteGame();
+    }
+
+    private void PlaySuccessAnimation()
+    {
+        isPlaying = false;
+        Invoke(nameof(CompleteGame), successDuration);
+    }
+
+    private void PlayFailureAnimation()
+    {
+        isPlaying = false;
+        Invoke(nameof(CompleteGame), failureDuration);
     }
 
     public override void PlayClosingAnimation()

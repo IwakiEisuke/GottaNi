@@ -205,8 +205,10 @@ MonoBehaviour:
   maxAngleRange: 20
   minSpeed: 360
   maxSpeed: 360
-  startDuration: 1.5
-  endDuration: 0.5
+  startDuration: 1
+  endDuration: 0.7
+  successDuration: 0.5
+  failureDuration: 0.3
   clockHandPivot: {fileID: 3884276396344546476}
   sector: {fileID: 6678189577071230527}
   m: {fileID: -876546973899608171, guid: f201fbb525269e24e95b473224700dca, type: 3}

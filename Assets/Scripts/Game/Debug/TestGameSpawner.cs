@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestGameSpawner : GameSpawnerBase
+public class TestGameSpawner : GameSpawnerBase, IGameSectionResultObserver
 {
     [SerializeField] GameSectionManager section;
     [SerializeField] GameBase[] sequence;
@@ -10,10 +9,16 @@ public class TestGameSpawner : GameSpawnerBase
 
     private void Start()
     {
+        section.RegisterObserver(this);
         if (playOnAwake)
         {
-            section.StartSection();
+            Run();
         }
+    }
+
+    private void Run()
+    {
+        section.StartSection();
     }
 
     /// <summary>
@@ -28,5 +33,10 @@ public class TestGameSpawner : GameSpawnerBase
             newSequence.Add(CreateGame(s));
         }
         return newSequence.ToArray();
+    }
+
+    public void OnSectionComplete(GameSectionResult result)
+    {
+        Run();
     }
 }
