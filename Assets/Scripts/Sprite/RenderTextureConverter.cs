@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RenderTextureConverter : MonoBehaviour
 {
     [SerializeField] RenderTexture renderTexture;
     [SerializeField] SpriteRenderer sr;
+    [SerializeField] Image image;
 
     Texture2D texture;
 
@@ -23,6 +25,7 @@ public class RenderTextureConverter : MonoBehaviour
         // Texture2D‚©‚çSprite‚ğì¬
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
-        sr.sprite = sprite;
+        if (sr) sr.sprite = sprite;
+        if (image) image.sprite = sprite;
     }
 }
