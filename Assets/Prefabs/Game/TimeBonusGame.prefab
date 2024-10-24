@@ -199,7 +199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlaying: 1
   addTimeSeconds: 10
-  targetAngle: 0
   minAngleRange: 20
   maxAngleRange: 20
   minSpeed: 360
@@ -314,7 +313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4883602898468308256
 RectTransform:
   m_ObjectHideFlags: 0
@@ -415,7 +414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3884276396344546476
 Transform:
   m_ObjectHideFlags: 0

@@ -170,7 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   section: {fileID: 493434621}
   sequence:
-  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
   - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
   playOnAwake: 1
 --- !u!114 &493434621

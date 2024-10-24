@@ -8,10 +8,8 @@ public class TimeBonusGame : GameBase
 {
     [Header("GameSettings")]
     [SerializeField] int addTimeSeconds = 10;
-    [SerializeField] float targetAngle;
     [SerializeField] float minAngleRange = 20;
     [SerializeField] float maxAngleRange = 45;
-    float angleRange;
     [SerializeField] float minSpeed = 360;
     [SerializeField] float maxSpeed = 360 * 2;
     float speed;
@@ -31,11 +29,12 @@ public class TimeBonusGame : GameBase
     private void Start()
     {
         isPlaying = false;
+        m.SetFloat("_HandAngle", 0);
         m.SetFloat("_Seed", Random.Range(0f, 100));
 
         speed = Random.Range(minSpeed, maxSpeed);
-        targetAngle = Random.Range(0f, 360f);
-        angleRange = Random.Range(minAngleRange, maxAngleRange);
+        m.SetFloat("_TargetAngle", Random.Range(0f, 360f));
+        m.SetFloat("_AngleRange", Random.Range(minAngleRange, maxAngleRange));
         SetAngles();
 
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1, startDuration);
@@ -53,17 +52,17 @@ public class TimeBonusGame : GameBase
             return;
         }
 
-        clockHandPivot.Rotate(0, 0, -speed * Time.deltaTime);
+        m.SetFloat("_HandAngle", m.GetFloat("_HandAngle") + speed * Time.deltaTime);
         SetAngles();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var handAngle = clockHandPivot.rotation.eulerAngles.z; // 0Å`360
+            var handAngle = m.GetFloat("_HandAngle");
 
-            var diff = handAngle - targetAngle;
-            diff = Mathf.Abs((180 * 3 + diff) % 360 - 180);
+            var diff = handAngle - m.GetFloat("_TargetAngle");
+            diff = Mathf.Abs((180 + diff) % 360 - 180);
 
-            if (diff < angleRange / 2)
+            if (diff < m.GetFloat("_AngleRange") / 2)
             {
                 result.time = addTimeSeconds;
                 result.success = true;
@@ -77,6 +76,7 @@ public class TimeBonusGame : GameBase
             }
 
             Debug.Log(result.success ? "success" : "failure");
+            Debug.Log($"{m.GetFloat("_HandAngle")} {m.GetFloat("_TargetAngle")} {m.GetFloat("_AngleRange")} {diff} {m.GetFloat("_AngleRange") / 2}");
         }
     }
 
@@ -110,13 +110,8 @@ public class TimeBonusGame : GameBase
 
     private void SetAngles()
     {
-        targetAngle = (180 * 3 + targetAngle) % 360 - 180;
-
-        if (sector)
-        {
-            sector.fillAmount = angleRange / 360;
-            sector.transform.rotation = Quaternion.Euler(0, 0, 180 + angleRange / 2 + targetAngle);
-        }
+        var targetAngle = (180 * 3 + m.GetFloat("_TargetAngle")) % 360 - 180;
+        m.SetFloat("_TargetAngle", targetAngle);
     }
 
 #if UNITY_EDITOR
