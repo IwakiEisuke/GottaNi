@@ -1,8 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TimeBonusGame : GameBase
 {
@@ -21,13 +18,14 @@ public class TimeBonusGame : GameBase
     [SerializeField] float failureDuration;
 
     [Header("Others")]
-    [SerializeField] Transform clockHandPivot;
-    [SerializeField] Image sector;
     [SerializeField] Material m;
-    [SerializeField] SpriteRenderer display;
+    [SerializeField] ParticleSystem ps;
 
     private void Start()
     {
+        var main = ps.main;
+        main.loop = false;
+
         isPlaying = false;
         m.SetFloat("_HandAngle", 0);
         m.SetFloat("_Seed", Random.Range(0f, 100));
@@ -40,6 +38,7 @@ public class TimeBonusGame : GameBase
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1, startDuration);
     }
 
+    [ContextMenu(nameof(StartGame))]
     public override void StartGame()
     {
         isPlaying = true;
@@ -88,6 +87,7 @@ public class TimeBonusGame : GameBase
     private void PlaySuccessAnimation()
     {
         isPlaying = false;
+        ps.Play();
         Invoke(nameof(CompleteGame), successDuration);
     }
 
@@ -103,7 +103,6 @@ public class TimeBonusGame : GameBase
         DOTween.To(() => m.GetFloat("_T"), x => m.SetFloat("_T", x), 0, endDuration)
             .OnComplete(() =>
             {
-                if (display) display.gameObject.SetActive(false);
                 base.PlayClosingAnimation();
             });
     }
