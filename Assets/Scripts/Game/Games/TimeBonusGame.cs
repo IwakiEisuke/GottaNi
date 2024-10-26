@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 
 public class TimeBonusGame : GameBase
@@ -19,12 +20,15 @@ public class TimeBonusGame : GameBase
 
     [Header("Others")]
     [SerializeField] Material m;
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] ParticleSystem[] ps;
 
     private void Start()
     {
-        var main = ps.main;
-        main.loop = false;
+        foreach (var p in ps)
+        {
+            var main = p.main;
+            main.loop = false;
+        }
 
         isPlaying = false;
         m.SetFloat("_HandAngle", 0);
@@ -87,7 +91,12 @@ public class TimeBonusGame : GameBase
     private void PlaySuccessAnimation()
     {
         isPlaying = false;
-        ps.Play();
+
+        foreach (var p in ps)
+        {
+            p.Play();
+        }
+
         Invoke(nameof(CompleteGame), successDuration);
     }
 
