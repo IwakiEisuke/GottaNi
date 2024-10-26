@@ -28,8 +28,8 @@ RectTransform:
   m_GameObject: {fileID: 4829019978549384451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8088252992842207034}
   m_Father: {fileID: 0}
@@ -48,7 +48,7 @@ Canvas:
   m_GameObject: {fileID: 4829019978549384451}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -59,8 +59,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 291356979
-  m_SortingOrder: 2
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &7825715910769239900
 MonoBehaviour:
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4346277176060854568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,10 +113,6 @@ PrefabInstance:
     - target: {fileID: 1154325535392334320, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
       propertyPath: m_Text
       value: 2x
-      objectReference: {fileID: 0}
-    - target: {fileID: 3552043437044094634, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
-      propertyPath: m_Name
-      value: Number
       objectReference: {fileID: 0}
     - target: {fileID: 4271720344354296197, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
       propertyPath: m_Color.b
@@ -192,11 +188,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5148650245888383701, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 400
+      value: 531
       objectReference: {fileID: 0}
     - target: {fileID: 5148650245888383701, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 360
+      value: 338
       objectReference: {fileID: 0}
     - target: {fileID: 5148650245888383701, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -212,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6426240221792435869, guid: aa1972093a198d04b9b12de94de324a8, type: 3}
       propertyPath: m_Name
-      value: Image
+      value: Magnification
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
