@@ -9,6 +9,7 @@ using UnityEngine.Events;
 /// </summary>
 public class PinLockController : GameBase
 {
+    [SerializeField] Transform gameParent;
     [SerializeField] PinLockGameProperties p;
     [SerializeField] UnityEvent OnCompleteEvent;
     ///<summary>スクロールの停止フラグ<br></br>ゲームの成功判定とは別</summary>
@@ -97,7 +98,7 @@ public class PinLockController : GameBase
         for (int i = 0; i < p.locksCount; i++)
         {
             locksLength[i] = Random.Range(p.minLength, p.maxLength + 1);
-            locks[i] = PinData.CreatePin(locksLength[i], i, p.lockPref, transform);
+            locks[i] = PinData.CreatePin(locksLength[i], i, p.lockPref, gameParent);
             locks[i].name = "Pin" + i;
         }
 
@@ -127,7 +128,7 @@ public class PinLockController : GameBase
         if (!isShaking)
         {
             // 振動アニメーションを打ち消さないように
-            transform.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 + p.centerY); // UIの中心を合わせる
+            gameParent.position = new Vector3(p.uiWidth / 2 + p.centerX, p.uiHeight / 2 + p.centerY); // UIの中心を合わせる
         }
     }
 
@@ -203,7 +204,7 @@ public class PinLockController : GameBase
             if (result.success)
             {
                 isShaking = true;
-                transform.DOShakePosition(p.duration, p.strength, p.vibrato).OnComplete(() => isShaking = false);
+                gameParent.DOShakePosition(p.duration, p.strength, p.vibrato).OnComplete(() => isShaking = false);
             }
         }
         else
