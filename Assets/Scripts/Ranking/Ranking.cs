@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ranking
+public static class Ranking
 {
     public static RankingData GetRanking()
     {

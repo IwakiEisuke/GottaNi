@@ -1,9 +1,12 @@
+using DG.Tweening;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+/// <summary>
+/// ランキングの表示処理を行うクラス
+/// </summary>
 public class RankingBoard : MonoBehaviour
 {
     [SerializeField] Transform parent;
@@ -12,26 +15,46 @@ public class RankingBoard : MonoBehaviour
     [SerializeField] GameObject textPref;
     [SerializeField] int maxCount;
 
-    void Start()
+    [Header("NewRecordEffectSettings")]
+    [SerializeField] float delay;
+    [SerializeField] float duration;
+    [SerializeField] float targetValue;
+    [SerializeField] Ease ease;
+    [SerializeField] GameObject nrBanner;
+    [Header("ResultBanners")]
+    [SerializeField] GameObject @default;
+    [SerializeField] GameObject newRecord;
+
+    private void Start()
     {
         if (parent == null) parent = transform;
 
+        nrBanner.SetActive(false);
+        newRecord.SetActive(false);
+        @default.SetActive(true);
+
         DestroyChildren();
-        Generate();
+        DisplayRanking();
     }
 
-    void Generate()
+    private void DisplayRanking()
     {
         data = Ranking.GetRanking();
 
         if (!(data == null || data.ranking.Count == 0))
         {
-            StartCoroutine(GenerateRanking());
+            StartCoroutine(UpdateRankingText());
 
             var sm = FindAnyObjectByType<ScoreManager>();
             if (sm && currentScoreText)
             {
-                GenerateCurrent(sm.GetScore());
+                UpdateCurrentText(sm.GetScore());
+
+                // ローカルレコード更新表示
+                if (sm.GetScore() >= data.ranking.Max() && data.ranking.Count(x => x == sm.GetScore()) == 1)
+                {
+                    DisplayNewRecordEffect();
+                }
             }
         }
         else
@@ -41,7 +64,22 @@ public class RankingBoard : MonoBehaviour
         }
     }
 
-    private IEnumerator GenerateRanking()
+    [ContextMenu(nameof(DisplayNewRecordEffect))]
+    private void DisplayNewRecordEffect()
+    {
+        @default.SetActive(false);
+        newRecord.SetActive(true);
+
+        Invoke(nameof(AnimateNRBanner), delay);
+    }
+
+    void AnimateNRBanner()
+    {
+        nrBanner.SetActive(true);
+        nrBanner.transform.DOScale(targetValue, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+    }
+
+    private IEnumerator UpdateRankingText()
     {
         var ranking = data.ranking.OrderByDescending(x => x).ToArray();
         var count = Mathf.Min(maxCount, ranking.Length);
@@ -54,12 +92,12 @@ public class RankingBoard : MonoBehaviour
         }
     }
 
-    public void GenerateCurrent(int score)
+    private void UpdateCurrentText(int score)
     {
         currentScoreText.text = $"You : {score:0000}";
     }
 
-    void DestroyChildren()
+    private void DestroyChildren()
     {
         foreach (Transform t in parent)
         {
