@@ -25,6 +25,7 @@ public class PinLockController : GameBase
     {
         isPlaying = false;
         isScroll = false;
+        gameClosed = false;
 
         p.centerX = transform.position.x;
         p.centerY = transform.position.y;

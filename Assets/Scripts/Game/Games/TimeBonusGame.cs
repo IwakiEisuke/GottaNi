@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Linq;
 using UnityEngine;
 
 public class TimeBonusGame : GameBase
@@ -31,6 +30,7 @@ public class TimeBonusGame : GameBase
         }
 
         isPlaying = false;
+        gameClosed = false;
         m.SetFloat("_HandAngle", 0);
         m.SetFloat("_Seed", Random.Range(0f, 100));
 
@@ -114,8 +114,6 @@ public class TimeBonusGame : GameBase
     {
         if (gameClosed) return;
         else gameClosed = true;
-
-        if (PinLockGameManager.GameOver) return;
 
         AudioManager.Play(SoundType.CloseGame);
 
