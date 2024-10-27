@@ -15,7 +15,9 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
     [SerializeField] Text scoreText;
     [SerializeField] int score;
     [SerializeField] float tweenDuration;
+    [SerializeField] float seMinDelay;
     int previousScore;
+    float seTime;
 
     private void Start()
     {
@@ -29,13 +31,18 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
         DOTween.To
             (
             () => dummy,
-            x => {  
-                    scoreText.text = preText + x.ToString(format);
-                    if (!PinLockGameManager.GameOver)
+            x => {
+                scoreText.text = preText + x.ToString(format);
+                if (!PinLockGameManager.GameOver)
+                {
+                    if (previousScore != x && seTime > seMinDelay)
                     {
-                        if (previousScore != x) AudioManager.Play(SoundType.AddScore);
-                        previousScore = x;
+                        AudioManager.Play(SoundType.AddScore);
+                        seTime = 0;
                     }
+                    previousScore = x;
+                    seTime += Time.deltaTime;
+                }
                  }, 
             score + add, 
             tweenDuration
