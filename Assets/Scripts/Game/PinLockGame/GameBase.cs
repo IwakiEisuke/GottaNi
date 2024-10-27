@@ -8,8 +8,9 @@ using UnityEngine.Events;
 public abstract class GameBase : MonoBehaviour
 {
     public Action<GameSectionResult> sendResult;
-    public GameSectionResult result;
-    public bool isPlaying;
+    protected GameSectionResult result;
+    protected bool isPlaying;
+    protected bool gameClosed;
 
     public abstract void StartGame();
 
@@ -30,6 +31,9 @@ public abstract class GameBase : MonoBehaviour
         SendResult();
     }
 
+    /// <summary>
+    /// ゲームセクション完了時、またはタイムオーバー時に実行する関数
+    /// </summary>
     public virtual void PlayClosingAnimation()
     {
         isPlaying = false;

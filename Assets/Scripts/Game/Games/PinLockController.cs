@@ -240,6 +240,9 @@ public class PinLockController : GameBase
 
     public override void PlayClosingAnimation()
     {
+        if (gameClosed) return;
+        else gameClosed = true;
+
         isPlaying = false;
         DOTween.Kill(gameObject);
 

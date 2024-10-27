@@ -112,6 +112,11 @@ public class TimeBonusGame : GameBase
 
     public override void PlayClosingAnimation()
     {
+        if (gameClosed) return;
+        else gameClosed = true;
+
+        if (PinLockGameManager.GameOver) return;
+
         AudioManager.Play(SoundType.CloseGame);
 
         DOTween.Kill(gameObject);
