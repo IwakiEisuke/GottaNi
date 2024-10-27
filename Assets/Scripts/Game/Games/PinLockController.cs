@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,7 +17,7 @@ public class PinLockController : GameBase
     PinData[] locks, keys;
     bool isShaking;
 
-    Material m;
+    Material m; // マテリアルの複製を保持し、完了時に破棄する
 
     Transform mask;
 
@@ -31,7 +30,7 @@ public class PinLockController : GameBase
         p.centerY = transform.position.y;
 
         mask = GetComponentInChildren<SpriteMask>().transform;
-        m = p.backGround.material; // Renderer.materialのgetterは自動的に複製を返す
+        m = p.backGround.material;
         m.SetVector("_ScrollSpeed", new Vector2(p.backGroundSpeedX, p.backGroundSpeedY));
 
         AudioManager.Play(SoundType.OpenGame);
@@ -41,8 +40,9 @@ public class PinLockController : GameBase
             .Append(DOTween.To(() => 0, x => p.uiWidth = x, p.uiWidth, p.openDuration).SetEase(Ease.Linear))
             .Append(DOTween.To(() => 0, x => p.uiHeight = x, p.uiHeight, p.openDuration).SetEase(Ease.Linear));
 
-        p.uiWidth = 0; // Tween開始までに1フレーム?かかるので、それまでにuiが開かないように0にしておく
-        p.uiHeight = 0; // uiWidthのTween完了まで0にならないので先に0にしておく
+        //初期化
+        p.uiWidth = 0;
+        p.uiHeight = 0;
     }
 
     public override void StartGame()
@@ -78,7 +78,7 @@ public class PinLockController : GameBase
 
             Matching(out var offset, out var hitPinCount);
 
-            SetScore(hitPinCount);
+            SetResult(hitPinCount);
 
             PlayMatchingAnimation(offset.x, offset.y);
 
@@ -132,7 +132,7 @@ public class PinLockController : GameBase
     }
 
     /// <summary>
-    /// 成功・失敗判定
+    /// 成功・失敗を判定しリザルトに入れる
     /// </summary>
     /// <param name="offset">x:錠のアニメーション距離<br></br>y:鍵のアニメーション距離</param>
     /// <param name="hitPinCount">合致したピンの数</param>
@@ -172,9 +172,12 @@ public class PinLockController : GameBase
         }
     }
 
-    void SetScore(int hitPinCount)
+    /// <summary>
+    /// 成否に応じて、加算するスコアとチャンス量を設定する
+    /// </summary>
+    /// <param name="hitPinCount"></param>
+    void SetResult(int hitPinCount)
     {
-        // scoreを決定
         if (result.success)
         {
             result.score = (int)(p.maxAddScore * p.multiplier);
@@ -193,7 +196,6 @@ public class PinLockController : GameBase
         // アニメーション
         if (p.gameCloseEvenIfMissing || result.success)
         {
-
             // 錠の縦移動アニメーション
             foreach (var pin in locks)
             {
