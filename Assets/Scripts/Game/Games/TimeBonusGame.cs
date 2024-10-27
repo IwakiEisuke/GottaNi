@@ -31,6 +31,7 @@ public class TimeBonusGame : GameBase
 
         isPlaying = false;
         gameClosed = false;
+        m.SetFloat("_T", 0);
         m.SetFloat("_HandAngle", 0);
         m.SetFloat("_Seed", Random.Range(0f, 100));
 

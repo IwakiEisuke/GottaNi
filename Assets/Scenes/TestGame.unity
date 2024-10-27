@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animateDuration: 0.3
-  timeLimit: 3
+  timeLimit: 6
   timerText: {fileID: 1250166995}
   format: mm\:ss
   onTimeUpEvent:
