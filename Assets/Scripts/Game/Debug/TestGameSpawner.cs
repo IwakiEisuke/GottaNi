@@ -37,6 +37,9 @@ public class TestGameSpawner : GameSpawnerBase, IGameSectionResultObserver
 
     public void OnSectionComplete(GameSectionResult result)
     {
-        Run();
+        if (playOnAwake)
+        {
+            Run();
+        }
     }
 }

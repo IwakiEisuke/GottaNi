@@ -565,6 +565,7 @@ GameObject:
   - component: {fileID: 965056071}
   - component: {fileID: 965056070}
   - component: {fileID: 965056072}
+  - component: {fileID: 965056073}
   m_Layer: 0
   m_Name: GameSectionManager
   m_TagString: Untagged
@@ -621,6 +622,24 @@ MonoBehaviour:
   sequence:
   - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
   playOnAwake: 0
+--- !u!114 &965056073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965056069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11fa47db1c444f4c917b583413de318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalGame: {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  _2xGame: {fileID: 2253899312325596236, guid: da7205bfb223fea4cabae3cd954767e4, type: 3}
+  _5xGame: {fileID: 2253899312325596236, guid: 862b8af461820ee44a1fb6fd2e4afa9f, type: 3}
+  _10xGame: {fileID: 2253899312325596236, guid: f122ebb8c096bd54fb93eb5099e2ea75, type: 3}
+  timeBonusGame: {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
+  chanceGauge: {fileID: 4072771318148909601}
 --- !u!1 &1250166993
 GameObject:
   m_ObjectHideFlags: 0
