@@ -10,10 +10,12 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     [SerializeField] ChanceGauge gauge;
     [SerializeField] TimeManager timeManager;
 
+    public static bool GameOver { get; private set; }
     bool isPlaying = true;
 
     private void Start()
     {
+        GameOver = false;
         Invoke(nameof(StartGame), timeToStart);
     }
 
@@ -42,6 +44,7 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     private void EndGame()
     {
         Ranking.AddRanking(scoreManager.GetScore());
+        GameOver = true;
         isPlaying = false;
     }
 

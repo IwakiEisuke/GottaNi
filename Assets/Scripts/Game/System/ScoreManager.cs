@@ -29,9 +29,13 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
         DOTween.To
             (
             () => dummy,
-            x => {  scoreText.text = preText + x.ToString(format);
-                    if (previousScore != x) AudioManager.Play(SoundType.AddScore);
-                    previousScore = x;
+            x => {  
+                    scoreText.text = preText + x.ToString(format);
+                    if (!PinLockGameManager.GameOver)
+                    {
+                        if (previousScore != x) AudioManager.Play(SoundType.AddScore);
+                        previousScore = x;
+                    }
                  }, 
             score + add, 
             tweenDuration
