@@ -32,6 +32,7 @@ public abstract class GameBase : MonoBehaviour
 
     public virtual void PlayClosingAnimation()
     {
+        isPlaying = false;
         gameObject.SetActive(false);
     }
 }

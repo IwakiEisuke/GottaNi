@@ -240,6 +240,7 @@ public class PinLockController : GameBase
 
     public override void PlayClosingAnimation()
     {
+        isPlaying = false;
         DOTween.Kill(gameObject);
 
         AudioManager.Play(SoundType.CloseGame);
