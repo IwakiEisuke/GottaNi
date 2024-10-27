@@ -1,4 +1,5 @@
 using DG.Tweening;
+using DG.Tweening.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,9 +59,22 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
         }
     }
 
+    int previousTime;
     private void AddTime(float add)
     {
-        DOTween.To(() => t, x => t = x, t + add, animateDuration).SetEase(Ease.Linear);
+        previousTime = (int)t;
+
+        void Setter(float x)
+        {
+            t = x;
+            if (!PinLockGameManager.GameOver)
+            {
+                if (previousTime != (int)x) AudioManager.Play(SoundType.AddScore);
+                previousTime = (int)x;
+            }
+        }
+
+        DOTween.To(() => t, x => Setter(x), t + add, animateDuration).SetEase(Ease.Linear);
     }
 
     [ContextMenu("Force quit the game")]

@@ -40,12 +40,15 @@ public class TimeBonusGame : GameBase
         SetAngles();
 
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1, startDuration);
+
+        AudioManager.Play(SoundType.GaugeFull);
     }
 
     [ContextMenu(nameof(StartGame))]
     public override void StartGame()
     {
         isPlaying = true;
+        AudioManager.Play(SoundType.OpenGame);
     }
 
     void Update()
@@ -58,7 +61,7 @@ public class TimeBonusGame : GameBase
         m.SetFloat("_HandAngle", m.GetFloat("_HandAngle") + speed * Time.deltaTime);
         SetAngles();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !PinLockGameManager.GameOver)
         {
             var handAngle = m.GetFloat("_HandAngle");
 
@@ -78,8 +81,9 @@ public class TimeBonusGame : GameBase
                 PlayFailureAnimation();
             }
 
-            Debug.Log(result.success ? "success" : "failure");
-            Debug.Log($"{m.GetFloat("_HandAngle")} {m.GetFloat("_TargetAngle")} {m.GetFloat("_AngleRange")} {diff} {m.GetFloat("_AngleRange") / 2}");
+            AudioManager.Play(result.success ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
+            //Debug.Log(result.success ? "success" : "failure");
+            //Debug.Log($"{m.GetFloat("_HandAngle")} {m.GetFloat("_TargetAngle")} {m.GetFloat("_AngleRange")} {diff} {m.GetFloat("_AngleRange") / 2}");
         }
     }
 
@@ -108,6 +112,8 @@ public class TimeBonusGame : GameBase
 
     public override void PlayClosingAnimation()
     {
+        AudioManager.Play(SoundType.CloseGame);
+
         DOTween.Kill(gameObject);
         DOTween.To(() => m.GetFloat("_T"), x => m.SetFloat("_T", x), 0, endDuration)
             .OnComplete(() =>
