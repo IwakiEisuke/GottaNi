@@ -51,7 +51,7 @@ public class RankingBoard : MonoBehaviour
                 // ローカルレコード更新表示
                 if (animator)
                 {
-                    var highest = sm.GetScore() >= data.ranking.Max();
+                    var highest = sm.GetScore() >= data.ranking.First();
                     var unique = data.ranking.Count(x => x == sm.GetScore()) == 1; // 同率一位じゃない
 
                     if (highest && unique)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Ranking
@@ -13,6 +14,7 @@ public static class Ranking
     {
         var data = GetRanking() ?? new RankingData();
         data.ranking.Add(item);
+        data.ranking = data.ranking.OrderBy(x => -x).Take(99).ToList();
         SetRanking(data);
     }
 
@@ -21,6 +23,7 @@ public static class Ranking
         var json = JsonUtility.ToJson(new RankingData());
         PlayerPrefs.SetString("ranking", json);
     }
+
     static void SetRanking(RankingData data)
     {
         var json = JsonUtility.ToJson(data);
