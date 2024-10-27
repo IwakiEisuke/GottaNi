@@ -16,22 +16,21 @@ public class RankingBoard : MonoBehaviour
     [SerializeField] int maxCount;
 
     [Header("NewRecordEffectSettings")]
-    [SerializeField] float delay;
-    [SerializeField] float duration;
-    [SerializeField] float targetValue;
-    [SerializeField] Ease ease;
-    [SerializeField] GameObject nrBanner;
-    [Header("ResultBanners")]
-    [SerializeField] GameObject @default;
-    [SerializeField] GameObject newRecord;
+    [SerializeField] Animator animator;
+
+    [Header("Debug")]
+    [SerializeField] bool playNewRecordEffect;
 
     private void Start()
     {
         if (parent == null) parent = transform;
 
-        nrBanner.SetActive(false);
-        newRecord.SetActive(false);
-        @default.SetActive(true);
+        if (animator) animator.Play("NewRecordInit");
+
+        if (playNewRecordEffect)
+        {
+            PlayNewRecordEffect();
+        }
 
         DestroyChildren();
         DisplayRanking();
@@ -51,9 +50,15 @@ public class RankingBoard : MonoBehaviour
                 UpdateCurrentText(sm.GetScore());
 
                 // ローカルレコード更新表示
-                if (sm.GetScore() >= data.ranking.Max() && data.ranking.Count(x => x == sm.GetScore()) == 1)
+                if (animator)
                 {
-                    DisplayNewRecordEffect();
+                    var highest = sm.GetScore() >= data.ranking.Max();
+                    var unique = data.ranking.Count(x => x == sm.GetScore()) == 1; // 同率一位じゃない
+
+                    if (highest && unique)
+                    {
+                        PlayNewRecordEffect();
+                    }
                 }
             }
         }
@@ -64,19 +69,10 @@ public class RankingBoard : MonoBehaviour
         }
     }
 
-    [ContextMenu(nameof(DisplayNewRecordEffect))]
-    private void DisplayNewRecordEffect()
+    [ContextMenu(nameof(PlayNewRecordEffect))]
+    private void PlayNewRecordEffect()
     {
-        @default.SetActive(false);
-        newRecord.SetActive(true);
-
-        Invoke(nameof(AnimateNRBanner), delay);
-    }
-
-    void AnimateNRBanner()
-    {
-        nrBanner.SetActive(true);
-        nrBanner.transform.DOScale(targetValue, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        animator.Play("NewRecord");
     }
 
     private IEnumerator UpdateRankingText()
