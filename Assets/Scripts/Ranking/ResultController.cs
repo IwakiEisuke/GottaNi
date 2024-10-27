@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class ResultController : MonoBehaviour
 {
-    [SerializeField] float waitTime;
+    [SerializeField] float openDelay;
     [SerializeField] Button titleButton, restartButton;
+    [SerializeField] float openDuration;
+    bool buttonPressed;
 
     private void Start()
     {
-        Invoke(nameof(Open), waitTime);
+        Invoke(nameof(Open), openDelay);
     }
 
     public void Open()
@@ -26,12 +28,20 @@ public class ResultController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && titleButton)
+        if (buttonPressed || openDuration > 0)
         {
+            openDuration -= Time.deltaTime;
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.T) && titleButton && titleButton.enabled)
+        {
+            buttonPressed = true;
             titleButton.onClick.Invoke();
         }
-        else if (Input.GetKeyDown(KeyCode.R) && restartButton)
+        else if (Input.GetKeyDown(KeyCode.R) && restartButton && restartButton.enabled)
         {
+            buttonPressed = true;
             restartButton.onClick.Invoke();
         }
     }

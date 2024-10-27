@@ -1229,9 +1229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ef7f64506c5964688f81ac84448e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 0.5
+  openDelay: 0.5
   titleButton: {fileID: 2123825585}
   restartButton: {fileID: 1756985559}
+  openDuration: 1.3
 --- !u!114 &1087234965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1251,6 +1252,7 @@ MonoBehaviour:
   textPref: {fileID: 3441808565127006743, guid: 513a5e579219ba74eadf61d60e317f68, type: 3}
   maxCount: 8
   animator: {fileID: 1836474144}
+  canvas: {fileID: 1902367410}
   playNewRecordEffect: 1
 --- !u!1 &1220321629
 GameObject:
@@ -1593,6 +1595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doChangeInteractable: 1
+  openDuration: 1.3
   buttons: []
 --- !u!1 &1466754174
 GameObject:
@@ -1718,6 +1721,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4749977889760636784, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5239352494463439161, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
+      propertyPath: m_CameraType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5391641628632481345, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
@@ -2734,7 +2741,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1902367410
 Canvas:
   m_ObjectHideFlags: 0
@@ -2744,7 +2751,7 @@ Canvas:
   m_GameObject: {fileID: 1902367407}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2766,8 +2773,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902367407}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.00925926, y: 0.00925926, z: 0.00925926}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2122547603}
@@ -2777,8 +2784,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920.0001, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1936263479
 GameObject:
   m_ObjectHideFlags: 0

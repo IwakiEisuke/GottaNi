@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -17,16 +16,16 @@ public class RankingBoard : MonoBehaviour
 
     [Header("NewRecordEffectSettings")]
     [SerializeField] Animator animator;
+    [SerializeField] Canvas canvas;
 
     [Header("Debug")]
     [SerializeField] bool playNewRecordEffect;
 
     private void Start()
     {
+        if (canvas) canvas.worldCamera = Camera.main;
         if (parent == null) parent = transform;
-
         if (animator) animator.Play("NewRecordInit");
-
         if (playNewRecordEffect)
         {
             PlayNewRecordEffect();
