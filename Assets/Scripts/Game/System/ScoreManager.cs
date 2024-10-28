@@ -1,15 +1,11 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
 {
     [SerializeField] string preText = "Score : ";
-    [SerializeField] string format = "D3"; 
+    [SerializeField] string format = "D3";
 
     [Space(16)]
     [SerializeField] Text scoreText;
@@ -19,6 +15,8 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
     int previousScore;
     float seTime;
 
+    int beforeAnimatedScore;
+
     private void Start()
     {
         scoreText.text = preText + score.ToString(format);
@@ -26,29 +24,31 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
 
     private void AddScore(int add)
     {
-        var dummy = score;
-
-        DOTween.To
-            (
-            () => dummy,
-            x => {
-                scoreText.text = preText + x.ToString(format);
-                if (!PinLockGameManager.GameOver)
-                {
-                    if (previousScore != x && seTime > seMinDelay)
-                    {
-                        AudioManager.Play(SoundType.AddScore);
-                        seTime = 0;
-                    }
-                    previousScore = x;
-                    seTime += Time.deltaTime;
-                }
-                 }, 
-            score + add, 
-            tweenDuration
-            );
-
         score += add;
+        PlayScoreAnimation();
+    }
+
+    private void PlayScoreAnimation()
+    {
+        var dummy = beforeAnimatedScore;
+        beforeAnimatedScore = score;
+
+        void Setter(int x)
+        {
+            scoreText.text = preText + x.ToString(format);
+            if (!PinLockGameManager.GameOver)
+            {
+                if (previousScore != x && seTime > seMinDelay)
+                {
+                    AudioManager.Play(SoundType.AddScore);
+                    seTime = 0;
+                }
+                previousScore = x;
+                seTime += Time.deltaTime;
+            }
+        }
+
+        DOTween.To(() => dummy, x => Setter(x), score, tweenDuration);
     }
 
     public int GetScore() { return score; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 各ゲームセクションの結果の保持し、ゲーム進行を制御するクラス。
+/// 各ゲームセクションの結果を保持し、ゲーム進行を制御するクラス。
 /// </summary>
 public class GameSectionManager : ResultSender
 {
@@ -62,11 +62,13 @@ public class GameSectionManager : ResultSender
 
         for (int i = 0; i < newSequence.Length; i++)
         {
-            var vec = new Vector3();
-            // 等間隔で横並びにする
-            vec.x = (i - ((newSequence.Length - 1) / 2f)) * spacing;
-            // 縦にずらす
-            vec.y = offsetY;
+            var vec = new Vector3
+            {
+                // 等間隔で横並びにする
+                x = (i - ((newSequence.Length - 1) / 2f)) * spacing,
+                // 縦にずらす
+                y = offsetY
+            };
 
             newSequence[i].transform.position += vec;
         }

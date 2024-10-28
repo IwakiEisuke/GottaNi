@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ba240c1424b2d40b5c8dc343f3cfc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 965056073}
+  spawner: {fileID: 965056072}
   spacing: 6
   offsetY: -0.5
   openDelay: 0.39
@@ -613,13 +613,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965056069}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e70cbfb3cd7b3c40b679f361a1c3b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   section: {fileID: 965056070}
-  sequence: []
+  sequence:
+  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
+  - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
   playOnAwake: 0
 --- !u!114 &965056073
 MonoBehaviour:

@@ -17,19 +17,25 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
     [Space(16)]
     [SerializeField] UnityEvent onTimeUpEvent;
     float t;
+    float dummyTime;
 
     public bool IsTimeUp { get; private set; }
 
     bool isPlaying;
 
+    float beforeAnimatedTime;
+    bool isTweening;
+
     private void Start()
     {
         t = timeLimit;
+        dummyTime = t;
     }
 
     public void Init()
     {
         t = timeLimit;
+        dummyTime = t;
         var span = TimeSpan.FromSeconds(Mathf.CeilToInt(t));
         timerText.text = span.ToString(format);
     }
@@ -49,7 +55,8 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
     {
         if (!IsTimeUp)
         {
-            var span = TimeSpan.FromSeconds(Mathf.CeilToInt(t));
+            if(!isTweening) dummyTime -= Time.deltaTime;
+            var span = TimeSpan.FromSeconds(Mathf.CeilToInt(dummyTime));
             timerText.text = span.ToString(format);
 
             if (t <= 0)
@@ -62,19 +69,30 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
     int previousTime;
     private void AddTime(float add)
     {
-        previousTime = (int)t;
+        t += add;
+        PlayTimeAnimation();
+    }
+
+    private void PlayTimeAnimation()
+    {
+        isTweening = true;
 
         void Setter(float x)
         {
-            t = x;
-            if (!PinLockGameManager.GameOver)
+            dummyTime = x;
+            if (!PinLockGameManager.GameOver) // ゲームオーバー後に音を鳴らさない
             {
                 if (previousTime != (int)x) AudioManager.Play(SoundType.AddScore);
                 previousTime = (int)x;
             }
         }
 
-        DOTween.To(() => t, x => Setter(x), t + add, animateDuration).SetEase(Ease.Linear);
+        DOTween.To(() => dummyTime, x => Setter(x), t - animateDuration, animateDuration).SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                isTweening = false;
+                dummyTime = t;
+            });
     }
 
     [ContextMenu("Force quit the game")]
