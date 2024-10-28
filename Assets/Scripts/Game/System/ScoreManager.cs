@@ -24,8 +24,11 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
 
     private void AddScore(int add)
     {
-        score += add;
-        PlayScoreAnimation();
+        if (add != 0)
+        {
+            score += add;
+            Invoke(nameof(PlayScoreAnimation), 1);
+        }
     }
 
     private void PlayScoreAnimation()

@@ -69,8 +69,11 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
     int previousTime;
     private void AddTime(float add)
     {
-        t += add;
-        PlayTimeAnimation();
+        if (add != 0)
+        {
+            t += add;
+            PlayTimeAnimation();
+        }
     }
 
     private void PlayTimeAnimation()
