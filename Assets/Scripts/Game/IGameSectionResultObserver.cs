@@ -6,6 +6,7 @@ using UnityEngine;
 public interface IGameSectionResultObserver
 {
     void OnSectionComplete(GameSectionResult result);
+    virtual void OnUpdateResult(GameSectionResult result) { }
 }
 
 /// <summary>
@@ -20,6 +21,11 @@ public abstract class ResultSender : MonoBehaviour
     public void NotifyObservers(GameSectionResult result)
     {
         observers.ForEach(x => x.OnSectionComplete(result));
+    }
+
+    public void SendCurrentResult(GameSectionResult result)
+    {
+        observers.ForEach(x => x.OnUpdateResult(result));
     }
 
     public void RegisterObserver(IGameSectionResultObserver observer)

@@ -83,6 +83,8 @@ public class TimeBonusGame : GameBase
             }
 
             AudioManager.Play(result.success ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
+            SendResult();
+
             //Debug.Log(result.success ? "success" : "failure");
             //Debug.Log($"{m.GetFloat("_HandAngle")} {m.GetFloat("_TargetAngle")} {m.GetFloat("_AngleRange")} {diff} {m.GetFloat("_AngleRange") / 2}");
         }

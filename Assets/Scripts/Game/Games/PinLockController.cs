@@ -85,6 +85,7 @@ public class PinLockController : GameBase
 
             if (p.gameCloseEvenIfMissing || result.success) // ‚±‚ÌƒQ[ƒ€‚ğI—¹‚³‚¹‚éˆ—
             {
+                SendResult();
                 Invoke(nameof(CompleteGame), p.duration);
             }
         }

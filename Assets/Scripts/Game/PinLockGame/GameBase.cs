@@ -7,6 +7,7 @@ using UnityEngine.Events;
 /// </summary>
 public abstract class GameBase : MonoBehaviour
 {
+    public Action<GameSectionResult> runNext;
     public Action<GameSectionResult> sendResult;
     protected GameSectionResult result;
     protected bool isPlaying;
@@ -28,7 +29,7 @@ public abstract class GameBase : MonoBehaviour
     public virtual void CompleteGame()
     {
         isPlaying = false;
-        SendResult();
+        runNext?.Invoke(result);
     }
 
     /// <summary>

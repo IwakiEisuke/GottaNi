@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
@@ -9,6 +8,7 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
     [SerializeField] TimeManager timeManager;
+    [SerializeField] AddScoreDisplayer scoreDisplayer;
 
     public static bool GameOver { get; private set; }
     bool isPlaying = true;
@@ -27,6 +27,7 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
         section.RegisterObserver(gauge);
         section.RegisterObserver(timeManager);
         section.RegisterObserver(this);
+        section.RegisterObserver(scoreDisplayer);
 
         timeManager.StartTimer();
 

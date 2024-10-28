@@ -26,15 +26,14 @@ public class GameSectionManager : ResultSender
     /// <param name="result"></param>
     private void RunSequence(GameSectionResult result)
     {
-        this.result += result;
-
         if (this.result.success) // 前にプレイされたゲームが成功したか？
         {
             count++;
             if (count < sequence.Length)
             {
                 sequence[count].StartGame();
-                sequence[count].sendResult = RunSequence; // ゲームがプレイされた後、ゲーム側でこのメソッドを呼び出す
+                sequence[count].runNext = RunSequence; // ゲームがプレイされた後、ゲーム側でこのメソッドを呼び出す
+                sequence[count].sendResult = AddResult;
             }
             else
             {
@@ -45,6 +44,12 @@ public class GameSectionManager : ResultSender
         {
             StartCoroutine(EndSection(closeStartDelay, closeEndDelay));
         }
+    }
+
+    private void AddResult(GameSectionResult result)
+    {
+        this.result += result;
+        SendCurrentResult(result);
     }
 
     /// <summary>
