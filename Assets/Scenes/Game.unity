@@ -538,6 +538,7 @@ RectTransform:
   - {fileID: 1250166994}
   - {fileID: 41566203}
   - {fileID: 4985847}
+  - {fileID: 451448687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -619,6 +620,107 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372227620}
+  m_CullTransparentMesh: 1
+--- !u!1 &451448686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451448687}
+  - component: {fileID: 451448690}
+  - component: {fileID: 451448689}
+  - component: {fileID: 451448688}
+  m_Layer: 5
+  m_Name: AddTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &451448687
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451448686}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 269984497}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.4}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 313, y: 107}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &451448688
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451448686}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ee1e712c331d2242b78029b929c0f4c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &451448689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451448686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.2528302, g: 0.2528302, b: 0.2528302, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 2570219850a7589429bd9d43e4dbc30b, type: 3}
+    m_FontSize: 62
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 120
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: +20
+--- !u!222 &451448690
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451448686}
   m_CullTransparentMesh: 1
 --- !u!1 &922015942
 GameObject:
@@ -1019,6 +1121,10 @@ PlayableDirector:
     value: {fileID: 1750024558}
   - key: {fileID: -7565066671627114844, guid: 1c9c2983369267d4197eef5944cb71cf, type: 2}
     value: {fileID: 1250166997}
+  - key: {fileID: 7332567614198513365, guid: 1c9c2983369267d4197eef5944cb71cf, type: 2}
+    value: {fileID: 4985848}
+  - key: {fileID: 8210501071240334848, guid: 1c9c2983369267d4197eef5944cb71cf, type: 2}
+    value: {fileID: 451448688}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1555307237
@@ -1238,13 +1344,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1783830665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad38907d5ff8a1443bfa0373dce0ec13, type: 3}
+  m_Script: {fileID: 11500000, guid: e11758037b09acc458af6ead8c583e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 4985849}
-  magText: {fileID: 0}
+  timeText: {fileID: 451448689}
   anims:
   - {fileID: 4985848}
+  - {fileID: 451448688}
 --- !u!4 &1783830667
 Transform:
   m_ObjectHideFlags: 0
@@ -1419,7 +1526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animateDuration: 0.3
-  timeLimit: 5
+  timeLimit: 90
   timerText: {fileID: 1250166995}
   format: mm\:ss
   onTimeUpEvent:

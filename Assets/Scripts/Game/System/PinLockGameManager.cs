@@ -8,7 +8,7 @@ public class PinLockGameManager : MonoBehaviour, IGameSectionResultObserver
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] ChanceGauge gauge;
     [SerializeField] TimeManager timeManager;
-    [SerializeField] AddScoreDisplayer scoreDisplayer;
+    [SerializeField] CurrentResultDisplayer scoreDisplayer;
 
     public static bool GameOver { get; private set; }
     bool isPlaying = true;
