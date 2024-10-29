@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8712616868638099123}
   - component: {fileID: 5438770647348390747}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Plus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6075471, g: 0.6075471, b: 0.6075471, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -86,6 +86,18 @@ PrefabInstance:
     - target: {fileID: 1781925532657766540, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_Text
       value: A
+      objectReference: {fileID: 0}
+    - target: {fileID: 1781925532657766540, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1781925532657766540, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1781925532657766540, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2337510712781776505, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_Pivot.x
@@ -149,11 +161,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2337510712781776505, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 278
       objectReference: {fileID: 0}
     - target: {fileID: 2337510712781776505, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -114
       objectReference: {fileID: 0}
     - target: {fileID: 2337510712781776505, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -171,6 +183,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 478e85ea06faa054fa8eb7059756de09, type: 3}
+    - target: {fileID: 2352844211047849051, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2528302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352844211047849051, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2528302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352844211047849051, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2528302
+      objectReference: {fileID: 0}
     - target: {fileID: 4395107721248824680, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_Name
       value: RankAP
