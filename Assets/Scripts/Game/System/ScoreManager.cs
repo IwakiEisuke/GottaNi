@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
         if (add != 0)
         {
             score += add;
-            Invoke(nameof(PlayScoreAnimation), 1);
+            //Invoke(nameof(PlayScoreAnimation), 1);
         }
     }
 
@@ -54,10 +54,15 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
         DOTween.To(() => dummy, x => Setter(x), score, tweenDuration);
     }
 
+    void IGameSectionResultObserver.OnUpdateResult(GameSectionResult result)
+    {
+        AddScore(result.score);
+    }
+
     public int GetScore() { return score; }
 
     public void OnSectionComplete(GameSectionResult result)
     {
-        AddScore(result.score);
+        PlayScoreAnimation();
     }
 }

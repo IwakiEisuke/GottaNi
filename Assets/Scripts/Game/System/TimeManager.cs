@@ -72,8 +72,12 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
         if (add != 0)
         {
             t += add;
-            PlayTimeAnimation();
         }
+    }
+
+    void IGameSectionResultObserver.OnUpdateResult(GameSectionResult result)
+    {
+        AddTime(result.time);
     }
 
     private void PlayTimeAnimation()
@@ -114,6 +118,6 @@ public class TimeManager : MonoBehaviour, IGameSectionResultObserver
 
     public void OnSectionComplete(GameSectionResult result)
     {
-        AddTime(result.time);
+        PlayTimeAnimation();
     }
 }

@@ -49,7 +49,11 @@ public class GameSectionManager : ResultSender
     private void AddResult(GameSectionResult result)
     {
         this.result += result;
-        SendCurrentResult(result);
+
+        if (!this.result.success || count == sequence.Length - 1)
+        {
+            SendCurrentResult(this.result);
+        }
     }
 
     /// <summary>
