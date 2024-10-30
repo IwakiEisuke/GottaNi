@@ -258,6 +258,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.4389818
       objectReference: {fileID: 0}
+    - target: {fileID: 4189640789331318984, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: soundType
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 4395107721248824680, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_Name
       value: RankC

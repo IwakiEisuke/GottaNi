@@ -42,14 +42,14 @@ public class TimeBonusGame : GameBase
 
         DOTween.To(() => 0f, x => m.SetFloat("_T", x), 1, startDuration);
 
-        AudioManager.Play(SoundType.GaugeFull);
+        AudioManager.Play(SoundType.TimeOpen);
     }
 
     [ContextMenu(nameof(StartGame))]
     public override void StartGame()
     {
         isPlaying = true;
-        AudioManager.Play(SoundType.OpenGame);
+        AudioManager.Play(SoundType.TimeStart);
     }
 
     void Update()
@@ -82,7 +82,7 @@ public class TimeBonusGame : GameBase
                 PlayFailureAnimation();
             }
 
-            AudioManager.Play(result.success ? SoundType.MatchingSuccess : SoundType.MatchingFailure);
+            AudioManager.Play(result.success ? SoundType.TimeSuccess : SoundType.TimeFailure);
             SendResult();
 
             //Debug.Log(result.success ? "success" : "failure");
@@ -118,7 +118,7 @@ public class TimeBonusGame : GameBase
         if (gameClosed) return;
         else gameClosed = true;
 
-        AudioManager.Play(SoundType.CloseGame);
+        AudioManager.Play(SoundType.TimeClose);
 
         DOTween.Kill(gameObject);
         DOTween.To(() => m.GetFloat("_T"), x => m.SetFloat("_T", x), 0, endDuration)

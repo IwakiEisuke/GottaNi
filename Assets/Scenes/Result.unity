@@ -1307,7 +1307,7 @@ MonoBehaviour:
   maxCount: 8
   animator: {fileID: 1836474144}
   canvas: {fileID: 1902367410}
-  playNewRecordEffect: 0
+  playNewRecordEffect: 1
 --- !u!114 &1087234966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,7 +2713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8412813a098676488594218c0859996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundType: 8
+  soundType: 16
 --- !u!114 &1836474147
 MonoBehaviour:
   m_ObjectHideFlags: 0

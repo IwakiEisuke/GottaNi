@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System;
-using UniRx;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -17,7 +15,18 @@ public class AudioManager : MonoBehaviour
               OpenResult,
               CloseResult,
               GaugeFull,
-              AddScore;
+              AddScore,
+              AddTime,
+              TimeOpen,
+              TimeStart,
+              TimeClose,
+              TimeSuccess,
+              TimeFailure,
+              NewRecord,
+              RankLow,
+              RankMid,
+              RankHigh,
+              RankVeryHigh;
 
     [SerializeField] AudioSource SESource;
     [SerializeField] AudioSource BGMSource, InGameBGM, OutGameBGM;
@@ -94,6 +103,17 @@ public class AudioManager : MonoBehaviour
             SoundType.CloseResult => instance.CloseResult,
             SoundType.GaugeFull => instance.GaugeFull,
             SoundType.AddScore => instance.AddScore,
+            SoundType.AddTime => instance.AddTime,
+            SoundType.TimeOpen => instance.TimeOpen,
+            SoundType.TimeStart => instance.TimeStart,
+            SoundType.TimeClose => instance.TimeClose,
+            SoundType.TimeSuccess => instance.TimeSuccess,
+            SoundType.TimeFailure => instance.TimeFailure,
+            SoundType.NewRecord => instance.NewRecord,
+            SoundType.RankLow => instance.RankLow,
+            SoundType.RankMid => instance.RankMid,
+            SoundType.RankHigh => instance.RankHigh,
+            SoundType.RankVeryHigh => instance.RankVeryHigh,
             _ => null,
         };
     }
@@ -121,6 +141,17 @@ public enum SoundType
     CloseResult,
     GaugeFull,
     AddScore,
+    AddTime,
+    TimeOpen,
+    TimeStart,
+    TimeClose,
+    TimeSuccess,
+    TimeFailure,
+    NewRecord,
+    RankLow,
+    RankMid,
+    RankHigh,
+    RankVeryHigh,
 }
 
 public enum BGMType

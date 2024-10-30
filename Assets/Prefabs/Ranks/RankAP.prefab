@@ -165,7 +165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2337510712781776505, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1140
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2337510712781776505, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -194,6 +194,10 @@ PrefabInstance:
     - target: {fileID: 2352844211047849051, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_Color.r
       value: 0.2528302
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189640789331318984, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
+      propertyPath: soundType
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4395107721248824680, guid: 0a230c7cbcad197408f2ce629103ba54, type: 3}
       propertyPath: m_Name
