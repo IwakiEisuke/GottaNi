@@ -58,6 +58,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public static void Play(SoundType type, AudioSource source)
+    {
+        if (instance)
+        {
+            var se = GetSound(type);
+            if (se != null)
+            {
+                source.PlayOneShot(se);
+            }
+        }
+    }
+
     public static void PlayBGM(BGMType type, float volume)
     {
         var transitionTime = instance.transitionTime;

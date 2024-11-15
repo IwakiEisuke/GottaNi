@@ -1307,7 +1307,7 @@ MonoBehaviour:
   maxCount: 8
   animator: {fileID: 1836474144}
   canvas: {fileID: 1902367410}
-  playNewRecordEffect: 0
+  playNewRecordEffect: 1
 --- !u!114 &1087234966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,11 +1326,11 @@ MonoBehaviour:
   ranks:
   - scoreAbove: 0
     rankImage: {fileID: 3562169078165819722, guid: 0940d610ed10e7f48b9b42ad1f1e6298, type: 3}
-  - scoreAbove: 150
+  - scoreAbove: 100
     rankImage: {fileID: 3562169078165819722, guid: e3ec53626a6f11a4a8c8c9c3fe427753, type: 3}
-  - scoreAbove: 250
+  - scoreAbove: 200
     rankImage: {fileID: 3562169078165819722, guid: dee6a098a837aa84788778fa876df73f, type: 3}
-  - scoreAbove: 400
+  - scoreAbove: 300
     rankImage: {fileID: 3562169078165819722, guid: b24794498069ce440a23e175f3d957fd, type: 3}
   - scoreAbove: 500
     rankImage: {fileID: 3562169078165819722, guid: 2cc2b81d06c71e449928b3ec67b38d93, type: 3}
