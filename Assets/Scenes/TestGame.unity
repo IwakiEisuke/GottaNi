@@ -768,8 +768,8 @@ GameObject:
   m_Component:
   - component: {fileID: 965056071}
   - component: {fileID: 965056070}
-  - component: {fileID: 965056072}
   - component: {fileID: 965056073}
+  - component: {fileID: 965056072}
   m_Layer: 0
   m_Name: GameSectionManager
   m_TagString: Untagged
@@ -970,7 +970,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300899862}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86192a9ac37ef1347aa9688a650d898d, type: 3}
   m_Name: 
@@ -1474,7 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gauge: {fileID: 41566204}
-  maxChancePoint: 100
+  maxChancePoint: 25
   chancePoint: 0
   decreaseSpeed: 2
   tweenDuration: 0.5
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   preText: 'Score : '
   format: 000
   scoreText: {fileID: 1750024556}
-  score: 0
+  score: 999
   tweenDuration: 1
   seMinDelay: 0
 --- !u!114 &7876542684903203304
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animateDuration: 0.3
-  timeLimit: 6
+  timeLimit: 2
   timerText: {fileID: 1250166995}
   format: mm\:ss
   onTimeUpEvent:

@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  volume: 0.7
+  volume: 0.6
 --- !u!4 &1647918274
 Transform:
   m_ObjectHideFlags: 0
@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doChangeInteractable: 0
+  openDuration: 0
   buttons: []
 --- !u!1 &1959917810
 GameObject:

@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4dcd77057ce1a429b194f6508fcf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaying: 1
   addTimeSeconds: 10
   minAngleRange: 20
   maxAngleRange: 20
