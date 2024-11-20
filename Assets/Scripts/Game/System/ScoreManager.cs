@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
 
     private void Start()
     {
+        addScoreAS.clip = AudioManager.GetSound(SoundType.AddScore);
         scoreText.text = preText + score.ToString(format);
     }
 
@@ -31,17 +32,6 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
 
     private void PlayScoreAnimation()
     {
-        //if (score - beforeAnimatedScore >= 40)
-        //{
-        //    var a = 1 + Mathf.Log(score - beforeAnimatedScore, 200) / 20;
-
-        //    DOTween.Sequence(gameObject)
-        //        .Append(DOTween.To(() => 1f, x => addScoreAS.pitch = x, a, tweenDuration / 5 * 1).SetEase(Ease.InOutCirc))
-        //        .AppendInterval(tweenDuration / 5 * 2)
-        //        .Append(DOTween.To(() => a, x => addScoreAS.pitch = x, 1, tweenDuration / 5 * 2))
-        //        .OnComplete(() => addScoreAS.pitch = 1);
-        //}
-
         var dummy = beforeAnimatedScore;
         beforeAnimatedScore = score;
 

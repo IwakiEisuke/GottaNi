@@ -101,7 +101,7 @@ public class AudioManager : MonoBehaviour
         return DOTween.To(() => source.volume, x => source.volume = x, volume, duration);
     }
 
-    static AudioClip GetSound(SoundType type)
+    public static AudioClip GetSound(SoundType type)
     {
         return type switch
         {

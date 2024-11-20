@@ -1,5 +1,3 @@
-using DG.Tweening;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -15,7 +13,7 @@ public class AudioVolumeController : MonoBehaviour
     public void SetBGMVolume()
     {
         _audioMixer.SetFloat("BGM_Volume", Volume(_bgmSlider.value));
-        
+
     }
 
     public void SetSEVolume()

@@ -842,8 +842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   section: {fileID: 965056070}
   sequence:
-  - {fileID: 2619434247193239849, guid: 28e4b3f258842d84695a976cc896adc3, type: 3}
-  - {fileID: 4496923024446435254, guid: cdb4b6aab2a758b46b5996b02a28e8e1, type: 3}
+  - {fileID: 2253899312325596236, guid: f122ebb8c096bd54fb93eb5099e2ea75, type: 3}
   playOnAwake: 0
 --- !u!1 &1250166993
 GameObject:
@@ -1453,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '###GlobalSystem###'
       objectReference: {fileID: 0}
+    - target: {fileID: 6709536942640230808, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
+      propertyPath: AddScore
+      value: 
+      objectReference: {fileID: 8300000, guid: 9aee966e5f67495428306f41c18e5e30, type: 3}
     - target: {fileID: 7091867593808987030, guid: 34488d372dcb2c64683e69de9ec549d8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1686,7 +1689,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -434563483380391684, guid: 02a4539840f49b94b8ed57fb5e5414d8, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9aee966e5f67495428306f41c18e5e30, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

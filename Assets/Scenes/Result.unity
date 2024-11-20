@@ -1307,7 +1307,7 @@ MonoBehaviour:
   maxCount: 8
   animator: {fileID: 1836474144}
   canvas: {fileID: 1902367410}
-  playNewRecordEffect: 1
+  playNewRecordEffect: 0
 --- !u!114 &1087234966
 MonoBehaviour:
   m_ObjectHideFlags: 0
