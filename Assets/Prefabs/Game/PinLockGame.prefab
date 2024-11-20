@@ -364,7 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43128043ae03244da709b040284ea68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaying: 0
   p: {fileID: -5581755505268669953}
   OnCompleteEvent:
     m_PersistentCalls:
