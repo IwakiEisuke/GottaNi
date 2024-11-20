@@ -1477,7 +1477,7 @@ MonoBehaviour:
   maxChancePoint: 25
   chancePoint: 0
   decreaseSpeed: 2
-  tweenDuration: 0.5
+  tweenDuration: 1
 --- !u!4 &5215157205387062313
 Transform:
   m_ObjectHideFlags: 0
@@ -1532,6 +1532,7 @@ MonoBehaviour:
   score: 0
   maxTweenDuration: 1
   maxTweenScore: 200
+  soundInterval: 0.02
   durationCurve:
     serializedVersion: 2
     m_Curve:

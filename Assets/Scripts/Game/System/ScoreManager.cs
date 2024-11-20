@@ -12,10 +12,11 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
     [SerializeField] int score;
     [SerializeField] float maxTweenDuration;
     [SerializeField] float maxTweenScore;
+    [SerializeField] float soundInterval;
     [SerializeField] AnimationCurve durationCurve;
     [SerializeField] AudioSource addScoreAS;
     int previousScore;
-    float seTime;
+    float prevPlaySoundTime;
 
     int beforeAnimatedScore;
 
@@ -34,14 +35,16 @@ public class ScoreManager : MonoBehaviour, IGameSectionResultObserver
     {
         var dummy = beforeAnimatedScore;
         beforeAnimatedScore = score;
+        prevPlaySoundTime = 0; // ç≈èâÇÕñ¬ÇÁÇ∑
 
         void Setter(int x)
         {
             scoreText.text = preText + x.ToString(format);
-            if (!PinLockGameManager.GameOver && previousScore != x)
+            if (!PinLockGameManager.GameOver && previousScore != x && soundInterval < Time.time - prevPlaySoundTime)
             {
                 addScoreAS.Play();
                 previousScore = x;
+                prevPlaySoundTime = Time.time;
             }
         }
 

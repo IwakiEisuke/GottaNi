@@ -10,10 +10,15 @@ public class AudioVolumeController : MonoBehaviour
     [Header("スライダーの値を t として音量を指定します")]
     [SerializeField] AnimationCurve _volumeCurve;
 
+    private void Start()
+    {
+        SetBGMVolume();
+        SetSEVolume();
+    }
+
     public void SetBGMVolume()
     {
         _audioMixer.SetFloat("BGM_Volume", Volume(_bgmSlider.value));
-
     }
 
     public void SetSEVolume()
