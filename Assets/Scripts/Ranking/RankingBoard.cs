@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using unityroom.Api;
 
 /// <summary>
 /// ランキングの表示処理を行うクラス
@@ -56,6 +57,7 @@ public class RankingBoard : MonoBehaviour
 
                     if (highest && unique)
                     {
+                        UnityroomApiClient.Instance.SendScore(1, sm.GetScore(), ScoreboardWriteMode.HighScoreDesc);
                         PlayNewRecordEffect();
                     }
                 }
