@@ -83,10 +83,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 5217805816314498286}
   m_HandleRect: {fileID: 7091867593808987030}
   m_Direction: 0
-  m_MinValue: -1
+  m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -607,31 +607,31 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -1
+      time: 0
       value: -80
       inSlope: 0
-      outSlope: 128.13188
-      tangentMode: 1
+      outSlope: 120
+      tangentMode: 65
       weightedMode: 2
       inWeight: 0.33333334
-      outWeight: 0.30394867
+      outWeight: 0.21029294
     - serializedVersion: 3
-      time: 0
-      value: -14
-      inSlope: 31.611212
-      outSlope: 22.965425
-      tangentMode: 1
+      time: 0.5
+      value: -20
+      inSlope: 120
+      outSlope: 40
+      tangentMode: 69
       weightedMode: 3
-      inWeight: 0.3
-      outWeight: 0.25853637
+      inWeight: 0.42471206
+      outWeight: 0.31342566
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 9.38173
-      outSlope: 9.38173
-      tangentMode: 0
+      inSlope: 40
+      outSlope: 54.892372
+      tangentMode: 5
       weightedMode: 1
-      inWeight: 0.42269316
+      inWeight: 0.34010306
       outWeight: 0.4066667
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   OpenResult: {fileID: 8300000, guid: 70e961c00b5c98b40b8f4bff10cd7ba2, type: 3}
   CloseResult: {fileID: 8300000, guid: 70c150412ff0cbd4bb02ef07664af10f, type: 3}
   GaugeFull: {fileID: 8300000, guid: a8f2abfba707cd44ea1c83de1cf45832, type: 3}
-  AddScore: {fileID: 8300000, guid: 9aee966e5f67495428306f41c18e5e30, type: 3}
+  AddScore: {fileID: 8300000, guid: 49afc8eb61727d3468e2cd11b0aba3f6, type: 3}
   AddTime: {fileID: 0}
   TimeOpen: {fileID: 8300000, guid: f340d4da68f566847b9126340dd83736, type: 3}
   TimeStart: {fileID: 8300000, guid: c8cb3abb5de207343aac2de0fab46067, type: 3}
@@ -1472,6 +1472,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8565228568178249478}
+        m_TargetAssemblyTypeName: AudioVolumeController, Assembly-CSharp
+        m_MethodName: SetupSingleton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2111,7 +2123,7 @@ GameObject:
   - component: {fileID: 4047131953043016568}
   - component: {fileID: 1449881456269618823}
   m_Layer: 5
-  m_Name: BGMSliderGroup
+  m_Name: SESliderGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2792,10 +2804,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1288202409160997329}
   m_HandleRect: {fileID: 8962302174790984551}
   m_Direction: 0
-  m_MinValue: -1
+  m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

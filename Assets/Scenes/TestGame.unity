@@ -1532,7 +1532,7 @@ MonoBehaviour:
   score: 0
   maxTweenDuration: 1
   maxTweenScore: 200
-  soundInterval: 0.02
+  soundInterval: 0
   durationCurve:
     serializedVersion: 2
     m_Curve:
@@ -1647,7 +1647,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -434563483380391684, guid: 02a4539840f49b94b8ed57fb5e5414d8, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 49afc8eb61727d3468e2cd11b0aba3f6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
