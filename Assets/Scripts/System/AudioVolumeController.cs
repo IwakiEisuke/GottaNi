@@ -12,6 +12,7 @@ public class AudioVolumeController : MonoBehaviour
 
     private void Start()
     {
+        // Awake‚Å‚Í audioMixer ‚ğ‘€ì‚Å‚«‚È‚¢H
         SetBGMVolume();
         SetSEVolume();
     }
@@ -26,8 +27,8 @@ public class AudioVolumeController : MonoBehaviour
         _audioMixer.SetFloat("SE_Volume", Volume(_seSlider.value));
     }
 
-    float Volume(float value)
+    float Volume(float t)
     {
-        return _volumeCurve.Evaluate(value);
+        return _volumeCurve.Evaluate(t);
     }
 }

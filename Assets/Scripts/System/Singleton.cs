@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +15,7 @@ public class Singleton : MonoBehaviour
         }
         else
         {
+            gameObject.SetActive(false); // ”jŠü‚³‚ê‚é‚Ü‚Å‚ÉStartƒƒ\ƒbƒh‚È‚Ç‚ªŒÄ‚Î‚ê‚È‚¢‚æ‚¤‚É‚·‚é
             Destroy(gameObject);
         }
     }
